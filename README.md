@@ -4,7 +4,7 @@
 
 ## Team
 
-  - __Product Owner__: [Julie Knowles](https://github.com/julieknowles)
+  - __Product Owner__: [Julie Knowles](https://github.com/JulieMarie)
   - __Scrum Master__: [Pactrick McPike](https://github.com/mcpike)
   - __Development Team Members__: [Victor Leung](https://github.com/victorleungtw)
 
@@ -20,7 +20,7 @@
 
 ## Usage
 
-> For demo, please visit: [https://green-brass-doberman.herokuapp.com/](https://green-brass-doberman.herokuapp.com/)
+> For demo, please visit: [https://tbc.com/](https://tbc.com/)
 
 ## Requirements
 

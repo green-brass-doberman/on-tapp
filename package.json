@@ -1,0 +1,23 @@
+{
+  "name": "On Tapp",
+  "version": "0.0.1",
+  "description": "HRR2 Thesis Project",
+  "main": "app.js",
+  "scripts": {
+    "test": "mocha app.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/green-brass-doberman/on-tapp.git"
+  },
+  "keywords": [
+    "beer",
+    "recommendations"
+  ],
+  "author": "Julie, Patrick, Victor",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/green-brass-doberman/on-tapp/issues"
+  },
+  "homepage": "https://github.com/green-brass-doberman/on-tapp"
+}
