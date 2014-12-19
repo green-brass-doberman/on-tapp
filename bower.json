@@ -1,0 +1,25 @@
+{
+  "name": "On Tapp",
+  "version": "0.0.1",
+  "homepage": "https://github.com/green-brass-doberman/on-tapp",
+  "authors": [
+    "Julie",
+    "Patrick",
+    "Victor"
+  ],
+  "description": "HRR2 Thesis Project",
+  "main": "app.js",
+  "keywords": [
+    "beer",
+    "recommendations"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ]
+}
