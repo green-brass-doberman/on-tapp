@@ -1,10 +1,10 @@
 {
-  "name": "On Tapp",
+  "name": "on-tapp",
   "version": "0.0.1",
   "description": "HRR2 Thesis Project",
-  "main": "app.js",
+  "main": "server.js",
   "scripts": {
-    "test": "mocha app.js"
+    "test": "mocha server.js"
   },
   "repository": {
     "type": "git",
@@ -19,5 +19,8 @@
   "bugs": {
     "url": "https://github.com/green-brass-doberman/on-tapp/issues"
   },
-  "homepage": "https://github.com/green-brass-doberman/on-tapp"
+  "homepage": "https://github.com/green-brass-doberman/on-tapp",
+  "dependencies": {
+    "express": "^4.10.6"
+  }
 }
