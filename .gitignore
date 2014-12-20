@@ -2,3 +2,4 @@ node_modules/
 public/lib
 mockups.pdf
 .bash_profile
+npm-debug.log
