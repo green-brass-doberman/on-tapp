@@ -4,7 +4,7 @@
   "description": "HRR2 Thesis Project",
   "main": "server.js",
   "scripts": {
-    "test": "karma karma.conf.js"
+    "test": "karma start karma.conf.js"
   },
   "repository": {
     "type": "git",
