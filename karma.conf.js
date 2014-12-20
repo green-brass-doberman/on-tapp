@@ -5,34 +5,46 @@ module.exports = function(config) {
   config.set({
 
     // base path that will be used to resolve all patterns (eg. files, exclude)
-    basePath: '',
+    basePath: './',
 
 
     // frameworks to use
     // available frameworks: https://npmjs.org/browse/keyword/karma-adapter
-    frameworks: ['mocha'],
+    frameworks: ['mocha', 'chai', 'sinon'],
 
 
     // list of files / patterns to load in the browser
-    files: [
-    ],
+    files: require('./include.conf.js').concat([
+      'test/unit/**/*.js',
+      'test/integration/**/*.js'
+    ]),
 
 
     // list of files to exclude
     exclude: [
+      'karma.conf.js'
     ],
 
 
     // preprocess matching files before serving them to the browser
     // available preprocessors: https://npmjs.org/browse/keyword/karma-preprocessor
     preprocessors: {
+      'public/js/**/*.js': ['coverage']
     },
 
+    // Configure the reporter
+    coverageReporter: {
+      type: 'html',
+      dir: 'results/coverage/'
+    },
+
+    // If browser does not capture in given timeout [ms], kill it
+    captureTimeout: 20000,
 
     // test results reporter to use
     // possible values: 'dots', 'progress'
     // available reporters: https://npmjs.org/browse/keyword/karma-reporter
-    reporters: ['progress'],
+    reporters: ['progress',  'coverage'],
 
 
     // web server port
@@ -49,7 +61,7 @@ module.exports = function(config) {
 
 
     // enable / disable watching file and executing tests whenever any file changes
-    autoWatch: true,
+    autoWatch: false,
 
 
     // start these browsers
@@ -59,6 +71,18 @@ module.exports = function(config) {
 
     // Continuous Integration mode
     // if true, Karma captures browsers, runs the tests and exits
-    singleRun: false
+    singleRun: false,
+
+     // report which specs run too slow
+    reportSlowerThan: 500,
+
+    // any additional plugins needed for testing
+    plugins: [
+      'karma-coverage',
+      'karma-mocha',
+      'karma-chai',
+      'karma-sinon',
+      'karma-chrome-launcher'
+    ]
   });
 };
