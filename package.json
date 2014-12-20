@@ -22,6 +22,8 @@
   "homepage": "https://github.com/green-brass-doberman/on-tapp",
   "dependencies": {
     "body-parser": "^1.10.0",
-    "express": "^4.10.6"
+    "express": "^4.10.6",
+    "mongodb": "^1.4.25",
+    "mongoose": "^3.8.21"
   }
 }
