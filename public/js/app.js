@@ -1,6 +1,6 @@
-angular.module('myApp', [])
+angular.module('onTap', [])
 .controller('MainController', function($scope) {
-  $scope.name = "Victor";
+  $scope.name = "user";
   $scope.sayHello = function() {
     $scope.greeting = "Hello " + $scope.name;
   };

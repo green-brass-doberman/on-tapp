@@ -1,6 +1,6 @@
 describe('Unit: MainController', function() {
   // Load the module with MainController
-  beforeEach(module('myApp'));
+  beforeEach(module('onTap'));
 
   var ctrl, scope;
   // inject the $controller and $rootScope services
@@ -18,6 +18,6 @@ describe('Unit: MainController', function() {
     function() {
       expect(scope.greeting).to.be.undefined;
       scope.sayHello();
-      expect(scope.greeting).to.equal("Hello Victor");
+      expect(scope.greeting).to.equal("Hello user");
   });
 });
