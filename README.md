@@ -20,7 +20,7 @@
 
 ## Usage
 
-> For demo, please visit: [https://tbc.com/](https://tbc.com/)
+> For demo, please visit: [https://on-tapp.herokuapp.com/](https://on-tapp.herokuapp.com/)
 
 ## Requirements
 
