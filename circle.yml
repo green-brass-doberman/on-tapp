@@ -1,3 +1,9 @@
+dependencies:
+  pre:
+   - npm install -g karma
+ cache_directories:
+    - ~/nvm
+
 deployment:
   staging:
     branch: master
