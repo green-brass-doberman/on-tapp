@@ -1,9 +1,11 @@
 dependencies:
   pre:
-   - npm install -g karma
+   - npm install -g karma-cli bower
+   - bower install
   cache_directories:
     - ~/nvm
 
+## Customize deployment commandss
 deployment:
   staging:
     branch: master
