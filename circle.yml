@@ -1,7 +1,7 @@
 dependencies:
   pre:
    - npm install -g karma
- cache_directories:
+  cache_directories:
     - ~/nvm
 
 deployment:
