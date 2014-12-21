@@ -4,6 +4,7 @@
   "description": "HRR2 Thesis Project",
   "main": "server.js",
   "scripts": {
+    "start": "nodemon server/server.js",
     "test": "karma start karma.conf.js"
   },
   "repository": {
@@ -28,6 +29,10 @@
   "devDependencies": {
     "chai": "^1.10.0",
     "grunt": "^0.4.5",
+    "grunt-contrib-watch": "^0.6.1",
+    "grunt-express-server": "^0.4.19",
+    "grunt-karma": "^0.9.0",
+    "grunt-mocha": "^0.4.11",
     "karma": "^0.12.28",
     "karma-chai": "^0.1.0",
     "karma-chrome-launcher": "^0.1.7",

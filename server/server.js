@@ -4,7 +4,7 @@ var bodyParser = require('body-parser');
 var app = express();
 
 // Serve static files
-app.use('/', express.static(path.join(__dirname, 'public')));
+app.use('/', express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json());
 
 // Get the port from environment variables

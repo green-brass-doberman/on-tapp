@@ -1,6 +1,6 @@
 module.exports = [
-  'public/lib/jquery/dist/jquery.js',
-  'public/lib/angular/angular.js',
-  'public/lib/angular-mocks/angular-mocks.js',
-  'public/js/app.js'
+  'client/lib/jquery/dist/jquery.js',
+  'client/lib/angular/angular.js',
+  'client/lib/angular-mocks/angular-mocks.js',
+  'client/js/app.js'
 ];
