@@ -1,6 +1,6 @@
 describe('Unit: MainController', function() {
   // Load the module with MainController
-  beforeEach(module('onTap'));
+  beforeEach(module('onTappApp'));
 
   var ctrl, scope;
   // inject the $controller and $rootScope services
@@ -9,7 +9,7 @@ describe('Unit: MainController', function() {
     // Create a new scope that's a child of the $rootScope
     scope = $rootScope.$new();
     // Create the controller
-    ctrl = $controller('MainController', {
+    ctrl = $controller('mainController', {
       $scope: scope
     });
   }));
