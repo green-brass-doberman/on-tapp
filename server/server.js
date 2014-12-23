@@ -7,10 +7,5 @@ var app = express();
 app.use('/', express.static(path.join(__dirname, '../client')));
 app.use(bodyParser.json());
 
-// Get the port from environment variables
-var port = process.env.PORT || 3000;
-
-// Start the app by listening on <port>
-app.listen(port);
-
-console.log('Server running on port %d', port);
+// export our app for testing and flexibility, required by index.js
+module.exports = app;
