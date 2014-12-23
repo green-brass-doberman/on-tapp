@@ -1,6 +1,6 @@
 describe('Unit: MainController', function() {
   // Load the module with MainController
-  beforeEach(module('onTap'));
+  beforeEach(module('onTappApp'));
 
   var ctrl, scope;
   // inject the $controller and $rootScope services

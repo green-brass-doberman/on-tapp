@@ -1,69 +1,78 @@
 <!DOCTYPE html>
-<html lang="en">
+<!-- define angular app -->
+<html lang="en" data-ng-app="onTappApp">
   <head>
     <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <meta name="description" content="">
-    <meta name="author" content="">
+    <meta name="description" content="Hack Reactor - Thesis Project">
+    <meta name="author" content="Julie, Patrick, Victor">
     <link rel="icon" href="../../favicon.ico">
 
     <title>On Tapp</title>
 
     <!-- Bootstrap core CSS -->
     <link href="/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <!-- load fontawesome -->
     <link href="/lib/fontawesome/css/font-awesome.min.css" rel="stylesheet">
 
     <!-- Custom styles for this template -->
-    <link href="/styles/cover.css" rel="stylesheet">
+    <link href="/styles/navbar-static-top.css" rel="stylesheet">
+    <link href="/styles/sticky-footer.css" rel="stylesheet">
+    <link href="/styles/justified-nav.css" rel="stylesheet">
+    <link href="/styles/signin.css" rel="stylesheet">
+    <link href="/styles/carousel.css" rel="stylesheet">
   </head>
 
-  <body>
+  <!-- define angular controller -->
+  <body data-ng-controller="MainController">
 
-    <div class="site-wrapper">
-
-      <div class="site-wrapper-inner">
-
-        <div class="cover-container">
-
-          <div class="masthead clearfix">
-            <div class="inner">
-              <h3 class="masthead-brand on-tap">On Tapp</h3>
-              <nav>
-                <ul class="nav masthead-nav">
-                  <li class="active"><a href="#">Search</a></li>
-                  <li><a href="#">Sign Up</a></li>
-                  <li><a href="#">Sign In</a></li>
-                </ul>
-              </nav>
-            </div>
-          </div>
-
-          <div class="inner cover">
-            <h1 class="cover-heading"><i class="fa fa-beer fa-5x"></i></h1>
-            <p class="lead">Catalog your beer tastebuds and share recommendations with like tastebudded people.</p>
-            <p class="lead">
-              <a href="#" class="btn btn-lg btn-default">Sign up</a>
-            </p>
-          </div>
-
-          <div class="mastfoot">
-            <div class="inner">
-              <p>Thesis Project of <a href="http://www.hackreactor.com/">Hack Reactor</a>, by <a href="https://github.com/green-brass-doberman">Green Brass Doberman</a>.</p>
-            </div>
-          </div>
-
+    <!-- Static navbar -->
+    <nav class="navbar navbar-default navbar-static-top">
+      <div class="container">
+        <div class="navbar-header">
+          <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+            <span class="sr-only">Toggle navigation</span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+            <span class="icon-bar"></span>
+          </button>
+          <a class="navbar-brand" href="/#/">On Tapp</a>
         </div>
-
+        <div id="navbar" class="navbar-collapse collapse">
+          <ul class="nav navbar-nav">
+            <li><a href="#/nearby">Nearby</a></li>
+            <li><a href="#/ratings">Ratings</a></li>
+            <li><a href="https://github.com/green-brass-doberman/on-tapp" target="blank">About</a></li>
+          </ul>
+          <ul class="nav navbar-nav navbar-right">
+            <li><a href="#/signup">Sign Up </a></li>
+            <li><a href="#/signin">Sign In</a></li>
+          </ul>
+        </div><!--/.nav-collapse -->
       </div>
+    </nav>
 
-    </div>
+    <!-- angular templating -->
+    <!-- this is where content will be injected -->
+    <div ng-view></div>
+
+
+    <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; Green Brass Doberman 2015</p>
+      </div>
+    </footer>
 
     <!-- Bootstrap core JavaScript
     ================================================== -->
     <!-- Placed at the end of the document so the pages load faster -->
     <script src="/lib/jquery/dist/jquery.min.js"></script>
     <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- load angular  -->
     <script src="/lib/angular/angular.min.js"></script>
+    <script src="/lib/angular-route/angular-route.min.js"></script>
     <script src="/js/app.js"></script>
   </body>
 </html>
