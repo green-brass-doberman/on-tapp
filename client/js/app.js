@@ -24,15 +24,16 @@ $routeProvider
   })
 
   // route for authetications
+  .when('/signup', {
+    templateUrl: 'pages/signup.html',
+    controller: 'AuthController',
+  })
+
   .when('/signin', {
     templateUrl: 'pages/signin.html',
     controller: 'AuthController'
   })
-  .when('/signup', {
-    templateUrl: 'pages/signup.html',
-    controller: 'AuthController',
 
-  })
   .otherwise({
     redirectTo: '/'
   });
