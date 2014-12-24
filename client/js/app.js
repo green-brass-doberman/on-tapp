@@ -64,11 +64,23 @@ onTappApp.controller('NearByController', ['$scope', 'breweries', function($scope
 
   $scope.status.isItemOpen[0] = true;
 
-  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
+  // render Google map and set center at San Francisco by default
+  $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 8 };
 }]);
 
 onTappApp.controller('RatingsController', ['$scope', function($scope) {
-  $scope.name = 'user';
+  $scope.rate = 0;
+  $scope.max = 5;
+  $scope.isReadonly = false;
+
+  $scope.hoveringOver = function(value) {
+    $scope.overStar = value;
+    $scope.percent = 100 * (value / $scope.max);
+  };
+
+  $scope.ratingStates = [
+    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+  ];
 }]);
 
 onTappApp.controller('AuthController', ['$scope', function($scope) {

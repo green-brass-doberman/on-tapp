@@ -14,7 +14,6 @@
             <div class="carousel-caption">
               <h1>XXXX Brewery</h1>
               <p>Founded in 2015, it has the best beer in the world.</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Rate</a></p>
             </div>
           </div>
         </div>
@@ -24,7 +23,6 @@
             <div class="carousel-caption">
               <h1>YYYY Brewery</h1>
               <p>Founded in 1915, it has the worst beer in the world. </p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Rate</a></p>
             </div>
           </div>
         </div>
@@ -34,7 +32,6 @@
             <div class="carousel-caption">
               <h1>ZZZZ Brewery</h1>
               <p>Details unknown</p>
-              <p><a class="btn btn-lg btn-primary" href="#" role="button">Rate</a></p>
             </div>
           </div>
         </div>
@@ -56,26 +53,18 @@
 
     <div class="container marketing">
 
-      <!-- Three columns of text below the carousel -->
+      <!-- One column of text below the carousel -->
       <div class="row">
-        <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-          <h2>XXXX Brewery</h2>
-          <p>Founded in 2015, it has the best beer in the world.</p>
-          <p><a class="btn btn-default" href="#" role="button">Give rating &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-          <h2>YYYY Brewery</h2>
-          <p>Founded in 1915, it has the worst beer in the world. </p>
-          <p><a class="btn btn-default" href="#" role="button">Give rating &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
-        <div class="col-lg-4">
-          <img class="img-circle" src="data:image/gif;base64,R0lGODlhAQABAIAAAHd3dwAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==" alt="Generic placeholder image" style="width: 140px; height: 140px;">
-          <h2>ZZZZ Brewery</h2>
-          <p>Details unknown</p>
-          <p><a class="btn btn-default" href="#" role="button">Give rating &raquo;</a></p>
-        </div><!-- /.col-lg-4 -->
+        <div class="col-lg-12 text-center">
+          <h2>How many stars would you give to XXXX Brewery: </h2>
+          <rating class="stars" ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+
+          <pre style="margin:15px 0;">Stars: <b>{{rate}}</b>  <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span></b></pre>
+
+          <button class="btn btn-lg btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+          <button class="btn btn-lg btn-default" ng-click="isReadonly = ! isReadonly">Save</button>
+
+        </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->
 
 
@@ -85,31 +74,31 @@
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">You may also like: <span class="text-muted">XXXX Brewery</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-        </div>
-        <div class="col-md-7">
           <h2 class="featurette-heading">You may also like: <span class="text-muted">YYYY Brewery</span></h2>
           <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
         </div>
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+      </div>
+
+      <hr class="featurette-divider">
+
+      <div class="row featurette">
+        <div class="col-md-5">
+          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        </div>
+        <div class="col-md-7">
+          <h2 class="featurette-heading">You may also like: <span class="text-muted">ZZZZ Brewery</span></h2>
+          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
+        </div>
       </div>
 
       <hr class="featurette-divider">
 
       <div class="row featurette">
         <div class="col-md-7">
-          <h2 class="featurette-heading">You may also like: <span class="text-muted">ZZZZ Brewery</span></h2>
+          <h2 class="featurette-heading">You may also like: <span class="text-muted">AAAA Brewery</span></h2>
           <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
         </div>
         <div class="col-md-5">
