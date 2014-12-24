@@ -16,8 +16,8 @@ describe('Unit: MainController', function() {
 
   it('should create $scope.greeting when calling sayHello',
     function() {
-      expect(scope.greeting).to.be.undefined;
-      scope.sayHello();
-      expect(scope.greeting).to.equal("Hello user");
+      expect(scope.navbarTitle).to.be.undefined;
+      scope.setTitle();
+      expect(scope.navbarTitle).to.equal("On Tapp");
   });
 });

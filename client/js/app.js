@@ -42,9 +42,9 @@ onTappApp.config(function($routeProvider) {
 
 // create the controller and inject Angular's $scope
 onTappApp.controller('MainController', ['$scope', function($scope) {
-  $scope.name = 'user';
-  $scope.sayHello = function() {
-    $scope.greeting = 'Hello ' + $scope.name;
+  $scope.title = 'On Tapp';
+  $scope.setTitle = function() {
+    $scope.navbarTitle = $scope.title;
   };
 }]);
 
