@@ -1,9 +1,9 @@
  // create the module and name it onTappApp
    // also include ngRoute for all our routing needs
-var onTappApp = angular.module('onTappApp', ['ngRoute', 'ui.bootstrap', 'onTappApp.services']);
+var onTappApp = angular.module('onTappApp', ['ngRoute', 'ui.bootstrap', 'uiGmapgoogle-maps', 'onTappApp.services']);
 
 // configure our routes
-onTappApp.config(function($routeProvider) {
+onTappApp.config(function($routeProvider, uiGmapGoogleMapApiProvider) {
   $routeProvider
     // route for the home page
     .when('/', {
@@ -37,6 +37,12 @@ onTappApp.config(function($routeProvider) {
     .otherwise({
       redirectTo: '/'
     });
+
+  uiGmapGoogleMapApiProvider.configure({
+    key: 'AIzaSyAQHm36O2gZr34HkBjElKYHox3LVWR8UWY',
+    v: '3.17',
+    libraries: 'weather,geometry,visualization'
+  });
 });
 
 
@@ -57,6 +63,8 @@ onTappApp.controller('NearByController', ['$scope', 'breweries', function($scope
     };
 
   $scope.status.isItemOpen[0] = true;
+
+  $scope.map = { center: { latitude: 45, longitude: -73 }, zoom: 8 };
 }]);
 
 onTappApp.controller('RatingsController', ['$scope', function($scope) {
