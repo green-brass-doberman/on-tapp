@@ -1,6 +1,6 @@
  // create the module and name it onTappApp
    // also include ngRoute for all our routing needs
-var onTappApp = angular.module('onTappApp', ['ngRoute', 'onTappApp.services']);
+var onTappApp = angular.module('onTappApp', ['ngRoute', 'ui.bootstrap', 'onTappApp.services']);
 
 // configure our routes
 onTappApp.config(function($routeProvider) {
@@ -50,6 +50,13 @@ onTappApp.controller('MainController', ['$scope', function($scope) {
 
 onTappApp.controller('NearByController', ['$scope', 'breweries', function($scope, breweries) {
   $scope.breweries = breweries.breweries;
+
+  $scope.status = {
+      isItemOpen: new Array($scope.breweries.length),
+      isFirstDisabled: false
+    };
+
+  $scope.status.isItemOpen[0] = true;
 }]);
 
 onTappApp.controller('RatingsController', ['$scope', function($scope) {
