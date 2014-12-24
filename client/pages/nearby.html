@@ -8,8 +8,9 @@
     </div>
 
     <div class="container">
-      <!-- Example row of columns -->
-      <div class="row" ng-repeat="brewery in breweries">
+      <!-- ng-repeat directive to display the brewery information -->
+      <!-- with filter to the breweries based on the distance in accending order: -->
+      <div class="row" ng-repeat="brewery in breweries | orderBy: 'distance'">
         <div class="col-md-12">
           <h2>{{brewery.name}} </h2>
           <p><a class="btn btn-default pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>

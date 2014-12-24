@@ -1,6 +1,6 @@
  // create the module and name it onTappApp
    // also include ngRoute for all our routing needs
-var onTappApp = angular.module('onTappApp', ['ngRoute']);
+var onTappApp = angular.module('onTappApp', ['ngRoute', 'onTappApp.services']);
 
 // configure our routes
 onTappApp.config(function($routeProvider) {
@@ -48,12 +48,8 @@ onTappApp.controller('MainController', ['$scope', function($scope) {
   };
 }]);
 
-onTappApp.controller('NearByController', ['$scope', function($scope) {
-  $scope.breweries = [
-    {name:'XXXX Brewery', description: 'Founded in 2015, it has the best beer in the world.', distance: 100},
-    {name:'YYYY Brewery', description: 'Founded in 1915, it has the worst beer in the world.', distance: 200},
-    {name:'ZZZZ Brewery', description: 'Founded in 1815, it no longer brews any beer for the world.',  distance: 300}
-  ];
+onTappApp.controller('NearByController', ['$scope', 'breweries', function($scope, breweries) {
+  $scope.breweries = breweries.breweries;
 }]);
 
 onTappApp.controller('RatingsController', ['$scope', function($scope) {
