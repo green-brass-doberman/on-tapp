@@ -199,16 +199,16 @@
     <h1>Code coverage report for <span class="entity">js/app.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">52.63% <small>(10 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">76.92% <small>(10 / 13)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">33.33% <small>(3 / 9)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">50% <small>(3 / 6)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">52.63% <small>(10 / 19)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">76.92% <small>(10 / 13)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -279,16 +279,7 @@
 61
 62
 63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+64</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -340,96 +331,78 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"> // create the module and name it onTappApp
    // also include ngRoute for all our routing needs
-var onTappApp = angular.module('onTappApp', ['ngRoute']);
+var onTappApp = angular.module('onTappApp', ['ngRoute', 'onTappApp.services']);
 &nbsp;
 // configure our routes
 onTappApp.config(function($routeProvider) {
-$routeProvider
-  // route for the home page
-  .when('/', {
-    templateUrl : 'pages/home.html',
-    controller  : 'MainController'
-  })
+  $routeProvider
+    // route for the home page
+    .when('/', {
+      templateUrl : 'pages/home.html',
+      controller  : 'MainController'
+    })
 &nbsp;
-  // route for the nearby page
-  .when('/nearby', {
-    templateUrl : 'pages/nearby.html',
-    controller  : 'NearByController'
-  })
+    // route for the nearby page
+    .when('/nearby', {
+      templateUrl : 'pages/nearby.html',
+      controller  : 'NearByController'
+    })
 &nbsp;
-  // route for the contact page
-  .when('/ratings', {
-    templateUrl : 'pages/ratings.html',
-    controller  : 'RatingsController'
-  })
+    // route for the contact page
+    .when('/ratings', {
+      templateUrl : 'pages/ratings.html',
+      controller  : 'RatingsController'
+    })
 &nbsp;
-  // route for authetications
-  .when('/signup', {
-    templateUrl: 'pages/signup.html',
-    controller: 'AuthController',
-  })
+    // route for authetications
+    .when('/signup', {
+      templateUrl: 'pages/signup.html',
+      controller: 'AuthController',
+    })
 &nbsp;
-  .when('/signin', {
-    templateUrl: 'pages/signin.html',
-    controller: 'AuthController'
-  })
+    .when('/signin', {
+      templateUrl: 'pages/signin.html',
+      controller: 'AuthController'
+    })
 &nbsp;
-  .otherwise({
-    redirectTo: '/'
-  });
+    .otherwise({
+      redirectTo: '/'
+    });
 });
 &nbsp;
 &nbsp;
 // create the controller and inject Angular's $scope
-onTappApp.controller('MainController', function($scope) {
-  $scope.name = 'user';
-  $scope.sayHello = function() {
-    $scope.greeting = 'Hello ' + $scope.name;
+onTappApp.controller('MainController', ['$scope', function($scope) {
+  $scope.title = 'On Tapp';
+  $scope.setTitle = function() {
+    $scope.navbarTitle = $scope.title;
   };
-});
+}]);
 &nbsp;
-onTappApp.controller('NearByController', <span class="fstat-no" title="function not covered" >function($scope) {</span>
-<span class="cstat-no" title="statement not covered" >  $scope.name = 'user';</span>
-<span class="cstat-no" title="statement not covered" >  $scope.sayHello = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >    $scope.greeting = 'Hello ' + $scope.name;</span>
-  };
-});
+onTappApp.controller('NearByController', ['$scope', 'breweries', <span class="fstat-no" title="function not covered" >function($scope, breweries) {</span>
+<span class="cstat-no" title="statement not covered" >  $scope.breweries = breweries.breweries;</span>
+}]);
 &nbsp;
-onTappApp.controller('RatingsController', <span class="fstat-no" title="function not covered" >function($scope) {</span>
+onTappApp.controller('RatingsController', ['$scope', <span class="fstat-no" title="function not covered" >function($scope) {</span>
 <span class="cstat-no" title="statement not covered" >  $scope.name = 'user';</span>
-<span class="cstat-no" title="statement not covered" >  $scope.sayHello = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >    $scope.greeting = 'Hello ' + $scope.name;</span>
-  };
-});
+}]);
 &nbsp;
-onTappApp.controller('AuthController', <span class="fstat-no" title="function not covered" >function($scope) {</span>
+onTappApp.controller('AuthController', ['$scope', <span class="fstat-no" title="function not covered" >function($scope) {</span>
 <span class="cstat-no" title="statement not covered" >  $scope.name = 'user';</span>
-<span class="cstat-no" title="statement not covered" >  $scope.sayHello = <span class="fstat-no" title="function not covered" >function() {</span></span>
-<span class="cstat-no" title="statement not covered" >    $scope.greeting = 'Hello ' + $scope.name;</span>
-  };
-});
+}]);
 &nbsp;
 &nbsp;
 &nbsp;</pre></td></tr>
@@ -437,7 +410,7 @@ onTappApp.controller('AuthController', <span class="fstat-no" title="function no
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 24 2014 01:39:49 GMT+0800 (HKT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 24 2014 13:39:45 GMT+0800 (HKT)</div>
 </div>
 
 <script src="../prettify.js"></script>
