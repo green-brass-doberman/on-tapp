@@ -3,5 +3,6 @@ module.exports = [
   'client/lib/angular/angular.js',
   'client/lib/angular-mocks/angular-mocks.js',
   'client/lib/angular-route/angular-route.js',
+  'client/js/services.js',
   'client/js/app.js'
 ];
