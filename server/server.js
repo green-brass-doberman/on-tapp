@@ -2,7 +2,7 @@ var path = require('path');
 var express = require('express');
 var bodyParser = require('body-parser');
 var proxy = require('simple-http-proxy');
-var keys = require('./../api-key');
+var secret = require('./../api-key');
 var app = express();
 
 opts = {
@@ -15,7 +15,7 @@ opts = {
 // Serve static files
 app.use('/', express.static(path.join(__dirname, '../client')));
 
-app.use('/api', proxy('http://api.brewerydb.com/v2/?key=' + keys.brewerydb, opts));
+app.use('/api', proxy('http://api.brewerydb.com/v2/?key=' + secret.keys.brewerydb, opts));
 
 app.use(bodyParser.json());
 
