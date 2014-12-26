@@ -6,5 +6,13 @@ angular.module('onTappApp.services', [])
         {name:'YYYY Brewery', description: 'Founded in 1915, it has the worst beer in the world.', distance: 200, ratings: 0},
         {name:'ZZZZ Brewery', description: 'Founded in 1815, it no longer brews any beer for the world.',  distance: 300, ratings: 0}
       ]};
+
+    $http.get('/api')
+    .success(function(data, status, headers, config) {
+      console.log(data);
+    })
+    .error(function(data, status, headers, config) {
+      console.log(data);
+    });
     return data;
   });
