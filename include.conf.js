@@ -7,5 +7,6 @@ module.exports = [
   'client/lib/lodash/dist/lodash.min.js',
   'client/lib/angular-google-maps/dist/angular-google-maps.min.js',
   'client/js/services.js',
+  'client/js/auth.js',
   'client/js/app.js'
 ];
