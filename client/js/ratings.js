@@ -1,6 +1,6 @@
 angular.module('onTappApp.ratings', [])
 
-  .controller('RatingsController', ['$scope', function($scope) {
+  .controller('RatingsController', ['$scope', 'breweries', function($scope, breweries) {
     $scope.rate = 0;
     $scope.max = 5;
     $scope.isReadonly = false;
@@ -32,6 +32,7 @@ angular.module('onTappApp.ratings', [])
     }
 
     $scope.saveRating = function(){
-      console.log('save');
+      var brewery = breweries.breweries[0];
+      brewery.ratings = $scope.percent;
     };
   }]);
