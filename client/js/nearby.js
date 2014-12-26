@@ -1,6 +1,6 @@
-angular.module('onTappApp.nearby', ['uiGmapgoogle-maps'])
+angular.module('onTappApp.nearby', ['uiGmapgoogle-maps', 'geolocation'])
 
-  .controller('NearByController', ['$scope', 'breweries', function($scope, breweries) {
+  .controller('NearByController', ['$scope', 'breweries', 'geolocation', function($scope, breweries, geolocation) {
     $scope.breweries = breweries.breweries;
 
     $scope.status = {
@@ -36,6 +36,10 @@ angular.module('onTappApp.nearby', ['uiGmapgoogle-maps'])
       $scope.windowOptions.visible = false;
     };
 
-    $scope.title = 'You are here';
+    $scope.title = 'XXXX Brewery';
+
+    geolocation.getLocation().then(function(data){
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+    });
 
   }]);
