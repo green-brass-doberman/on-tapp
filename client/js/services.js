@@ -1,5 +1,5 @@
 angular.module('onTappApp.services', [])
-  .factory('breweries', [function(){
+  .factory('breweries', function($http){
     var data = {
       breweries: [
         {name:'XXXX Brewery', description: 'Founded in 2015, it has the best beer in the world.', distance: 100, ratings: 0},
@@ -7,4 +7,4 @@ angular.module('onTappApp.services', [])
         {name:'ZZZZ Brewery', description: 'Founded in 1815, it no longer brews any beer for the world.',  distance: 300, ratings: 0}
       ]};
     return data;
-  }]);
+  });
