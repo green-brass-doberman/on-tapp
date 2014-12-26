@@ -14,22 +14,22 @@ angular.module('onTappApp.ratings', [])
       {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
     ];
 
-    $scope.myInterval = 5000;
+    $scope.myInterval = 0;
 
     var slides = $scope.slides = [];
 
     $scope.addSlide = function() {
       var newWidth = 600 + slides.length + 1;
-      slides.push({
-        image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
-        text: ['XXXX','YYYY','ZZZZ'][slides.length % 3] + ' ' +
-          ['Brewery', 'Brewery', 'Brewery'][slides.length % 3]
-      });
+
+      for (var i = 0; i < breweries.breweries.length; i++) {
+          slides.push({
+          image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
+          text: breweries.breweries[i].name
+        });
+      }
     };
 
-    for (var i=0; i<3; i++) {
-      $scope.addSlide();
-    }
+    $scope.addSlide();
 
     $scope.saveRating = function(){
       var brewery = breweries.breweries[0];
