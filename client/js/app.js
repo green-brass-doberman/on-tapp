@@ -1,6 +1,6 @@
  // create the module and name it onTappApp
    // also include ngRoute for all our routing needs
-var onTappApp = angular.module('onTappApp', ['ngRoute', 'ui.bootstrap', 'uiGmapgoogle-maps', 'onTappApp.services']);
+var onTappApp = angular.module('onTappApp', ['ngRoute', 'ui.bootstrap', 'uiGmapgoogle-maps', 'onTappApp.services', 'onTappApp.auth']);
 
 // configure our routes
 onTappApp.config(function($routeProvider, uiGmapGoogleMapApiProvider) {
@@ -82,9 +82,3 @@ onTappApp.controller('RatingsController', ['$scope', function($scope) {
     {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
   ];
 }]);
-
-onTappApp.controller('AuthController', ['$scope', function($scope) {
-  $scope.name = 'user';
-}]);
-
-
