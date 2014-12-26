@@ -5,7 +5,7 @@
         <slide ng-repeat="slide in slides" active="slide.active">
           <img ng-src="{{slide.image}}" style="margin:auto;">
           <div class="carousel-caption">
-            <h4>{{slide.text}}</h4>
+            <h2>{{slide.text}}</h2>
           </div>
         </slide>
       </carousel>
@@ -26,7 +26,7 @@
           <pre style="margin:15px 0;">Stars: <b>{{rate}}</b>  <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span></b></pre>
 
           <button class="btn btn-lg btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
-          <button class="btn btn-lg btn-default" ng-click="isReadonly = ! isReadonly">Save</button>
+          <button class="btn btn-lg btn-default" ng-click="isReadonly = ! isReadonly; saveRating()">Save</button>
 
         </div><!-- /.col-lg-12 -->
       </div><!-- /.row -->

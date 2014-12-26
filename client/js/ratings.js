@@ -15,16 +15,23 @@ angular.module('onTappApp.ratings', [])
     ];
 
     $scope.myInterval = 5000;
-      var slides = $scope.slides = [];
-      $scope.addSlide = function() {
-        var newWidth = 600 + slides.length + 1;
-        slides.push({
-          image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
-          text: ['XXXX','YYYY','ZZZZ'][slides.length % 3] + ' ' +
-            ['Brewery', 'Brewery', 'Brewery'][slides.length % 3]
-        });
-      };
-      for (var i=0; i<3; i++) {
-        $scope.addSlide();
-      }
+
+    var slides = $scope.slides = [];
+
+    $scope.addSlide = function() {
+      var newWidth = 600 + slides.length + 1;
+      slides.push({
+        image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
+        text: ['XXXX','YYYY','ZZZZ'][slides.length % 3] + ' ' +
+          ['Brewery', 'Brewery', 'Brewery'][slides.length % 3]
+      });
+    };
+
+    for (var i=0; i<3; i++) {
+      $scope.addSlide();
+    }
+
+    $scope.saveRating = function(){
+      console.log('save');
+    };
   }]);

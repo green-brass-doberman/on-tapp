@@ -30,4 +30,8 @@ describe('Unit: RatingsController', function () {
   it('should have a rating states', function() {
     expect($scope.ratingStates).to.be.a('array');
   });
+
+  it('should have a method to save rating', function() {
+    expect($scope.saveRating).to.be.a('function');
+  });
 });
