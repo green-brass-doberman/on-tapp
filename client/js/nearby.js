@@ -38,8 +38,12 @@ angular.module('onTappApp.nearby', ['uiGmapgoogle-maps', 'geolocation'])
 
     $scope.title = 'XXXX Brewery';
 
-    geolocation.getLocation().then(function(data){
+    $scope.getCurrentLocation = function(){
+      geolocation.getLocation().then(function(data){
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
     });
+    };
+
+
 
   }]);
