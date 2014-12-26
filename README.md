@@ -2,6 +2,8 @@
 
 > HRR2 Thesis Project
 
+[![Circle CI](https://circleci.com/gh/green-brass-doberman/on-tapp.svg?style=svg)](https://circleci.com/gh/green-brass-doberman/on-tapp)
+
 ## Team
 
   - __Product Owner__: [Julie Knowles](https://github.com/JulieMarie)
