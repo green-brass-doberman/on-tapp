@@ -1,4 +1,4 @@
-angular.module('onTappApp.nearby', [])
+angular.module('onTappApp.nearby', ['uiGmapgoogle-maps'])
 
   .controller('NearByController', ['$scope', 'breweries', function($scope, breweries) {
     $scope.breweries = breweries.breweries;
@@ -23,5 +23,19 @@ angular.module('onTappApp.nearby', [])
       },
       options: { draggable: false }
     };
+
+    $scope.windowOptions = {
+      visible: false
+    };
+
+    $scope.onClick = function() {
+      $scope.windowOptions.visible = !$scope.windowOptions.visible;
+    };
+
+    $scope.closeClick = function() {
+      $scope.windowOptions.visible = false;
+    };
+
+    $scope.title = 'You are here';
 
   }]);

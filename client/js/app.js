@@ -3,11 +3,10 @@
 var onTappApp = angular.module('onTappApp', [
   'ngRoute',
   'ui.bootstrap',
-  'uiGmapgoogle-maps',
   'onTappApp.services',
   'onTappApp.nearby',
   'onTappApp.ratings',
-  'onTappApp.auth',
+  'onTappApp.auth'
   ]);
 
 // configure our routes
