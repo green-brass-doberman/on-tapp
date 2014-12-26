@@ -1,4 +1,4 @@
-describe('NearByController', function () {
+describe('Unit: NearByController', function () {
   var $scope, $rootScope, createController;
 
   beforeEach(module('onTappApp'));
@@ -22,7 +22,7 @@ describe('NearByController', function () {
     expect($scope.breweries).to.be.a('array');
   });
 
-  it('should have a map', function() {
+  it('should have a Google map', function() {
     expect($scope.map).to.be.a('object');
   });
 });

@@ -1,4 +1,4 @@
-describe('AuthController', function () {
+describe('Unit: AuthController', function () {
   var $scope, $rootScope, createController;
 
   // using angular mocks, we can inject the injector

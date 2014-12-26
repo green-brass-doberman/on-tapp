@@ -1,4 +1,4 @@
-describe('RatingsController', function () {
+describe('Unit: RatingsController', function () {
   var $scope, $rootScope, createController;
 
   beforeEach(module('onTappApp'));
@@ -17,6 +17,15 @@ describe('RatingsController', function () {
 
     createController();
   }));
+
+  it('should have initial ratings when page first load', function() {
+    expect($scope.rate).to.equal(0);
+    expect($scope.max).to.equal(5);
+  });
+
+  it('should have a method to calculate the star percentage', function() {
+    expect($scope.hoveringOver).to.be.a('function');
+  });
 
   it('should have a rating states', function() {
     expect($scope.ratingStates).to.be.a('array');
