@@ -1,6 +1,14 @@
  // create the module and name it onTappApp
    // also include ngRoute for all our routing needs
-var onTappApp = angular.module('onTappApp', ['ngRoute', 'ui.bootstrap', 'uiGmapgoogle-maps', 'onTappApp.services', 'onTappApp.auth']);
+var onTappApp = angular.module('onTappApp', [
+  'ngRoute',
+  'ui.bootstrap',
+  'uiGmapgoogle-maps',
+  'onTappApp.services',
+  'onTappApp.nearby',
+  'onTappApp.ratings',
+  'onTappApp.auth',
+  ]);
 
 // configure our routes
 onTappApp.config(function($routeProvider, uiGmapGoogleMapApiProvider) {
@@ -52,33 +60,4 @@ onTappApp.controller('MainController', ['$scope', function($scope) {
   $scope.setTitle = function() {
     $scope.navbarTitle = $scope.title;
   };
-}]);
-
-onTappApp.controller('NearByController', ['$scope', 'breweries', function($scope, breweries) {
-  $scope.breweries = breweries.breweries;
-
-  $scope.status = {
-      isItemOpen: new Array($scope.breweries.length),
-      isFirstDisabled: false
-    };
-
-  $scope.status.isItemOpen[0] = true;
-
-  // render Google map and set center at San Francisco by default
-  $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 8 };
-}]);
-
-onTappApp.controller('RatingsController', ['$scope', function($scope) {
-  $scope.rate = 0;
-  $scope.max = 5;
-  $scope.isReadonly = false;
-
-  $scope.hoveringOver = function(value) {
-    $scope.overStar = value;
-    $scope.percent = 100 * (value / $scope.max);
-  };
-
-  $scope.ratingStates = [
-    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  ];
 }]);
