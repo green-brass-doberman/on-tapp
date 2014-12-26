@@ -195,20 +195,20 @@
     </style>
 </head>
 <body>
-<div class="header low">
+<div class="header high">
     <h1>Code coverage report for <span class="entity">js/app.js</span></h1>
     <h2>
         
-        Statements: <span class="metric">47.83% <small>(11 / 23)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Statements: <span class="metric">100% <small>(8 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
         Branches: <span class="metric">100% <small>(0 / 0)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Functions: <span class="metric">42.86% <small>(3 / 7)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Functions: <span class="metric">100% <small>(3 / 3)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         
-        Lines: <span class="metric">47.83% <small>(11 / 23)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
+        Lines: <span class="metric">100% <small>(8 / 8)</small></span> &nbsp;&nbsp;&nbsp;&nbsp;
         
         Ignored: <span class="metric"><span class="ignore-none">none</span></span> &nbsp;&nbsp;&nbsp;&nbsp;
     </h2>
@@ -278,41 +278,20 @@
 60
 61
 62
-63
-64
-65
-66
-67
-68
-69
-70
-71
-72
-73
-74
-75
-76
-77
-78
-79
-80
-81
-82
-83
-84
-85
-86
-87
-88
-89
-90
-91</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
+63</td><td class="line-coverage"><span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
+<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">16</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -346,7 +325,7 @@
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">6</span>
+<span class="cline-any cline-yes">16</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
@@ -359,46 +338,18 @@
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
 <span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
-<span class="cline-any cline-yes">1</span>
-<span class="cline-any cline-no">&nbsp;</span>
-<span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span>
 <span class="cline-any cline-neutral">&nbsp;</span></td><td class="text"><pre class="prettyprint lang-js"> // create the module and name it onTappApp
    // also include ngRoute for all our routing needs
-var onTappApp = angular.module('onTappApp', ['ngRoute', 'ui.bootstrap', 'uiGmapgoogle-maps', 'onTappApp.services']);
+var onTappApp = angular.module('onTappApp', [
+  'ngRoute',
+  'ui.bootstrap',
+  'onTappApp.services',
+  'onTappApp.nearby',
+  'onTappApp.ratings',
+  'onTappApp.auth'
+  ]);
 &nbsp;
 // configure our routes
 onTappApp.config(function($routeProvider, uiGmapGoogleMapApiProvider) {
@@ -451,47 +402,12 @@ onTappApp.controller('MainController', ['$scope', function($scope) {
     $scope.navbarTitle = $scope.title;
   };
 }]);
-&nbsp;
-onTappApp.controller('NearByController', ['$scope', 'breweries', <span class="fstat-no" title="function not covered" >function($scope, breweries) {</span>
-<span class="cstat-no" title="statement not covered" >  $scope.breweries = breweries.breweries;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  $scope.status = {</span>
-      isItemOpen: new Array($scope.breweries.length),
-      isFirstDisabled: false
-    };
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  $scope.status.isItemOpen[0] = true;</span>
-&nbsp;
-  // render Google map and set center at San Francisco by default
-<span class="cstat-no" title="statement not covered" >  $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 8 };</span>
-}]);
-&nbsp;
-onTappApp.controller('RatingsController', ['$scope', <span class="fstat-no" title="function not covered" >function($scope) {</span>
-<span class="cstat-no" title="statement not covered" >  $scope.rate = 0;</span>
-<span class="cstat-no" title="statement not covered" >  $scope.max = 5;</span>
-<span class="cstat-no" title="statement not covered" >  $scope.isReadonly = false;</span>
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  $scope.hoveringOver = <span class="fstat-no" title="function not covered" >function(value) {</span></span>
-<span class="cstat-no" title="statement not covered" >    $scope.overStar = value;</span>
-<span class="cstat-no" title="statement not covered" >    $scope.percent = 100 * (value / $scope.max);</span>
-  };
-&nbsp;
-<span class="cstat-no" title="statement not covered" >  $scope.ratingStates = [</span>
-    {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-  ];
-}]);
-&nbsp;
-onTappApp.controller('AuthController', ['$scope', <span class="fstat-no" title="function not covered" >function($scope) {</span>
-<span class="cstat-no" title="statement not covered" >  $scope.name = 'user';</span>
-}]);
-&nbsp;
-&nbsp;
 &nbsp;</pre></td></tr>
 </table></pre>
 
 </div>
 <div class="footer">
-    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Wed Dec 24 2014 22:56:01 GMT+0800 (HKT)</div>
+    <div class="meta">Generated by <a href="http://istanbul-js.org/" target="_blank">istanbul</a> at Fri Dec 26 2014 23:20:32 GMT+0800 (HKT)</div>
 </div>
 
 <script src="../prettify.js"></script>

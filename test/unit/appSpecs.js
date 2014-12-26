@@ -14,7 +14,7 @@ describe('Unit: MainController', function() {
     });
   }));
 
-  it('should create $scope.greeting when calling sayHello',
+  it('should create $scope.navbarTitle when calling setTitle',
     function() {
       expect(scope.navbarTitle).to.be.undefined;
       scope.setTitle();

@@ -1,17 +1,28 @@
 <div class="container">
-  <ui-gmap-google-map center='map.center' zoom='map.zoom'></ui-gmap-google-map>
-</div>
+  <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable="true" options="options">
+    <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" click="onClick()">
+      <ui-gmap-window options="windowOptions" closeClick="closeClick()">
+        <div>{{title}}</div>
+      </ui-gmap-window>
+    </ui-gmap-marker>
+  </ui-gmap-google-map>
 
-<hr>
+  <hr>
 
-<div class="container">
-  <accordion>
-    <accordion-group ng-repeat="brewery in breweries | orderBy: 'distance'" is-open="status.isItemOpen[$index]">
-      <accordion-heading>
-        {{brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}}</span>
-      </accordion-heading>
-        {{brewery.description}}
-        <p><a class="btn btn-default pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>
-    </accordion-group>
-  </accordion>
+  <button class="btn btn-default btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
+  <div class="well pull-right">My current location is: {{coords.lat}}, {{coords.long}}</div>
+
+  <hr>
+
+  <div class="container">
+    <accordion>
+      <accordion-group ng-repeat="brewery in breweries | orderBy: 'distance'" is-open="status.isItemOpen[$index]">
+        <accordion-heading>
+          {{brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}}</span>
+        </accordion-heading>
+          {{brewery.description}}
+          <p><a class="btn btn-default pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>
+      </accordion-group>
+    </accordion>
+  </div>
 </div>
