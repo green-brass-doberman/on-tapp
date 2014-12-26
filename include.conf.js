@@ -6,6 +6,7 @@ module.exports = [
   'client/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
   'client/lib/lodash/dist/lodash.min.js',
   'client/lib/angular-google-maps/dist/angular-google-maps.min.js',
+  'client/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
   'client/js/services.js',
   'client/js/nearby.js',
   'client/js/ratings.js',

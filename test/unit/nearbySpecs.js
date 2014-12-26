@@ -29,4 +29,8 @@ describe('Unit: NearByController', function () {
   it('should have a marker on the map', function() {
     expect($scope.map).to.be.a('object');
   });
+
+  it('should have a method to get geolocation', function() {
+    expect($scope.getCurrentLocation).to.be.a('function');
+  });
 });
