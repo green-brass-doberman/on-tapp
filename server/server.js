@@ -28,10 +28,10 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 // parse application/json
 app.use(bodyParser.json());
 
-app.use('/api', function(){
-  request('http://api.brewerydb.com/v2/?key='+secret.keys.brewerydb, function (error, response, body) {
+app.get('/api', function(req, res){
+  request('https://api.brewerydb.com/v2/search/geo/point?lat=37.7833&lng=-122.4167&key='+secret.keys.brewerydb +'&format=json', function (error, response, body) {
     if (!error && response.statusCode === 200) {
-      console.log(body); // Show the HTML for the Google homepage.
+      res.send(body);
     }
   });
 });

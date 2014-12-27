@@ -1,12 +1,19 @@
 angular.module('onTappApp.nearby', ['uiGmapgoogle-maps', 'geolocation'])
 
   .controller('NearByController', ['$scope', 'breweries', 'geolocation', function($scope, breweries, geolocation) {
-    $scope.breweries = breweries.breweries;
+    $scope.breweries = [];
+
+    var handleSuccess = function(data, status){
+      $scope.breweries = data;
+      console.log($scope.breweries);
+    };
+
+    breweries.getData().success(handleSuccess);
 
     $scope.status = {
-        isItemOpen: new Array($scope.breweries.length),
-        isFirstDisabled: false
-      };
+      isItemOpen: new Array($scope.breweries.length),
+      isFirstDisabled: false
+    };
 
     $scope.status.isItemOpen[0] = true;
 
