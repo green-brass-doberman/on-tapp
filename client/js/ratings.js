@@ -5,6 +5,15 @@ angular.module('onTappApp.ratings', [])
     $scope.max = 5;
     $scope.isReadonly = false;
 
+    var allBreweries = [];
+
+    var handleSuccess = function(data, status){
+      allBreweries = data.data;
+      $scope.addSlide();
+    };
+
+    breweries.getData().success(handleSuccess);
+
     $scope.hoveringOver = function(value) {
       $scope.overStar = value;
       $scope.percent = 100 * (value / $scope.max);
@@ -21,10 +30,10 @@ angular.module('onTappApp.ratings', [])
     $scope.addSlide = function() {
       var newWidth = 600 + slides.length + 1;
 
-      for (var i = 0; i < breweries.breweries.length; i++) {
+      for (var i = 0; i < allBreweries.length; i++) {
           slides.push({
           image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
-          text: breweries.breweries[i].name
+          text: allBreweries[i].name
         });
       }
     };
@@ -32,7 +41,7 @@ angular.module('onTappApp.ratings', [])
     $scope.addSlide();
 
     $scope.saveRating = function(){
-      var brewery = breweries.breweries[0];
+      var brewery = allBreweries[0];
       brewery.ratings = $scope.percent;
     };
   }]);
