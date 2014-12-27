@@ -18,7 +18,7 @@ angular.module('onTappApp.nearby', ['uiGmapgoogle-maps', 'geolocation'])
     $scope.status.isItemOpen[0] = true;
 
     // render Google map and set center at San Francisco by default
-    $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 12, bounds: {}};
+    $scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 12};
 
     $scope.options = {scrollwheel: false};
 
@@ -60,6 +60,7 @@ angular.module('onTappApp.nearby', ['uiGmapgoogle-maps', 'geolocation'])
     $scope.getCurrentLocation = function(){
       geolocation.getLocation().then(function(data){
         $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+        $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 12};
       });
     };
   }]);
