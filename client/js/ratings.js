@@ -33,7 +33,7 @@ angular.module('onTappApp.ratings', [])
       for (var i = 0; i < allBreweries.length; i++) {
           slides.push({
           image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
-          text: allBreweries[i].name
+          text: allBreweries[i].brewery.name
         });
       }
     };

@@ -4,7 +4,7 @@ angular.module('onTappApp.nearby', ['uiGmapgoogle-maps', 'geolocation'])
     $scope.breweries = [];
 
     var handleSuccess = function(data, status){
-      $scope.breweries = data;
+      $scope.breweries = data.data;
       console.log($scope.breweries);
     };
 
