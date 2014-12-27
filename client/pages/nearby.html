@@ -1,16 +1,16 @@
 <div class="container">
-  <ui-gmap-google-map center='map.center' zoom='map.zoom' draggable="true" options="options">
-    <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id" click="onClick()">
-      <ui-gmap-window options="windowOptions" closeClick="closeClick()">
-        <div>{{title}}</div>
-      </ui-gmap-window>
-    </ui-gmap-marker>
+  <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+    <ui-gmap-markers models="allMarkers" coords="'self'" icon="'icon'" click="'onClick'">
+      <ui-gmap-windows show="show">
+        <div ng-non-bindable>{{title}}</div>
+      </ui-gmap-windows>
+    </ui-gmap-markers>
   </ui-gmap-google-map>
 
   <hr>
 
   <button class="btn btn-default btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
-  <div class="well pull-right">My current location is: {{coords.lat}}, {{coords.long}}</div>
+  <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
 
   <hr>
 
