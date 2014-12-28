@@ -8,6 +8,7 @@ module.exports = [
   'client/lib/angular-google-maps/dist/angular-google-maps.min.js',
   'client/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
   'client/js/services.js',
+  'client/js/beers.js',
   'client/js/nearby.js',
   'client/js/ratings.js',
   'client/js/auth.js',
