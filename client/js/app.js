@@ -7,6 +7,7 @@ var onTappApp = angular.module('onTappApp', [
   'ui.bootstrap',
   'onTappApp.services',
   'onTappApp.nearby',
+  'onTappApp.beers',
   'onTappApp.ratings',
   'onTappApp.auth'
   ]);
@@ -24,6 +25,12 @@ onTappApp.config(function($routeProvider, uiGmapGoogleMapApiProvider) {
     .when('/nearby', {
       templateUrl : 'pages/nearby.html',
       controller  : 'NearByController'
+    })
+
+    // route for the beers page
+    .when('/beers', {
+      templateUrl : 'pages/beers.html',
+      controller  : 'BeersController'
     })
 
     // route for the contact page
@@ -53,7 +60,6 @@ onTappApp.config(function($routeProvider, uiGmapGoogleMapApiProvider) {
     libraries: 'weather,geometry,visualization'
   });
 });
-
 
 // create the controller and inject Angular's $scope
 onTappApp.controller('MainController', ['$scope', function($scope) {

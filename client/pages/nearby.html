@@ -9,7 +9,7 @@
 
   <hr>
 
-  <button class="btn btn-default btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
+  <button class="btn btn-success btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
   <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
 
   <hr>
@@ -20,8 +20,23 @@
         <accordion-heading>
           {{brewery.brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}}</span>
         </accordion-heading>
-          {{brewery.brewery.description}}
-          <p><a class="btn btn-default pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>
+          <div class="row">
+            <div class="col-md-3">
+              <div ng-if="brewery.brewery.images.medium">
+                <img src="{{brewery.brewery.images.medium}}">
+              </div>
+              <p class="right">Established: {{brewery.brewery.established}}<br>
+              Website: <a href="{{brewery.brewery.website}}" target="_blank">{{brewery.brewery.website}}</a></p>
+              <div ng-if="brewery.brewery.isOrganic == 'Y'">
+                <p class="right">Certified Organic</p>
+              </div>
+              <p class="right"><a href="#/beers">List Beers</a></p>
+            </div>
+            <div class="col-md-9">
+              <p class="content">{{brewery.brewery.description}}</p>
+              <p><a class="btn btn-success pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>
+            </div>
+          </div>
       </accordion-group>
     </accordion>
   </div>
