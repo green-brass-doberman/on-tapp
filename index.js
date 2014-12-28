@@ -1,6 +1,7 @@
 var app = require('./server/server.js');
 
-// Get the port from environment variables
+// set the port of our application
+// process.env.PORT lets the port be set by Heroku
 var port = process.env.PORT || 3000;
 
 // Start the app by listening on <port>

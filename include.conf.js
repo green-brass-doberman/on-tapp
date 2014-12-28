@@ -7,6 +7,8 @@ module.exports = [
   'client/lib/lodash/dist/lodash.min.js',
   'client/lib/angular-google-maps/dist/angular-google-maps.min.js',
   'client/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
+  'client/lib/firebase/firebase.js',
+  'client/lib/angularfire/dist/angularfire.min.js',
   'client/js/services.js',
   'client/js/beers.js',
   'client/js/nearby.js',

@@ -1,6 +1,8 @@
-angular.module('onTappApp.ratings', [])
+// create our angular module and inject firebase
+angular.module('onTappApp.ratings', ['firebase'])
 
-  .controller('RatingsController', ['$scope', 'breweries', function($scope, breweries) {
+  // create our main controller and get access to brweries factory and firebase
+  .controller('RatingsController', ['$scope', 'breweries', '$firebase',function($scope, breweries, $firebase) {
     $scope.rate = 0;
     $scope.max = 5;
     $scope.isReadonly = false;
@@ -44,4 +46,44 @@ angular.module('onTappApp.ratings', [])
       var brewery = allBreweries[0];
       brewery.ratings = $scope.percent;
     };
+
+    // connect to firebase
+    var ref = new Firebase('https://on-tapp.firebaseio.com/ratings');
+
+    var fb = $firebase(ref);
+
+    // function to set the default data
+    $scope.reset = function() {
+
+      $scope.rate = 0;
+
+      fb.$set({
+        xxxx: {
+          name: 'XXXX Brewery',
+          ratings: {
+            stars: {
+              number: '0',
+              rated: false
+            }
+          }
+        },
+        yyyy: {
+          name: 'YYYY Brewery',
+          ratings: {
+            stars: {
+              number: '0',
+              rated: false
+            }
+          }
+        }
+      });
+
+    };
+
+    // sync as object
+    var syncObject = fb.$asObject();
+
+    // three way data binding
+    syncObject.$bindTo($scope, 'ratings');
+
   }]);

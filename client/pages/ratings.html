@@ -25,7 +25,7 @@
 
           <pre style="margin:15px 0;">Stars: <b>{{rate}}</b>  <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span></b></pre>
 
-          <button class="btn btn-lg btn-danger" ng-click="rate = 0" ng-disabled="isReadonly">Clear</button>
+          <button class="btn btn-lg btn-danger" ng-click="reset()" ng-disabled="isReadonly">Clear</button>
           <button class="btn btn-lg btn-default" ng-click="isReadonly = ! isReadonly; saveRating()">Save</button>
 
         </div><!-- /.col-lg-12 -->
@@ -34,42 +34,20 @@
 
       <!-- START THE FEATURETTES -->
 
-      <hr class="featurette-divider">
+      <div class="text-center" ng-repeat="rating in ratings">
 
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">You may also like: <span class="text-muted">YYYY Brewery</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-        </div>
-      </div>
+        <hr class="featurette-divider">
 
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+        <div class="row featurette">
+          <div class="col-md-7">
+            <h2 class="featurette-heading">You may also like: <span class="text-muted">{{rating.name}}</span></h2>
+            <p class="lead">Number of stars {{ rating.ratings.stars.number }}</p>
+          </div>
+          <div class="col-md-5">
+            <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
+          </div>
         </div>
-        <div class="col-md-7">
-          <h2 class="featurette-heading">You may also like: <span class="text-muted">ZZZZ Brewery</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-      </div>
 
-      <hr class="featurette-divider">
-
-      <div class="row featurette">
-        <div class="col-md-7">
-          <h2 class="featurette-heading">You may also like: <span class="text-muted">AAAA Brewery</span></h2>
-          <p class="lead">Donec ullamcorper nulla non metus auctor fringilla. Vestibulum id ligula porta felis euismod semper. Praesent commodo cursus magna, vel scelerisque nisl consectetur. Fusce dapibus, tellus ac cursus commodo.</p>
-        </div>
-        <div class="col-md-5">
-          <img class="featurette-image img-responsive" data-src="holder.js/500x500/auto" alt="Generic placeholder image">
-        </div>
-      </div>
-
-      <hr class="featurette-divider">
+      <div>
 
       <!-- /END THE FEATURETTES -->
