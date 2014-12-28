@@ -60,7 +60,7 @@ angular.module('onTappApp.nearby', ['uiGmapgoogle-maps', 'geolocation'])
     $scope.getCurrentLocation = function(){
       geolocation.getLocation().then(function(data){
         $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-        $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 12};
+        $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 14};
       });
     };
   }]);

@@ -28,8 +28,17 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/api', function(req, res){
+app.get('/breweries', function(req, res){
   request('https://api.brewerydb.com/v2/search/geo/point?lat=37.7833&lng=-122.4167&key='+secret.keys.brewerydb +'&format=json', function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      res.send(body);
+    }
+  });
+});
+
+// hard coded for AleSmith Brewing Company in San Diego (id=ygAzC9)
+app.get('/beers', function(req, res){
+  request('https://api.brewerydb.com/v2/brewery/ygAzC9/beers?key='+secret.keys.brewerydb +'&format=json', function (error, response, body) {
     if (!error && response.statusCode === 200) {
       res.send(body);
     }
