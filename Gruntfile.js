@@ -1,192 +1,177 @@
-// our wrapper function (required by grunt and its plugins)
-// all configuration goes inside this function
+'use strict';
+
 module.exports = function(grunt) {
-  // load up all of the necessary grunt plugins
-  grunt.loadNpmTasks('grunt-nodemon');
-  grunt.loadNpmTasks('grunt-express-server');
-  grunt.loadNpmTasks('grunt-contrib-clean');
-  grunt.loadNpmTasks('grunt-contrib-copy');
-  grunt.loadNpmTasks('grunt-contrib-concat');
-  grunt.loadNpmTasks('grunt-contrib-watch');
-  grunt.loadNpmTasks('grunt-contrib-jshint');
-  grunt.loadNpmTasks('grunt-contrib-uglify');
-  grunt.loadNpmTasks('grunt-contrib-less');
-  grunt.loadNpmTasks('grunt-contrib-cssmin');
-  grunt.loadNpmTasks('grunt-karma');
-  grunt.loadNpmTasks('grunt-mocha');
-  grunt.loadNpmTasks('grunt-casperjs');
+	// Unified Watch Object
+	var watchFiles = {
+		serverViews: ['app/views/**/*.*'],
+		serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js'],
+		clientViews: ['public/modules/**/views/**/*.html'],
+		clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
+		clientCSS: ['public/modules/**/*.css'],
+		mochaTests: ['app/tests/**/*.js']
+	};
 
-  // in what order should the files be concatenated
-  var clientIncludeOrder = require('./include.conf.js');
+	// Project Configuration
+	grunt.initConfig({
+		pkg: grunt.file.readJSON('package.json'),
+		watch: {
+			serverViews: {
+				files: watchFiles.serverViews,
+				options: {
+					livereload: true
+				}
+			},
+			serverJS: {
+				files: watchFiles.serverJS,
+				tasks: ['jshint'],
+				options: {
+					livereload: true
+				}
+			},
+			clientViews: {
+				files: watchFiles.clientViews,
+				options: {
+					livereload: true
+				}
+			},
+			clientJS: {
+				files: watchFiles.clientJS,
+				tasks: ['jshint'],
+				options: {
+					livereload: true
+				}
+			},
+			clientCSS: {
+				files: watchFiles.clientCSS,
+				tasks: ['csslint'],
+				options: {
+					livereload: true
+				}
+			}
+		},
+		jshint: {
+			all: {
+				src: watchFiles.clientJS.concat(watchFiles.serverJS),
+				options: {
+					jshintrc: true
+				}
+			}
+		},
+		csslint: {
+			options: {
+				csslintrc: '.csslintrc'
+			},
+			all: {
+				src: watchFiles.clientCSS
+			}
+		},
+		uglify: {
+			production: {
+				options: {
+					mangle: false
+				},
+				files: {
+					'public/dist/application.min.js': 'public/dist/application.js'
+				}
+			}
+		},
+		cssmin: {
+			combine: {
+				files: {
+					'public/dist/application.min.css': '<%= applicationCSSFiles %>'
+				}
+			}
+		},
+		nodemon: {
+			dev: {
+				script: 'server.js',
+				options: {
+					nodeArgs: ['--debug'],
+					ext: 'js,html',
+					watch: watchFiles.serverViews.concat(watchFiles.serverJS)
+				}
+			}
+		},
+		'node-inspector': {
+			custom: {
+				options: {
+					'web-port': 1337,
+					'web-host': 'localhost',
+					'debug-port': 5858,
+					'save-live-edit': true,
+					'no-preload': true,
+					'stack-trace-limit': 50,
+					'hidden': []
+				}
+			}
+		},
+		ngAnnotate: {
+			production: {
+				files: {
+					'public/dist/application.js': '<%= applicationJavaScriptFiles %>'
+				}
+			}
+		},
+		concurrent: {
+			default: ['nodemon', 'watch'],
+			debug: ['nodemon', 'watch', 'node-inspector'],
+			options: {
+				logConcurrentOutput: true,
+				limit: 10
+			}
+		},
+		env: {
+			test: {
+				NODE_ENV: 'test'
+			},
+			secure: {
+				NODE_ENV: 'secure'
+			}
+		},
+		mochaTest: {
+			src: watchFiles.mochaTests,
+			options: {
+				reporter: 'spec',
+				require: 'server.js'
+			}
+		},
+		karma: {
+			unit: {
+				configFile: 'karma.conf.js'
+			}
+		}
+	});
 
-  // grunt setup
-  grunt.initConfig({
+	// Load NPM tasks
+	require('load-grunt-tasks')(grunt);
 
-    pkg: grunt.file.readJSON('package.json'),
+	// Making grunt default to force in order not to break the project.
+	grunt.option('force', true);
 
-    // create a task called clean, which
-    // deletes all files in the listed folders
-    clean: {
-      dist: 'dist/*',
-      results: 'results/*'
-    },
+	// A Task for loading the configuration object
+	grunt.task.registerTask('loadConfig', 'Task that loads the config into a grunt option.', function() {
+		var init = require('./config/init')();
+		var config = require('./config/config');
 
-    // configure jshint to validate js files
-    jshint: {
-      gruntfile: 'Gruntfile.js',
-      client: 'client/js/*.js',
-      server: 'server/*.js',
-      options: {
-        reporter: require('jshint-stylish')
-        // use jshint-stylish to make our errors look and read good
-      }
-    },
+		grunt.config.set('applicationJavaScriptFiles', config.assets.js);
+		grunt.config.set('applicationCSSFiles', config.assets.css);
+	});
 
-    // uglify the files
-    uglify: {
-      todo: {
-        files: {
-          'dist/client/js/app-ugly.js': clientIncludeOrder
-        }
-      }
-    },
+	// Default task(s).
+	grunt.registerTask('default', ['lint', 'concurrent:default']);
 
-    // compile less stylesheets to css
-    less: {
-      build: {
-        files: {
-          'dist/client/styles/style.css': 'client/styles/*.less'
-        }
-      }
-    },
+	// Debug task.
+	grunt.registerTask('debug', ['lint', 'concurrent:debug']);
 
-    // configure cssmin to minify css files
-    cssmin: {
-      build: {
-        files: {
-          'dist/client/styles/style.min.css': 'dist/client/styles/style.css'
-        }
-      }
-    },
+	// Secure task(s).
+	grunt.registerTask('secure', ['env:secure', 'lint', 'concurrent:default']);
 
-    // copy necessary files to our dist folder
-    copy: {
-      // create a task for client files
-      client: {
-        // Copy everything but the to-be-concatenated todo JS files
-        src: [ 'client/**', '!client/js/**', '!client/styles/**' ],
-        dest: 'dist/',
-      },
-      // create a task for server files
-      server: {
-        src: [ 'server/**' ],
-        dest: 'dist/'
-      }
-    },
+	// Lint task(s).
+	grunt.registerTask('lint', ['jshint', 'csslint']);
 
-    // concat all the js files
-    concat: {
-      client: {
-        files: {
-          // concat all the todo js files into one file
-          'dist/client/app-concat.js' : 'client/js/**'
-        }
-      }
-    },
+	// Build task(s).
+	grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);
 
-    // configure the server
-    express: {
-      dev: {
-        options: {
-          script: 'index.js'
-        }
-      }
-    },
-
-    // configure karma
-    karma: {
-      options: {
-        configFile: 'karma.conf.js',
-        reporters: ['progress', 'coverage']
-      },
-      // Watch configuration
-      watch: {
-        background: true,
-        reporters: ['progress']
-      },
-      // Single-run configuration for development
-      single: {
-        singleRun: true,
-      },
-      // Single-run configuration for CI
-      ci: {
-        singleRun: true,
-        coverageReporter: {
-          type: 'lcov',
-          dir: 'results/coverage/'
-        }
-      }
-    },
-
-    // configure casperjs
-    casperjs: {
-      options: {},
-      e2e: {
-        files: {
-          'results/casper': 'test/e2e/**/*.js'
-        }
-      }
-    },
-
-    // create a watch task for tracking
-    // any changes to the following files
-    watch: {
-      gruntfile: {
-        files: 'Gruntfile.js',
-        tasks: 'jshint:gruntfile'
-      },
-      client: {
-        files: [ 'client/**' ],
-        tasks: [ 'build', 'karma:watch:run', 'casperjs' ]
-      },
-      server: {
-        files: [ 'server/**' ],
-        tasks: [ 'build', 'express:dev', 'casperjs' ],
-        options: {
-          spawn: false // Restart server
-        }
-      },
-      unitTests: {
-        files: [ 'test/unit/**/*.js' ],
-        tasks: [ 'karma:watch:run' ]
-      },
-      integrationTests: {
-        files: [ 'test/integration/**/*.js' ],
-        tasks: [ 'karma:watch:run' ]
-      },
-      e2eTests: {
-        files: [ 'test/e2e/**/*.js' ],
-        tasks: [ 'casperjs' ]
-      }
-    },
-  });
-
-  // Perform a build
-  grunt.registerTask('build', [ 'jshint', 'clean', 'copy', 'concat', 'uglify']);
-
-  // Run e2e tests once
-  grunt.registerTask('teste2e', [ 'express:dev', 'casperjs' ]);
-
-  // Run client tests once
-  grunt.registerTask('testClient', [ 'karma:single' ]);
-
-  // Run all tests once
-  grunt.registerTask('test', [ 'testClient', 'teste2e']);
-
-  // Run all tests once
-  grunt.registerTask('ci', [ 'karma:ci', 'express:dev', 'casperjs' ]);
-
-  // Start watching and run tests when files change
-  // grunt.registerTask('default', [ 'build', 'express:dev', 'karma:watch:start', 'watch' ]);
-  grunt.registerTask('default', ['express:dev', 'karma:watch:start', 'watch' ]);
+	// Test task.
+	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
 };

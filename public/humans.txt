@@ -1,0 +1,16 @@
+# humanstxt.org/
+# The humans responsible & technology colophon
+
+# TEAM
+
+    Julie Knowles -- Product Owner
+    Victor Leung -- Development Team -- @victorleungtw
+
+# THANKS
+
+    Hack Reactor
+
+# TECHNOLOGY COLOPHON
+
+    HTML5, CSS3
+    jQuery, Modernizr
