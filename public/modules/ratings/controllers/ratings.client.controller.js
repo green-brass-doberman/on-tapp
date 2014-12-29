@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('ratings', ['firebase']).controller('RatingsController', ['$scope', 'breweries', '$firebase',
+angular.module('ratings').controller('RatingsController', ['$scope', 'Breweries', '$firebase',
 	function($scope, breweries, $firebase) {
 		// Controller Logic
 		// ...

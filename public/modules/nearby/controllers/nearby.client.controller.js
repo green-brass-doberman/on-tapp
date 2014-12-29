@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('nearby', ['uiGmapgoogle-maps', 'geolocation']).controller('NearbyController', ['$scope', 'breweries', 'geolocation', '$routeParams', 'uiGmapgoogle-maps',
-	function($scope, breweries, geolocation, $routeParams) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapgoogle-maps',
+	function($scope, breweries, geolocation, $stateParams) {
 		// Controller Logic
 		// ...
 

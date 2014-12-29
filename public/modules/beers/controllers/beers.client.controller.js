@@ -1,12 +1,12 @@
 'use strict';
 
-angular.module('beers').controller('BeersController', ['$scope', 'beers', '$routeParams',
-	function($scope, beers, $routeParams) {
+angular.module('beers').controller('BeersController', ['$scope', 'beers', '$stateParams',
+	function($scope, beers, $stateParams) {
 		// Controller Logic
 		// ...
 
     $scope.beers = [];
-    $scope.breweryId = $routeParams.breweryId;
+    $scope.breweryId = $stateParams.breweryId;
 
     var handleSuccess = function(data, status){
       $scope.beers = data.data;
