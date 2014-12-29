@@ -3,8 +3,8 @@
 // Init the application configuration module for AngularJS application
 var ApplicationConfiguration = (function() {
 	// Init module configuration options
-	var applicationModuleName = 'mean';
-	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils'];
+	var applicationModuleName = 'onTappApp';
+	var applicationModuleVendorDependencies = ['ngResource', 'ngAnimate', 'ui.router', 'ui.bootstrap', 'ui.utils', 'uiGmapgoogle-maps', 'geolocation', 'firebase'];
 
 	// Add a new vertical module
 	var registerModule = function(moduleName, dependencies) {
@@ -21,6 +21,7 @@ var ApplicationConfiguration = (function() {
 		registerModule: registerModule
 	};
 })();
+
 'use strict';
 
 //Start by defining the main module and adding the module dependencies
@@ -47,11 +48,26 @@ angular.element(document).ready(function() {
 ApplicationConfiguration.registerModule('articles');
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('beers');
+
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');
 'use strict';
 
-// Use Applicaion configuration module to register a new module
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('nearby', ['uiGmapgoogle-maps', 'geolocation']);
+
+'use strict';
+
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('ratings', ['firebase']);
+
+'use strict';
+
+// Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
 'use strict';
 
@@ -161,6 +177,61 @@ angular.module('articles').factory('Articles', ['$resource',
 		});
 	}
 ]);
+'use strict';
+
+//Setting up route
+angular.module('beers').config(['$stateProvider',
+	function($stateProvider) {
+		// Beers state routing
+		$stateProvider.
+		state('beers', {
+			url: '/beers',
+			templateUrl: 'modules/beers/views/beers.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('beers').controller('BeersController', ['$scope', 'beers', '$routeParams',
+	function($scope, beers, $routeParams) {
+		// Controller Logic
+		// ...
+
+    $scope.beers = [];
+    $scope.breweryId = $routeParams.breweryId;
+
+    var handleSuccess = function(data, status){
+      $scope.beers = data.data;
+    };
+
+    // send the brewery id
+    beers.getData($scope.breweryId).success(handleSuccess);
+
+    $scope.status = {
+      isItemOpen: new Array($scope.beers.length),
+      isFirstDisabled: false
+    };
+
+    $scope.status.isItemOpen[0] = true;
+	}
+]);
+
+'use strict';
+
+angular.module('beers').factory('Beers', [
+	function($http) {
+		// Beers service logic
+		// ...
+
+		// Public API
+		return {
+      getData: function(breweryId){
+        return $http.get('/beers/' + breweryId);
+      }
+    };
+	}
+]);
+
 'use strict';
 
 // Setting up route
@@ -370,6 +441,227 @@ angular.module('core').service('Menus', [
 		this.addMenu('topbar');
 	}
 ]);
+'use strict';
+
+//Setting up route
+angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
+	function($stateProvider, uiGmapGoogleMapApiProvider) {
+		// Nearby state routing
+		$stateProvider.
+		state('nearby', {
+			url: '/nearby',
+			templateUrl: 'modules/nearby/views/nearby.client.view.html'
+		});
+
+    uiGmapGoogleMapApiProvider.configure({
+      key: 'AIzaSyAQHm36O2gZr34HkBjElKYHox3LVWR8UWY',
+      v: '3.17',
+      libraries: 'weather,geometry,visualization'
+    });
+	}
+]);
+
+'use strict';
+
+angular.module('nearby', ['uiGmapgoogle-maps', 'geolocation']).controller('NearbyController', ['$scope', 'breweries', 'geolocation', '$routeParams', 'uiGmapgoogle-maps',
+	function($scope, breweries, geolocation, $routeParams) {
+		// Controller Logic
+		// ...
+
+    $scope.breweries = [];
+    $scope.coords = {};
+
+    geolocation.getLocation().then(function(data){
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 10};
+      breweries.getData($scope.coords).success(handleSuccess);
+    });
+
+    var handleSuccess = function(data, status){
+      $scope.breweries = data.data;
+      placeMarker();
+    };
+
+    //breweries.getData($scope.coords).success(handleSuccess);
+
+    $scope.status = {
+      isItemOpen: new Array($scope.breweries.length),
+      isFirstDisabled: false
+    };
+
+    $scope.status.isItemOpen[0] = true;
+
+    // render Google map and set center at San Francisco by default
+    //$scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 12};
+
+    $scope.options = {scrollwheel: false};
+
+    var createMarker = function (i, lat, lng, name, idKey) {
+      if (idKey === undefined) {
+        idKey = 'id';
+      }
+
+      var latitude = lat;
+      var longitude = lng;
+      var ret = {
+          latitude: latitude,
+          longitude: longitude,
+          title: name,
+          show: false
+      };
+      ret.onClick = function() {
+          ret.show = !ret.show;
+      };
+      ret[idKey] = i;
+
+      return ret;
+    };
+
+    $scope.allMarkers = [];
+
+
+    var placeMarker = function(){
+      var markers = [];
+      for (var i = 0; i < $scope.breweries.length; i++) {
+        var lat = $scope.breweries[i].latitude;
+        var lng = $scope.breweries[i].longitude;
+        var name = $scope.breweries[i].brewery.name;
+        markers.push(createMarker(i, lat, lng, name));
+      }
+      $scope.allMarkers = markers;
+    };
+
+    // $scope.getCurrentLocation = function(){
+    //   geolocation.getLocation().then(function(data){
+    //     $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+    //     $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 14};
+    //   });
+    // };
+	}
+]);
+
+'use strict';
+
+angular.module('nearby').factory('Breweries', [
+	function($http) {
+		// Breweries service logic
+		// ...
+
+		// Public API
+		return {
+      getData: function(coords){
+        return $http.get('/breweries/' + coords.lat + '/' + coords.long);
+      }
+    };
+	}
+]);
+
+'use strict';
+
+//Setting up route
+angular.module('ratings').config(['$stateProvider',
+	function($stateProvider) {
+		// Ratings state routing
+		$stateProvider.
+		state('ratings', {
+			url: '/ratings',
+			templateUrl: 'modules/ratings/views/ratings.client.view.html'
+		});
+	}
+]);
+'use strict';
+
+angular.module('ratings', ['firebase']).controller('RatingsController', ['$scope', 'breweries', '$firebase',
+	function($scope, breweries, $firebase) {
+		// Controller Logic
+		// ...
+
+    $scope.rate = 0;
+    $scope.max = 5;
+    $scope.isReadonly = false;
+
+    var allBreweries = [];
+
+    var handleSuccess = function(data, status){
+      allBreweries = data.data;
+      $scope.addSlide();
+    };
+
+    breweries.getData().success(handleSuccess);
+
+    $scope.hoveringOver = function(value) {
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };
+
+    $scope.ratingStates = [
+      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+    ];
+
+    $scope.myInterval = 0;
+
+    var slides = $scope.slides = [];
+
+    $scope.addSlide = function() {
+      var newWidth = 600 + slides.length + 1;
+
+      for (var i = 0; i < allBreweries.length; i++) {
+          slides.push({
+          image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
+          text: allBreweries[i].brewery.name
+        });
+      }
+    };
+
+    $scope.addSlide();
+
+    $scope.saveRating = function(){
+      var brewery = allBreweries[0];
+      brewery.ratings = $scope.percent;
+    };
+
+    // connect to firebase
+    var ref = new Firebase('https://on-tapp.firebaseio.com/ratings');
+
+    var fb = $firebase(ref);
+
+    // function to set the default data
+    $scope.reset = function() {
+
+      $scope.rate = 0;
+
+      fb.$set({
+        xxxx: {
+          name: 'XXXX Brewery',
+          ratings: {
+            stars: {
+              number: '0',
+              rated: false
+            }
+          }
+        },
+        yyyy: {
+          name: 'YYYY Brewery',
+          ratings: {
+            stars: {
+              number: '0',
+              rated: false
+            }
+          }
+        }
+      });
+
+    };
+
+    // sync as object
+    var syncObject = fb.$asObject();
+
+    // three way data binding
+    syncObject.$bindTo($scope, 'ratings');
+
+	}
+]);
+
 'use strict';
 
 // Config HTTP Error Handling

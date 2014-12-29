@@ -57,7 +57,7 @@
 	</script>
 
 	<!--Application JavaScript Files-->
-	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %} 
+	{% for jsFile in jsFiles %}<script type="text/javascript" src="{{jsFile}}"></script>{% endfor %}
 
 	{% if process.env.NODE_ENV === 'development' %}
 	<!--Livereload script rendered -->
@@ -72,6 +72,27 @@
 		<p><a href="http://browsehappy.com" class="btn btn-primary btn-lg" role="button">Yes, upgrade my browser!</a></p>
 	</section>
 	<![endif]-->
+
+      <footer class="footer">
+      <div class="container">
+        <p class="text-muted">&copy; <a href="https://green-brass-doberman.github.io/" target="blank">Green Brass Doberman</a> 2015</p>
+
+      </div>
+    </footer>
+
+    <!-- Bootstrap core JavaScript
+    ================================================== -->
+    <!-- Placed at the end of the document so the pages load faster -->
+    <script src="/lib/jquery/dist/jquery.min.js"></script>
+    <script src="/lib/bootstrap/dist/js/bootstrap.min.js"></script>
+
+    <!-- load angular, firebase and other dependencies-->
+    <script src="/lib/angular-bootstrap/ui-bootstrap-tpls.min.js"></script>
+    <script src="/lib/lodash/dist/lodash.min.js"></script>
+    <script src="/lib/angular-google-maps/dist/angular-google-maps.min.js"></script>
+    <script src="/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js"></script>
+    <script src="/lib/firebase/firebase.js"></script>
+    <script src="/lib/angularfire/dist/angularfire.min.js"></script>
 </body>
 
 </html>
