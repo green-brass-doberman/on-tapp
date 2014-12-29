@@ -1,6 +1,6 @@
 {
   "name": "on-tapp",
-  "version": "0.0.1",
+  "version": "0.0.2",
   "description": "HRR2 Thesis Project",
   "main": "index.js",
   "scripts": {

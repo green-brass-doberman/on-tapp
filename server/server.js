@@ -28,17 +28,19 @@ app.use(bodyParser.urlencoded({'extended':'true'}));
 // parse application/json
 app.use(bodyParser.json());
 
-app.get('/breweries', function(req, res){
-  request('https://api.brewerydb.com/v2/search/geo/point?lat=37.7833&lng=-122.4167&key='+secret.keys.brewerydb +'&format=json', function (error, response, body) {
+// lat and lng contain the current location latitude and longitude to allow listing
+// of nearby breweries
+app.get('/breweries/:lat/:lng', function(req, res){
+  request('https://api.brewerydb.com/v2/search/geo/point?lat=' + req.params.lat + '&lng=' + req.params.lng + '&key=' + secret.keys.brewerydb, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       res.send(body);
     }
   });
 });
 
-// hard coded for AleSmith Brewing Company in San Diego (id=ygAzC9)
-app.get('/beers', function(req, res){
-  request('https://api.brewerydb.com/v2/brewery/ygAzC9/beers?key='+secret.keys.brewerydb +'&format=json', function (error, response, body) {
+// breweryId contains the id of the brewery to allow listing of beers
+app.get('/beers/:breweryId', function(req, res){
+  request('https://api.brewerydb.com/v2/brewery/' + req.params.breweryId + '/beers?key=' + secret.keys.brewerydb, function (error, response, body) {
     if (!error && response.statusCode === 200) {
       res.send(body);
     }
