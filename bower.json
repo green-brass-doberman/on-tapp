@@ -1,16 +1,40 @@
 {
-	"name": "meanjs",
-	"version": "0.3.2",
-	"description": "Fullstack JavaScript with MongoDB, Express, AngularJS, and Node.js.",
-	"dependencies": {
-		"bootstrap": "~3",
-		"angular": "~1.2",
-		"angular-resource": "~1.2",
-		"angular-animate": "~1.2",
-		"angular-mocks": "~1.2",
-		"angular-bootstrap": "~0.11.2",
-		"angular-bootstrap": "~0.12.0",
-		"angular-ui-utils": "~0.1.1",
-		"angular-ui-router": "~0.2.11" 
-	}
+  "name": "on-tapp",
+  "version": "0.3.2",
+  "description": "HRR2 Thesis Project",
+  "homepage": "https://github.com/green-brass-doberman/on-tapp",
+  "main": "server.js",
+  "keywords": [
+    "beer",
+    "recommendations"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "public/lib",
+    "test",
+    "tests"
+  ],
+  "authors": [
+    "Julie",
+    "Patrick",
+    "Victor"
+  ],
+  "dependencies": {
+    "bootstrap": "~3",
+    "angular": "~1.2",
+    "angular-resource": "~1.2",
+    "angular-animate": "~1.2",
+    "angular-mocks": "~1.2",
+    "angular-bootstrap": "~0.12.0",
+    "angular-ui-utils": "~0.1.1",
+    "angular-ui-router": "~0.2.11",
+    "fontawesome": "~4.2.0",
+    "angular-google-maps": "~2.0.12",
+    "angularjs-geolocation": "~0.1.1",
+    "angularfire": "~0.9.0",
+    "firebase": "~2.0.6"
+  }
 }
