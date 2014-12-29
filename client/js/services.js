@@ -1,16 +1,16 @@
 angular.module('onTappApp.services', [])
   .factory('breweries', function($http){
     return {
-      getData: function(){
-        return $http.get('/breweries');
+      getData: function(coords){
+        return $http.get('/breweries/' + coords.lat + '/' + coords.long);
       }
     };
   })
 
   .factory('beers', function($http){
     return {
-      getData: function(){
-        return $http.get('/beers');
+      getData: function(breweryId){
+        return $http.get('/beers/' + breweryId);
       }
     };
   });

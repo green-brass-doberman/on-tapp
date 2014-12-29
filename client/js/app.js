@@ -28,7 +28,7 @@ onTappApp.config(function($routeProvider, uiGmapGoogleMapApiProvider) {
     })
 
     // route for the beers page
-    .when('/beers', {
+    .when('/beers/:breweryId', {
       templateUrl : 'pages/beers.html',
       controller  : 'BeersController'
     })
