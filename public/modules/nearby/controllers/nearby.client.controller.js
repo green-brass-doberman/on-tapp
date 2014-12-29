@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapgoogle-maps',
-	function($scope, breweries, geolocation, $stateParams) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams',
+	function($scope, Breweries, geolocation, $stateParams) {
 		// Controller Logic
 		// ...
 
@@ -11,7 +11,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     geolocation.getLocation().then(function(data){
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 10};
-      breweries.getData($scope.coords).success(handleSuccess);
+      Breweries.getData($scope.coords).success(handleSuccess);
     });
 
     var handleSuccess = function(data, status){

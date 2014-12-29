@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('nearby').factory('Breweries', [
+angular.module('nearby').factory('Breweries', ['$http',
 	function($http) {
 		// Breweries service logic
 		// ...
