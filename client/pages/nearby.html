@@ -30,7 +30,7 @@
               <div ng-if="brewery.brewery.isOrganic == 'Y'">
                 <p class="right">Certified Organic</p>
               </div>
-              <p class="right"><a href="#/beers">List Beers</a></p>
+              <p><a class="btn btn-info btn-sm pull-right" href="#/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
             </div>
             <div class="col-md-9">
               <p class="content">{{brewery.brewery.description}}</p>
