@@ -9,8 +9,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     $scope.coords = {};
 
     geolocation.getLocation().then(function(data){
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      // $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
+      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
 
       // current location marker
       $scope.marker.coords.latitude = $scope.coords.lat;
@@ -22,7 +22,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     var handleSuccess = function(data, status){
       $scope.breweries = data.data;
-      console.log(data);
       placeMarker();
     };
 
@@ -52,6 +51,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
           ret.show = !ret.show;
       };
       ret[idKey] = i;
+
+      ret.icon = '/modules/nearby/images/beer-icon.png';
 
       return ret;
     };
