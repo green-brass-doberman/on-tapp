@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('beers').controller('BeersController', ['$scope', 'beers', '$stateParams',
-	function($scope, beers, $stateParams) {
+angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stateParams',
+	function($scope, Beers, $stateParams) {
 		// Controller Logic
 		// ...
 
@@ -13,7 +13,7 @@ angular.module('beers').controller('BeersController', ['$scope', 'beers', '$stat
     };
 
     // send the brewery id
-    beers.getData($scope.breweryId).success(handleSuccess);
+    Beers.getData($scope.breweryId).success(handleSuccess);
 
     $scope.status = {
       isItemOpen: new Array($scope.beers.length),
