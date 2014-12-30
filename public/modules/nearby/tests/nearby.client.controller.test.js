@@ -50,9 +50,10 @@
 			});
 		}));
 
-		it('Should do some controller test', inject(function() {
-			// The test logic
-			// ...
-		}));
+
+    it('Should have an array to store markers', inject(function() {
+      expect(scope.allMarkers).toBeArray();
+    }));
+
 	});
 }());

@@ -2,7 +2,7 @@
 
 module.exports = {
 	app: {
-		title: 'On Tapp',
+		title: 'OnTapp',
 		description: 'Hack Reactor Thesis Project',
 		keywords: 'mongodb, express, angularjs, node.js, mongoose, passport'
 	},

@@ -9,7 +9,7 @@ var applicationConfiguration = require('./config/config');
 module.exports = function(config) {
 	config.set({
 		// Frameworks to use
-		frameworks: ['jasmine'],
+		frameworks: ['jasmine', 'jasmine-matchers'],
 
 		// List of files / patterns to load in the browser
 		files: applicationConfiguration.assets.lib.js.concat(applicationConfiguration.assets.js, applicationConfiguration.assets.tests),
