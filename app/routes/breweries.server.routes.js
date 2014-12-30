@@ -10,7 +10,6 @@ module.exports = function(app) {
   app.get('/breweries/:lat/:lng', function(req, res){
     request('https://api.brewerydb.com/v2/search/geo/point?lat=' + req.params.lat + '&lng=' + req.params.lng + '&key=' + secret.keys.brewerydb, function (error, response, body) {
       if (!error && response.statusCode === 200) {
-        console.log(req.params.lat, req.params.lng, secret.keys.brewerydb, body);
         res.send(body);
       }
     });
