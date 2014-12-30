@@ -7,7 +7,6 @@
 ## Team
 
   - __Product Owner__: [Julie Knowles](https://github.com/JulieMarie)
-  - __Scrum Master__: [Pactrick McPike](https://github.com/mcpike)
   - __Development Team Members__: [Victor Leung](https://github.com/victorleungtw)
 
 ## Table of Contents
@@ -22,11 +21,14 @@
 
 ## Usage
 
-> For demo, please visit: [https://on-tapp.herokuapp.com/](https://on-tapp.herokuapp.com/)
+> For demo, please visit: [https://on-tapp.herokuapp.com/](https://on-tapp.herokuapp.com/) or [http://ontappapp.azurewebsites.net/](http://ontappapp.azurewebsites.net/)
 
 ## Requirements
 
-- TBC
+- Node.js & npm
+- MongoDB
+- Bower
+- Grunt
 
 ## Development
 
@@ -35,9 +37,8 @@
 From within the root directory:
 
 ```sh
-bower install
 npm install
-npm start
+grunt
 ```
 
 ### Roadmap
