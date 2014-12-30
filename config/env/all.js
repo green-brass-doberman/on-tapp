@@ -2,8 +2,8 @@
 
 module.exports = {
 	app: {
-		title: 'MEAN.JS',
-		description: 'Full-Stack JavaScript with MongoDB, Express, AngularJS, and Node.js',
+		title: 'On Tapp',
+		description: 'Hack Reactor Thesis Project',
 		keywords: 'mongodb, express, angularjs, node.js, mongoose, passport'
 	},
 	port: process.env.PORT || 3000,
@@ -14,7 +14,7 @@ module.exports = {
 	// The name of the MongoDB collection to store sessions in
 	sessionCollection: 'sessions',
 	// The session cookie settings
-	sessionCookie: { 
+	sessionCookie: {
 		path: '/',
 		httpOnly: true,
 		// If secure is set to true then it will cause the cookie to be set
@@ -25,7 +25,7 @@ module.exports = {
 		// Only set the maxAge to null if the cookie shouldn't be expired
 		// at all. The cookie will expunge when the browser is closed.
 		maxAge: null,
-		// To set the cookie in a specific domain uncomment the following 
+		// To set the cookie in a specific domain uncomment the following
 		// setting:
 		// domain: 'yourdomain.com'
 	},
@@ -52,7 +52,12 @@ module.exports = {
 				'public/lib/angular-animate/angular-animate.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
+        'public/lib/lodash/dist/lodash.min.js',
+        'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
+        'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
+        'public/lib/firebase/firebase.js',
+        'public/lib/angularfire/dist/angularfire.min.js'
 			]
 		},
 		css: [
