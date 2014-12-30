@@ -12,11 +12,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       // $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
 
-      // current location marker
-      $scope.marker.coords.latitude = $scope.coords.lat;
-      $scope.marker.coords.longitude = $scope.coords.long;
-
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 10};
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
+      curLocationMarker();
       Breweries.getData($scope.coords).success(handleSuccess);
     });
 
@@ -32,33 +29,29 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     $scope.status.isItemOpen[0] = true;
 
-    $scope.options = {scrollwheel: false};
-
-    var createMarker = function (i, lat, lng, name, idKey) {
-      if (idKey === undefined) {
-        idKey = 'id';
-      }
-
-      var latitude = lat;
-      var longitude = lng;
-      var ret = {
-          latitude: latitude,
-          longitude: longitude,
-          title: name,
-          show: false
+    var curLocationMarker = function(){
+      $scope.marker = {
+        id: 'curLoc',
+        coords: {
+          latitude: $scope.coords.lat,
+          longitude: $scope.coords.long,
+        },
+        options: { title: 'My Location' }
       };
-      ret.onClick = function() {
-          ret.show = !ret.show;
-      };
-      ret[idKey] = i;
-
-      ret.icon = '/modules/nearby/images/beer-icon.png';
-
-      return ret;
     };
 
     $scope.allMarkers = [];
 
+    var createMarker = function (i, lat, lng, name) {
+      var ret = {
+        id: i,
+        latitude: lat,
+        longitude: lng,
+        options: { title: name },
+        icon: '/modules/nearby/images/beer-icon.png'
+      };
+      return ret;
+    };
 
     var placeMarker = function(){
       var markers = [];
@@ -69,23 +62,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         markers.push(createMarker(i, lat, lng, name));
       }
       $scope.allMarkers = markers;
-    };
-
-    // $scope.getCurrentLocation = function(){
-    //   geolocation.getLocation().then(function(data){
-    //     $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-    //     $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 14};
-    //   });
-    // };
-
-    // initiate current location marker
-    $scope.marker = {
-      id: 0,
-      coords: {
-        latitude: null,
-        longitude: null
-      },
-      options: { draggable: false },
     };
   }
 ]);
