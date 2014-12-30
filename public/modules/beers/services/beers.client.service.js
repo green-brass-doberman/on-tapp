@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('beers').factory('Beers', [
+angular.module('beers').factory('Beers', ['$http',
 	function($http) {
 		// Beers service logic
 		// ...
