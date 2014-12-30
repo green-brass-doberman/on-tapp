@@ -53,3 +53,10 @@ local.properties
 *.swp
 logs/
 build/
+
+# Misc
+# ====
+.bash_profile
+mockups.pdf
+public/assets/
+results/
