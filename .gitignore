@@ -60,3 +60,4 @@ build/
 mockups.pdf
 public/assets/
 results/
+*.publishsettings
