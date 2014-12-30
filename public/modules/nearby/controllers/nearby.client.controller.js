@@ -12,13 +12,16 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       // $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
 
+      // current location marker
+      $scope.marker.coords.latitude = $scope.coords.lat;
+      $scope.marker.coords.longitude = $scope.coords.long;
+
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 10};
       Breweries.getData($scope.coords).success(handleSuccess);
     });
 
     var handleSuccess = function(data, status){
       $scope.breweries = data.data;
-      console.log(data);
       placeMarker();
     };
 
@@ -49,6 +52,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       };
       ret[idKey] = i;
 
+      ret.icon = '/modules/nearby/images/beer-icon.png';
+
       return ret;
     };
 
@@ -72,5 +77,15 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     //     $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 14};
     //   });
     // };
-	}
+
+    // initiate current location marker
+    $scope.marker = {
+      id: 0,
+      coords: {
+        latitude: null,
+        longitude: null
+      },
+      options: { draggable: false },
+    };
+  }
 ]);
