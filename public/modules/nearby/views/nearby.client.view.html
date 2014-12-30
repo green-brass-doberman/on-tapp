@@ -19,7 +19,7 @@
       <accordion>
         <accordion-group ng-repeat="brewery in breweries | orderBy: 'distance'" is-open="status.isItemOpen[$index]">
           <accordion-heading>
-            {{brewery.brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}}</span>
+            {{brewery.brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}} miles</span>
           </accordion-heading>
             <div class="row">
               <div class="col-md-3">
@@ -31,7 +31,7 @@
                 <div ng-if="brewery.brewery.isOrganic == 'Y'">
                   <p class="right">Certified Organic</p>
                 </div>
-                <p><a class="btn btn-info btn-sm pull-right" href="#/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
+                <p><a class="btn btn-info btn-sm pull-right" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
               </div>
               <div class="col-md-9">
                 <p class="content">{{brewery.brewery.description}}</p>

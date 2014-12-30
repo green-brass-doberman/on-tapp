@@ -10,16 +10,17 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     geolocation.getLocation().then(function(data){
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 10};
+      // $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
+
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 10};
       Breweries.getData($scope.coords).success(handleSuccess);
     });
 
     var handleSuccess = function(data, status){
       $scope.breweries = data.data;
+      console.log(data);
       placeMarker();
     };
-
-    //breweries.getData($scope.coords).success(handleSuccess);
 
     $scope.status = {
       isItemOpen: new Array($scope.breweries.length),
@@ -27,9 +28,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     };
 
     $scope.status.isItemOpen[0] = true;
-
-    // render Google map and set center at San Francisco by default
-    //$scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 12};
 
     $scope.options = {scrollwheel: false};
 
