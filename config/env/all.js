@@ -44,7 +44,7 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
-				'public/lib/bootstrap/dist/css/bootstrap-theme.css',
+				// 'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/fontawesome/css/font-awesome.css',
         'public/modules/core/css/flat-ui.css'
 			],
