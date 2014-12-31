@@ -44,10 +44,6 @@ angular.element(document).ready(function() {
 });
 'use strict';
 
-// Use Applicaion configuration module to register a new module
-ApplicationConfiguration.registerModule('articles');
-'use strict';
-
 // Use application configuration module to register a new module
 ApplicationConfiguration.registerModule('beers');
 
@@ -71,158 +67,92 @@ ApplicationConfiguration.registerModule('ratings', ['firebase']);
 ApplicationConfiguration.registerModule('users');
 'use strict';
 
-// Configuring the Articles module
-angular.module('articles').run(['Menus',
-	function(Menus) {
-		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Articles', 'articles', 'dropdown', '/articles(/create)?');
-		Menus.addSubMenuItem('topbar', 'articles', 'List Articles', 'articles');
-		Menus.addSubMenuItem('topbar', 'articles', 'New Article', 'articles/create');
-	}
-]);
-'use strict';
-
-// Setting up route
-angular.module('articles').config(['$stateProvider',
-	function($stateProvider) {
-		// Articles state routing
-		$stateProvider.
-		state('listArticles', {
-			url: '/articles',
-			templateUrl: 'modules/articles/views/list-articles.client.view.html'
-		}).
-		state('createArticle', {
-			url: '/articles/create',
-			templateUrl: 'modules/articles/views/create-article.client.view.html'
-		}).
-		state('viewArticle', {
-			url: '/articles/:articleId',
-			templateUrl: 'modules/articles/views/view-article.client.view.html'
-		}).
-		state('editArticle', {
-			url: '/articles/:articleId/edit',
-			templateUrl: 'modules/articles/views/edit-article.client.view.html'
-		});
-	}
-]);
-'use strict';
-
-angular.module('articles').controller('ArticlesController', ['$scope', '$stateParams', '$location', 'Authentication', 'Articles',
-	function($scope, $stateParams, $location, Authentication, Articles) {
-		$scope.authentication = Authentication;
-
-		$scope.create = function() {
-			var article = new Articles({
-				title: this.title,
-				content: this.content
-			});
-			article.$save(function(response) {
-				$location.path('articles/' + response._id);
-
-				$scope.title = '';
-				$scope.content = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
-		$scope.remove = function(article) {
-			if (article) {
-				article.$remove();
-
-				for (var i in $scope.articles) {
-					if ($scope.articles[i] === article) {
-						$scope.articles.splice(i, 1);
-					}
-				}
-			} else {
-				$scope.article.$remove(function() {
-					$location.path('articles');
-				});
-			}
-		};
-
-		$scope.update = function() {
-			var article = $scope.article;
-
-			article.$update(function() {
-				$location.path('articles/' + article._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
-		$scope.find = function() {
-			$scope.articles = Articles.query();
-		};
-
-		$scope.findOne = function() {
-			$scope.article = Articles.get({
-				articleId: $stateParams.articleId
-			});
-		};
-	}
-]);
-'use strict';
-
-//Articles service used for communicating with the articles REST endpoints
-angular.module('articles').factory('Articles', ['$resource',
-	function($resource) {
-		return $resource('articles/:articleId', {
-			articleId: '@_id'
-		}, {
-			update: {
-				method: 'PUT'
-			}
-		});
-	}
-]);
-'use strict';
-
 //Setting up route
 angular.module('beers').config(['$stateProvider',
 	function($stateProvider) {
 		// Beers state routing
 		$stateProvider.
 		state('beers', {
-			url: '/beers',
+			url: '/beers/:breweryId',
 			templateUrl: 'modules/beers/views/beers.client.view.html'
 		});
 	}
 ]);
+
 'use strict';
 
-angular.module('beers').controller('BeersController', ['$scope', 'beers', '$routeParams',
-	function($scope, beers, $routeParams) {
-		// Controller Logic
-		// ...
+angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stateParams',
+	function($scope, Beers, $stateParams) {
+
+    // sort the given collection on the given property
+    function sortOn(collection, name) {
+      collection.sort(
+        function(a, b) {
+          if (a[name] <= b[name]) {
+            return(-1);
+          }
+          return(1);
+        }
+      );
+    }
+
+    // group the beers list on the given property
+    $scope.groupBy = function(attribute) {
+      // First, reset the groups.
+      $scope.groups = [];
+
+      // Now, sort the collection of beers on the grouping-property. 
+      // This just makes it easier to split the collection.
+      sortOn($scope.beers, attribute);
+
+      // I determine which group we are currently in.
+      var groupValue = "_INVALID_GROUP_VALUE_";
+
+      // As we loop over each beer, add it to the current group -
+      // we'll create a NEW group every time we come across a new attribute value.
+      for (var i = 0; i < $scope.beers.length; i++) {
+        var beer = $scope.beers[i];
+
+        // Should we create a new group?
+        if (beer[attribute] !== groupValue) {
+          var group = {
+            label: beer[attribute],
+            beers: []
+          };
+          groupValue = group.label;
+          $scope.groups.push(group);
+        }
+
+        // Add the friend to the currently active grouping.
+        group.beers.push(beer);
+      }
+    };
 
     $scope.beers = [];
-    $scope.breweryId = $routeParams.breweryId;
+    $scope.groups = [];
+    $scope.breweryId = $stateParams.breweryId;
 
     var handleSuccess = function(data, status){
       $scope.beers = data.data;
+      $scope.groupBy('availableId');
     };
 
     // send the brewery id
-    beers.getData($scope.breweryId).success(handleSuccess);
+    Beers.getData($scope.breweryId).success(handleSuccess);
 
-    $scope.status = {
-      isItemOpen: new Array($scope.beers.length),
-      isFirstDisabled: false
-    };
+    // $scope.status = {
+    //   isItemOpen: new Array($scope.beers.length),
+    //   isFirstDisabled: false
+    // };
 
-    $scope.status.isItemOpen[0] = true;
+    // $scope.status.isItemOpen[0] = true;
 	}
 ]);
 
 'use strict';
 
-angular.module('beers').factory('Beers', [
+angular.module('beers').factory('Beers', ['$http',
 	function($http) {
-		// Beers service logic
-		// ...
-
 		// Public API
 		return {
       getData: function(breweryId){
@@ -463,8 +393,8 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 
 'use strict';
 
-angular.module('nearby', ['uiGmapgoogle-maps', 'geolocation']).controller('NearbyController', ['$scope', 'breweries', 'geolocation', '$routeParams', 'uiGmapgoogle-maps',
-	function($scope, breweries, geolocation, $routeParams) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams',
+	function($scope, Breweries, geolocation, $stateParams) {
 		// Controller Logic
 		// ...
 
@@ -472,17 +402,18 @@ angular.module('nearby', ['uiGmapgoogle-maps', 'geolocation']).controller('Nearb
     $scope.coords = {};
 
     geolocation.getLocation().then(function(data){
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 10};
-      breweries.getData($scope.coords).success(handleSuccess);
+      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
+
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
+      curLocationMarker();
+      Breweries.getData($scope.coords).success(handleSuccess);
     });
 
     var handleSuccess = function(data, status){
       $scope.breweries = data.data;
       placeMarker();
     };
-
-    //breweries.getData($scope.coords).success(handleSuccess);
 
     $scope.status = {
       isItemOpen: new Array($scope.breweries.length),
@@ -491,34 +422,29 @@ angular.module('nearby', ['uiGmapgoogle-maps', 'geolocation']).controller('Nearb
 
     $scope.status.isItemOpen[0] = true;
 
-    // render Google map and set center at San Francisco by default
-    //$scope.map = { center: { latitude: 37.7833, longitude: -122.4167 }, zoom: 12};
-
-    $scope.options = {scrollwheel: false};
-
-    var createMarker = function (i, lat, lng, name, idKey) {
-      if (idKey === undefined) {
-        idKey = 'id';
-      }
-
-      var latitude = lat;
-      var longitude = lng;
-      var ret = {
-          latitude: latitude,
-          longitude: longitude,
-          title: name,
-          show: false
+    var curLocationMarker = function(){
+      $scope.marker = {
+        id: 'curLoc',
+        coords: {
+          latitude: $scope.coords.lat,
+          longitude: $scope.coords.long,
+        },
+        options: { title: 'My Location' }
       };
-      ret.onClick = function() {
-          ret.show = !ret.show;
-      };
-      ret[idKey] = i;
-
-      return ret;
     };
 
     $scope.allMarkers = [];
 
+    var createMarker = function (i, lat, lng, name) {
+      var ret = {
+        id: i,
+        latitude: lat,
+        longitude: lng,
+        options: { title: name },
+        icon: '/modules/nearby/images/beer-icon.png'
+      };
+      return ret;
+    };
 
     var placeMarker = function(){
       var markers = [];
@@ -530,19 +456,12 @@ angular.module('nearby', ['uiGmapgoogle-maps', 'geolocation']).controller('Nearb
       }
       $scope.allMarkers = markers;
     };
-
-    // $scope.getCurrentLocation = function(){
-    //   geolocation.getLocation().then(function(data){
-    //     $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-    //     $scope.map = { center: { latitude: data.coords.latitude, longitude: data.coords.longitude }, zoom: 14};
-    //   });
-    // };
-	}
+  }
 ]);
 
 'use strict';
 
-angular.module('nearby').factory('Breweries', [
+angular.module('nearby').factory('Breweries', ['$http',
 	function($http) {
 		// Breweries service logic
 		// ...
@@ -571,7 +490,7 @@ angular.module('ratings').config(['$stateProvider',
 ]);
 'use strict';
 
-angular.module('ratings', ['firebase']).controller('RatingsController', ['$scope', 'breweries', '$firebase',
+angular.module('ratings').controller('RatingsController', ['$scope', 'Breweries', '$firebase',
 	function($scope, breweries, $firebase) {
 		// Controller Logic
 		// ...
@@ -587,7 +506,7 @@ angular.module('ratings', ['firebase']).controller('RatingsController', ['$scope
       $scope.addSlide();
     };
 
-    breweries.getData().success(handleSuccess);
+    breweries.getData({lat:37.7833, long:-122.4167}).success(handleSuccess);
 
     $scope.hoveringOver = function(value) {
       $scope.overStar = value;
@@ -659,6 +578,22 @@ angular.module('ratings', ['firebase']).controller('RatingsController', ['$scope
     // three way data binding
     syncObject.$bindTo($scope, 'ratings');
 
+	}
+]);
+
+'use strict';
+
+angular.module('ratings').factory('Breweries', ['$http',
+	function($http) {
+		// Breweries service logic
+		// ...
+
+		// Public API
+		return {
+      getData: function(coords){
+        return $http.get('/breweries/' + coords.lat + '/' + coords.long);
+      }
+    };
 	}
 ]);
 
