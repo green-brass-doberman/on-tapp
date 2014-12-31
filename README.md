@@ -7,7 +7,7 @@
 ## Team
 
   - __Product Owner__: [Julie Knowles](https://github.com/JulieMarie)
-  - __Development Team Members__: [Victor Leung](https://github.com/victorleungtw)
+  - __Scrum Master__: [Victor Leung](https://github.com/victorleungtw)
 
 ## Table of Contents
 
