@@ -1,4 +1,4 @@
-<div class="container-fluid" data-ng-controller="HeaderController">
+<div class="container" data-ng-controller="HeaderController">
 	<div class="navbar-header">
 		<button class="navbar-toggle" type="button" data-ng-click="toggleCollapsibleMenu()">
 			<span class="sr-only">Toggle navigation</span>
@@ -11,9 +11,9 @@
 	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
 		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
 
-      <li><a href="#!/nearby">Nearby</a></li>
-      <li><a href="#!/ratings">Ratings</a></li>
-      <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank">About</a></li>
+      <li><a href="#!/nearby"><i class="fa fa-map-marker"></i> Nearby</a></li>
+      <li><a href="#!/ratings"><i class="fa fa-star"></i> Ratings</a></li>
+      <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank"><i class="fa fa-users"></i> About</a></li>
 
 <!--       <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
 				<a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle>
