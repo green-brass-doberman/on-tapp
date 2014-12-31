@@ -1,5 +1,5 @@
 <section data-ng-controller="NearbyController">
-  <div class="container">
+  <div class="container-fluid">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
       <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" click="'onClick'">
       <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
@@ -15,11 +15,11 @@
     </ui-gmap-google-map>
 
     <hr>
-
+<!--
     <button class="btn btn-success btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
     <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
 
-    <hr>
+    <hr> -->
 
     <div class="container">
       <accordion>
@@ -45,7 +45,7 @@
               </div>
               <div class="col-md-8">
                 <p class="content">{{brewery.brewery.description}}</p>
-                <p><a class="btn btn-success pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>
+                <p><a class="btn btn-primary pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>
               </div>
             </div>
         </accordion-group>
