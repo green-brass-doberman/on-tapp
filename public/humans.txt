@@ -4,7 +4,7 @@
 # TEAM
 
     Julie Knowles -- Product Owner
-    Victor Leung -- Development Team -- @victorleungtw
+    Victor Leung -- Scrum Master -- @victorleungtw
 
 # THANKS
 
