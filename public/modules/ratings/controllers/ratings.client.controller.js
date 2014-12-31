@@ -16,7 +16,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', 'Breweries'
       $scope.addSlide();
     };
 
-    breweries.getData().success(handleSuccess);
+    breweries.getData({lat:37.7833, long:-122.4167}).success(handleSuccess);
 
     $scope.hoveringOver = function(value) {
       $scope.overStar = value;
