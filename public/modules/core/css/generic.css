@@ -19,3 +19,19 @@ p.beer-btn {
   text-align: center;
   margin-top: 15px;
 }
+.beer {
+  box-sizing: border-box;
+  font-size: 0.8em;
+  line-height: 1em;
+  margin: 0 15px 15px 0;
+  padding: 5px 15px 0 15px;
+  border: 1px solid #351311;
+  width: 232px;
+  height: 310px;
+  -webkit-border-radius: 5px;
+  -moz-border-radius: 5px;
+  border-radius: 5px;
+}
+.beer p {
+  margin-top: 10px;
+}
