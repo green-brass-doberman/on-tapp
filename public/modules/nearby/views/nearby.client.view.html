@@ -45,8 +45,18 @@
               </div>
               <div class="col-sm-8">
                 <p class="content">{{brewery.brewery.description}}</p>
-                <p><a class="btn btn-primary pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p>
+                <!-- <p><a class="btn btn-primary pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p> -->
               </div>
+
+              <div class="well">
+                <p>Give your ratings to {{brewery.brewery.name}}:</p>
+                <rating class="stars" ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+
+                <pre style="margin:15px 0;">Stars: <b>{{rate}}</b>  <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span></b></pre>
+
+                <button class="btn btn-lg btn-danger" ng-click="reset()" ng-disabled="isReadonly">Clear</button>
+                <button class="btn btn-lg btn-success" ng-click="isReadonly = ! isReadonly; saveRating()">Save</button>
+               </div>
             </div>
         </accordion-group>
       </accordion>
