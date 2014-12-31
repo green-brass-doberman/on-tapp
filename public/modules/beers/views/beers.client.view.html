@@ -1,42 +1,50 @@
 <section data-ng-controller="BeersController">
-    <div class="container">
-      <accordion>
-        <accordion-group ng-repeat="beer in beers | orderBy: 'availableId'" is-open="status.isItemOpen[$index]">
-          <accordion-heading>
-            {{beer.available.name}}
-          </accordion-heading>
-            <div class="row">
-              <div class="col-md-11">
-                {{beer.name}}
-              </div>
-              <div class="col-md-1">
-                <span class="pull-right badge">abv: {{beer.abv}} || ibu: {{beer.ibu}}</span>
-              </div>
+  <div class="container">
+    <div ng-repeat="group in groups">
+      <h4>{{group.beers[0].available.name}}</h4>
+      <div class="row">
+        <div class="col-md-3" ng-repeat-start="beer in group.beers">
+          <div class="beer">
+            <div ng-if="beer.labels.medium">
+              <img width="200" height="200" src="{{beer.labels.medium}}">
             </div>
-            <div class="row">
-              <div class="col-md-1">
-                <div ng-if="beer.labels.icon">
-                  <img src="{{beer.labels.icon}}">
-                </div>
-                <div ng-if="beer.isOrganic == 'Y'">
-                  <p class="right">Certified Organic</p>
-                </div>
-              </div>
-              <div class="col-md-11">
-                <p class="content">{{beer.description}}</p>
-                <p>Style: <a href="#">{{beer.style.name}}</a></p>
-                <div ng-if="beer.foodPairing">
-                  <p>Food Pairings: {{beer.foodPairing}}</p>
-                </div>
-                <div ng-if="beer.year">
-                  <p>Year: {{beer.year}}</p>
-                </div>
-                <p>Availability: {{beer.available.name}}</p>
-                <p>Best served in a {{beer.glass.name}}</p>
-                <p><a class="btn btn-success pull-right" href="#/ratings" role="button">Give your rating &raquo;</a></p>
-              </div>
+            <div ng-if="!beer.labels.medium">
+              <img width="200" height="200" src="/modules/core/images/no-beer-label-60.png">
             </div>
-        </accordion-group>
-      </accordion>
+            {{beer.name}}
+            <div ng-if="beer.style.name">
+              <a href="#">{{beer.style.name}}</a>
+            </div>
+            <p><a class="btn btn-success btn-sm" href="#/ratings" role="button">Give your rating &raquo;</a></p>
+          </div>
+        </div>
+        <div class="clearfix" ng-if="$index%4==3"></div>
+        <div ng-repeat-end=""></div>
+      </div>
+<!--           <div class="col-md-1">
+            <span class="pull-right badge">abv: {{beer.abv}} || ibu: {{beer.ibu}}</span>
+          </div>
+        </div>
+        <div class="row">
+          <div class="col-md-1">
+            <div ng-if="beer.isOrganic == 'Y'">
+              <p class="right">Certified Organic</p>
+            </div>
+          </div>
+          <div class="col-md-11">
+            <p class="content">{{beer.description}}</p>
+            <div ng-if="beer.foodPairing">
+              <p>Food Pairings: {{beer.foodPairing}}</p>
+            </div>
+            <div ng-if="beer.year">
+              <p>Year: {{beer.year}}</p>
+            </div>
+            <p>Availability: {{beer.available.name}}</p>
+            <p>Best served in a {{beer.glass.name}}</p>
+
+          </div> -->
+        </div>
+      </div>
     </div>
+  </div>
 </section>
