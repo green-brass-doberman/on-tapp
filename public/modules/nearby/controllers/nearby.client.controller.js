@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger', 'Ratings', '$location',
-	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger, Ratings, $location) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger',
+	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger) {
 		// Controller Logic
 		// ...
 
@@ -76,44 +76,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         markers.push(createMarker(i, lat, lng, name));
       }
       $scope.allMarkers = markers;
-    };
-
-    // handle the stars rating
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
-
-    // hoveing over on ratings stars
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
-    };
-
-    // set the ratings stars
-    $scope.ratingStates = [
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    ];
-
-    // Create new Rating
-    $scope.create = function(name) {
-
-      console.log(this);
-
-      // Create new Rating object
-      var rating = new Ratings ({
-        name: $scope.breweries[0].brewery.name,
-        stars: this.rate
-      });
-
-      // Redirect after save
-      rating.$save(function(response) {
-        $location.path('ratings/' + response._id);
-
-        // Clear form fields
-        $scope.name = '';
-      }, function(errorResponse) {
-        $scope.error = errorResponse.data.message;
-      });
     };
 
   }
