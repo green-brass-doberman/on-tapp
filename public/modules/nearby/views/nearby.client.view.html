@@ -1,5 +1,5 @@
 <section data-ng-controller="NearbyController">
-  <div class="container-fluid">
+  <div class="left-half-container">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
       <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" click="'onClick'">
       <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
@@ -13,19 +13,12 @@
       </ui-gmap-marker>
 
     </ui-gmap-google-map>
-
-    <hr>
-<!--
-    <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
-    <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
-
-    <hr> -->
-
-    <div class="container-fluid">
-      <accordion>
+  </div>
+  <div class="right-half-container">
+    <accordion>
         <accordion-group ng-repeat="brewery in breweries | orderBy: 'distance'" is-open="status.isItemOpen[$index]">
           <accordion-heading>
-            {{brewery.brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}} miles</span>
+            {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
           </accordion-heading>
           <div class="row">
             <div class="col-sm-8">
@@ -52,5 +45,10 @@
         </accordion-group>
       </accordion>
     </div>
-  </div>
+
+<!--
+    <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
+    <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
+
+    <hr> -->
 </section>
