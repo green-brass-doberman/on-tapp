@@ -1,7 +1,54 @@
-.angular-google-map-container {
-  height: 400px;
-}
-
 .stars{
   font-size: 40px;
+}
+
+.angular-google-map,
+.angular-google-map-container {
+  height: 100%;
+}
+
+.left-half-container{
+  position: absolute;
+  left: 0;
+  right: 50%;
+  top: 0;
+  bottom: 0;
+  height: 100%;
+  margin-top: 53px;
+}
+
+.right-half-container{
+  position: absolute;
+  left: 50%;
+  right: 0;
+  top: 0;
+  bottom: 0;
+  margin-top: 53px;
+  overflow: scroll;
+}
+
+@media (max-width: 750px) {
+
+  .angular-google-map,
+  .angular-google-map-container {
+    height: 250px;
+  }
+
+  .left-half-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 75%;
+    height: 100%;
+    margin-top: 53px;
+  }
+
+  .right-half-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25%;
+    bottom: 0;
+  }
 }

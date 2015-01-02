@@ -4,6 +4,6 @@
 angular.module('ratings').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Ratings', 'ratings', '/ratings(/create)?');
+		Menus.addMenuItem('topbar', 'Beers Ratings', 'ratings', '/ratings(/create)?');
 	}
 ]);

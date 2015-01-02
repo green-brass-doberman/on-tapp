@@ -60,8 +60,12 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         id: i,
         latitude: lat,
         longitude: lng,
-        options: { title: name },
-        icon: '/modules/nearby/images/beer-icon.png'
+        title: name,
+        icon: '/modules/nearby/images/beer-icon.png',
+        show: false
+      };
+      ret.onClick = function() {
+        ret.show = !ret.show;
       };
       return ret;
     };

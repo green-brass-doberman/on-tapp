@@ -1,5 +1,5 @@
 <section data-ng-controller="NearbyController">
-  <div class="container-fluid">
+  <div class="left-half-container">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
       <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" click="'onClick'">
       <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
@@ -13,21 +13,18 @@
       </ui-gmap-marker>
 
     </ui-gmap-google-map>
-
-<!--     <button class="btn btn-success btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
-    <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
- -->
-
-   <hr>
-
-    <div class="container-fluid">
-      <accordion>
+  </div>
+  <div class="right-half-container">
+    <accordion>
         <accordion-group ng-repeat="brewery in breweries | orderBy: 'distance'" is-open="status.isItemOpen[$index]">
           <accordion-heading>
-            {{brewery.brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}} miles</span>
+            {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
           </accordion-heading>
           <div class="row">
-            <div class="col-sm-4">
+            <div class="col-md-8">
+              <p class="content">{{brewery.brewery.description}}</p>
+            </div>
+            <div class="col-md-4">
               <div ng-if="brewery.brewery.images.medium">
                 <img class="brewery-img img-responsive center-block" src="{{brewery.brewery.images.medium}}">
               </div>
@@ -40,16 +37,18 @@
               <div ng-if="brewery.brewery.isOrganic == 'Y'">
                 <p class="center">Certified Organic</p>
               </div>
-              <p class="beer-btn"><a class="btn btn-info btn-sm" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
+              <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
+            </div>
 
-            </div>
-            <div class="col-sm-8">
-              <p class="content">{{brewery.brewery.description}}</p>
-            </div>
           </div><!-- /.row -->
 
         </accordion-group>
       </accordion>
     </div>
-  </div>
+
+<!--
+    <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
+    <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
+
+    <hr> -->
 </section>
