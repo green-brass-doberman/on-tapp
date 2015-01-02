@@ -46,7 +46,8 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap.css',
 				// 'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/fontawesome/css/font-awesome.css',
-        'public/modules/core/css/flat-ui.css'
+        // 'public/modules/core/css/flat-ui.css',
+        '/public/lib/flat-ui/dist/css/flat-ui.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
