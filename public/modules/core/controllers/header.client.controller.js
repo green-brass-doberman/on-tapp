@@ -17,18 +17,18 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
        	$scope.beersAndBreweries.push({name: saveData[j].name, type: 'beer', id: saveData[j].id});
       }
     };
-    // send the brewery id
-    allBeers.getData('mtUjck').success(handleBeerSuccess);
+    // send 'all' as the breweryId to get all the beers
+    allBeers.getData().success(handleBeerSuccess);
 
-    $scope.coords = {lat:37.7833, long:-122.4167};
     var handleBrewerySuccess = function(data, status){
       //$scope.allBreweries = data.data;
       saveData = data.data;
       for (var j=0; j<saveData.length; j++) {
-      	$scope.beersAndBreweries.push({name: saveData[j].brewery.name, type: 'brewery', id: saveData[j].breweryId});
+      	$scope.beersAndBreweries.push({name: saveData[j].name, type: 'brewery', id: saveData[j].id});
       }
     };
-    allBreweries.getData($scope.coords).success(handleBrewerySuccess);
+    // send 'all' as the coords to get all the breweries
+    allBreweries.getData().success(handleBrewerySuccess);
 
     $scope.imageSource = function(item) {
         return item.images['medium'];

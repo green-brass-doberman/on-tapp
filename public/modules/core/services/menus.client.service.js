@@ -169,8 +169,8 @@ angular.module('core').factory('allBeers', ['$http',
 	function($http) {
 		// Public API
 		return {
-      getData: function(breweryId){
-        return $http.get('/beers/' + breweryId);
+      getData: function(){
+        return $http.get('/beers/all');
       }
     };
 	}
@@ -180,8 +180,8 @@ angular.module('core').factory('allBreweries', ['$http',
 	function($http) {
 		// Public API
 		return {
-      getData: function(coords){
-        return $http.get('/breweries/' + coords.lat + '/' + coords.long);
+      getData: function(){
+        return $http.get('/breweries/all/all');
       }
     };
 	}
