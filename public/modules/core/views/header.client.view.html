@@ -8,13 +8,9 @@
 		</button>
 		<a href="/#!/" class="navbar-brand"><i class="fa fa-beer"></i> On Tapp</a>
 	</div>
+
 	<nav class="collapse navbar-collapse" collapse="!isCollapsed" role="navigation">
 		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
-
-      <li><a href="#!/nearby"><i class="fa fa-map-marker"></i> Nearby</a></li>
-      <li><a href="#!/ratings"><i class="fa fa-star"></i> Ratings</a></li>
-      <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank"><i class="fa fa-users"></i> About</a></li>
-
       <li data-ng-repeat="item in menu.items | orderBy: 'position'" data-ng-if="item.shouldRender(authentication.user);" ng-switch="item.menuItemType" ui-route="{{item.uiRoute}}" class="{{item.menuItemClass}}" ng-class="{active: ($uiRoute)}" dropdown="item.menuItemType === 'dropdown'">
 				<a ng-switch-when="dropdown" class="dropdown-toggle" dropdown-toggle>
 					<span data-ng-bind="item.title"></span>
@@ -27,6 +23,7 @@
 				</ul>
 				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
+      <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank"><i class="fa fa-users"></i> About</a></li>
       <form class="navbar-form navbar-right" action="#" role="search">
         <div class="form-group">
           <div class="input-group">
