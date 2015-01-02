@@ -34,8 +34,6 @@
     "fontawesome": "~4.2.0",
     "angular-google-maps": "~2.0.12",
     "angularjs-geolocation": "~0.1.1",
-    "angularfire": "~0.9.0",
-    "firebase": "~2.0.6",
     "flat-ui": "~2.2.2"
   }
 }
