@@ -1,10 +1,10 @@
+.stars{
+  font-size: 40px;
+}
+
 .angular-google-map,
 .angular-google-map-container {
   height: 100%;
-}
-
-.stars{
-  font-size: 40px;
 }
 
 .left-half-container{
@@ -24,4 +24,30 @@
   top: 0;
   bottom: 0;
   margin-top: 53px;
+}
+
+@media (max-width: 750px) {
+
+  .angular-google-map,
+  .angular-google-map-container {
+    height: 250px;
+  }
+
+  .left-half-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 0;
+    bottom: 75%;
+    height: 100%;
+    margin-top: 53px;
+  }
+
+  .right-half-container{
+    position: absolute;
+    left: 0;
+    right: 0;
+    top: 25%;
+    bottom: 0;
+  }
 }
