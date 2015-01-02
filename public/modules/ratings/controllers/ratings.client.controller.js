@@ -1,35 +1,66 @@
 'use strict';
 
-angular.module('ratings').controller('RatingsController', ['$scope', 'Breweries',
-	function($scope, breweries) {
-		// Controller Logic
-		// ...
+// Ratings controller
+angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings',
+	function($scope, $stateParams, $location, Authentication, Ratings) {
+		$scope.authentication = Authentication;
 
-    var allBreweries = [];
+		// Create new Rating
+		$scope.create = function() {
+			// Create new Rating object
+			var rating = new Ratings ({
+				name: this.name
+			});
 
-    var handleSuccess = function(data, status){
-      allBreweries = data.data;
-      $scope.addSlide();
-    };
+			// Redirect after save
+			rating.$save(function(response) {
+				$location.path('ratings/' + response._id);
 
-    breweries.getData({lat:37.7833, long:-122.4167}).success(handleSuccess);
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
-    $scope.myInterval = 0;
+		// Remove existing Rating
+		$scope.remove = function(rating) {
+			if ( rating ) { 
+				rating.$remove();
 
-    var slides = $scope.slides = [];
+				for (var i in $scope.ratings) {
+					if ($scope.ratings [i] === rating) {
+						$scope.ratings.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.rating.$remove(function() {
+					$location.path('ratings');
+				});
+			}
+		};
 
-    $scope.addSlide = function() {
-      var newWidth = 600 + slides.length + 1;
+		// Update existing Rating
+		$scope.update = function() {
+			var rating = $scope.rating;
 
-      for (var i = 0; i < allBreweries.length; i++) {
-          slides.push({
-          image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
-          text: allBreweries[i].brewery.name
-        });
-      }
-    };
+			rating.$update(function() {
+				$location.path('ratings/' + rating._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
-    $scope.addSlide();
+		// Find a list of Ratings
+		$scope.find = function() {
+			$scope.ratings = Ratings.query();
+		};
 
+		// Find existing Rating
+		$scope.findOne = function() {
+			$scope.rating = Ratings.get({ 
+				ratingId: $stateParams.ratingId
+			});
+		};
 	}
 ]);
