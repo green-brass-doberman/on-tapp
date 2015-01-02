@@ -39,33 +39,29 @@
                 <p class="center">Certified Organic</p>
               </div>
               <p class="beer-btn"><a class="btn btn-info btn-sm" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
+
+              <form class="form-horizontal text-center" data-ng-submit="create($index)" novalidate>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="control-label" for="rating">How many stars would you give?</label>
+                    <div class="controls">
+                      <rating class="stars" ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    </div>
+                  </div>
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-primary">
+                  </div>
+                  <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                  </div>
+                </fieldset>
+              </form>
+
             </div>
             <div class="col-sm-8">
               <p class="content">{{brewery.brewery.description}}</p>
-              <!-- <p><a class="btn btn-primary pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p> -->
             </div>
           </div><!-- /.row -->
-
-          <hr>
-
-          <div class="col-md-12">
-            <form class="form-horizontal" data-ng-submit="create($index)" novalidate>
-              <fieldset>
-                <div class="form-group">
-                  <label class="control-label" for="rating">How many stars would you give?</label>
-                  <div class="controls">
-                    <rating class="stars" ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                  </div>
-                </div>
-                <div class="form-group">
-                  <input type="submit" class="btn btn-default">
-                </div>
-                <div data-ng-show="error" class="text-danger">
-                  <strong data-ng-bind="error"></strong>
-                </div>
-              </fieldset>
-            </form>
-          </div>
 
         </accordion-group>
       </accordion>
