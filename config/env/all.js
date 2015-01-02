@@ -44,9 +44,8 @@ module.exports = {
 		lib: {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.css',
-				// 'public/lib/bootstrap/dist/css/bootstrap-theme.css',
         'public/lib/fontawesome/css/font-awesome.css',
-        'public/modules/core/css/flat-ui.css'
+        'public/lib/flat-ui/dist/css/flat-ui.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -57,9 +56,7 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
-        'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
-        'public/lib/firebase/firebase.js',
-        'public/lib/angularfire/dist/angularfire.min.js'
+        'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js'
 			]
 		},
 		css: [

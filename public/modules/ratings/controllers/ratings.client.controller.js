@@ -1,92 +1,67 @@
 'use strict';
 
-angular.module('ratings').controller('RatingsController', ['$scope', 'Breweries', '$firebase',
-	function($scope, breweries, $firebase) {
-		// Controller Logic
-		// ...
+// Ratings controller
+angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings',
+	function($scope, $stateParams, $location, Authentication, Ratings) {
+		$scope.authentication = Authentication;
 
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
+		// Create new Rating
+		$scope.create = function() {
+			// Create new Rating object
+			var rating = new Ratings ({
+				name: this.name,
+        percent: $scope.percent
+			});
 
-    var allBreweries = [];
+			// Redirect after save
+			rating.$save(function(response) {
+				$location.path('ratings/' + response._id);
 
-    var handleSuccess = function(data, status){
-      allBreweries = data.data;
-      $scope.addSlide();
-    };
+				// Clear form fields
+				$scope.name = '';
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
-    breweries.getData({lat:37.7833, long:-122.4167}).success(handleSuccess);
+		// Remove existing Rating
+		$scope.remove = function(rating) {
+			if ( rating ) {
+				rating.$remove();
 
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
-    };
+				for (var i in $scope.ratings) {
+					if ($scope.ratings [i] === rating) {
+						$scope.ratings.splice(i, 1);
+					}
+				}
+			} else {
+				$scope.rating.$remove(function() {
+					$location.path('ratings');
+				});
+			}
+		};
 
-    $scope.ratingStates = [
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    ];
+		// Update existing Rating
+		$scope.update = function() {
+			var rating = $scope.rating;
 
-    $scope.myInterval = 0;
+			rating.$update(function() {
+				$location.path('ratings/' + rating._id);
+			}, function(errorResponse) {
+				$scope.error = errorResponse.data.message;
+			});
+		};
 
-    var slides = $scope.slides = [];
+		// Find a list of Ratings
+		$scope.find = function() {
+			$scope.ratings = Ratings.query();
+		};
 
-    $scope.addSlide = function() {
-      var newWidth = 600 + slides.length + 1;
-
-      for (var i = 0; i < allBreweries.length; i++) {
-          slides.push({
-          image: 'data:image/gif;base64,R0lGODlhAQABAIAAAGZmZgAAACH5BAAAAAAALAAAAAABAAEAAAICRAEAOw==',
-          text: allBreweries[i].brewery.name
-        });
-      }
-    };
-
-    $scope.addSlide();
-
-    $scope.saveRating = function(){
-      var brewery = allBreweries[0];
-      brewery.ratings = $scope.percent;
-    };
-
-    // connect to firebase
-    var ref = new Firebase('https://on-tapp.firebaseio.com/ratings');
-
-    var fb = $firebase(ref);
-
-    // function to set the default data
-    $scope.reset = function() {
-
-      $scope.rate = 0;
-
-      fb.$set({
-        xxxx: {
-          name: 'XXXX Brewery',
-          ratings: {
-            stars: {
-              number: '0',
-              rated: false
-            }
-          }
-        },
-        yyyy: {
-          name: 'YYYY Brewery',
-          ratings: {
-            stars: {
-              number: '0',
-              rated: false
-            }
-          }
-        }
-      });
-
-    };
-
-    // sync as object
-    var syncObject = fb.$asObject();
-
-    // three way data binding
-    syncObject.$bindTo($scope, 'ratings');
-
+		// Find existing Rating
+		$scope.findOne = function() {
+			$scope.rating = Ratings.get({
+				ratingId: $stateParams.ratingId
+			});
+		};
 	}
 ]);
