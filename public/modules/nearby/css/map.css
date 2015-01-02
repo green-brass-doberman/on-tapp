@@ -24,6 +24,7 @@
   top: 0;
   bottom: 0;
   margin-top: 53px;
+  overflow: scroll;
 }
 
 @media (max-width: 750px) {
