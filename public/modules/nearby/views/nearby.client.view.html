@@ -14,12 +14,9 @@
 
     </ui-gmap-google-map>
 
-    <hr>
-<!--
-    <button class="btn btn-success btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
+<!--     <button class="btn btn-success btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
     <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
-
-    <hr> -->
+ -->
 
     <div class="container-fluid">
       <accordion>
@@ -27,37 +24,41 @@
           <accordion-heading>
             {{brewery.brewery.name}} <span class="pull-right badge">Distance: {{brewery.distance}} miles</span>
           </accordion-heading>
-            <div class="row">
-              <div class="col-sm-4">
-                <div ng-if="brewery.brewery.images.medium">
-                  <img class="brewery-img img-responsive center-block" src="{{brewery.brewery.images.medium}}">
-                </div>
-                <div ng-if="brewery.brewery.established">
-                  <p class="center"><strong>Established:</strong> {{brewery.brewery.established}}</p>
-                </div>
-                <div ng-if="brewery.brewery.website">
-                  <p class="center"><a href="{{brewery.brewery.website}}" target="_blank">{{brewery.brewery.website}}</a></p>
-                </div>
-                <div ng-if="brewery.brewery.isOrganic == 'Y'">
-                  <p class="center">Certified Organic</p>
-                </div>
-                <p class="beer-btn"><a class="btn btn-info btn-sm" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
+          <div class="row">
+            <div class="col-sm-4">
+              <div ng-if="brewery.brewery.images.medium">
+                <img class="brewery-img img-responsive center-block" src="{{brewery.brewery.images.medium}}">
               </div>
-              <div class="col-sm-8">
-                <p class="content">{{brewery.brewery.description}}</p>
-                <!-- <p><a class="btn btn-primary pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p> -->
+              <div ng-if="brewery.brewery.established">
+                <p class="center"><strong>Established:</strong> {{brewery.brewery.established}}</p>
               </div>
-
-              <div class="well">
-                <p>Give your ratings to {{brewery.brewery.name}}:</p>
-                <rating class="stars" ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-
-                <pre style="margin:15px 0;">Stars: <b>{{rate}}</b>  <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span></b></pre>
-
-                <button class="btn btn-lg btn-danger" ng-click="reset()" ng-disabled="isReadonly">Clear</button>
-                <button class="btn btn-lg btn-success" ng-click="isReadonly = ! isReadonly; saveRating()">Save</button>
-               </div>
+              <div ng-if="brewery.brewery.website">
+                <p class="center"><a href="{{brewery.brewery.website}}" target="_blank">{{brewery.brewery.website}}</a></p>
+              </div>
+              <div ng-if="brewery.brewery.isOrganic == 'Y'">
+                <p class="center">Certified Organic</p>
+              </div>
+              <p class="beer-btn"><a class="btn btn-info btn-sm" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
             </div>
+            <div class="col-sm-8">
+              <p class="content">{{brewery.brewery.description}}</p>
+              <!-- <p><a class="btn btn-primary pull-right" href="#/ratings" role="button">Give your ratings &raquo;</a></p> -->
+            </div>
+          </div><!-- /.row -->
+
+          <hr>
+
+          <!-- One column of text below the carousel -->
+          <div class="row text-center">
+            <p>How many stars would you give to {{brewery.brewery.name}}: </p>
+            <rating class="stars" ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+
+            <pre style="margin:15px 0;">Stars: <b>{{rate}}</b>  <span class="label" ng-class="{'label-warning': percent<30, 'label-info': percent>=30 && percent<70, 'label-success': percent>=70}" ng-show="overStar && !isReadonly">{{percent}}%</span></b></pre>
+
+            <button class="btn btn-lg btn-danger" ng-click="reset()" ng-disabled="isReadonly">Clear</button>
+            <button class="btn btn-lg btn-default" ng-click="isReadonly = ! isReadonly; saveRating()">Save</button>
+          </div><!-- /.row -->
+
         </accordion-group>
       </accordion>
     </div>
