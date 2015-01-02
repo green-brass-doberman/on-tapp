@@ -16,6 +16,10 @@ var RatingSchema = new Schema({
 		required: 'Please fill Rating name',
 		trim: true
 	},
+  percent: {
+    type: Number,
+    default: 0
+  },
 	created: {
 		type: Date,
 		default: Date.now

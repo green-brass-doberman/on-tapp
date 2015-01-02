@@ -78,26 +78,5 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       $scope.allMarkers = markers;
     };
 
-      // handle the stars rating
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
-
-    // hoveing over on ratings stars
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
-    };
-
-    // set the ratings stars
-    $scope.ratingStates = [
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    ];
-
-    // function to save ratings
-    $scope.saveRating = function(){
-
-    };
-
   }
 ]);

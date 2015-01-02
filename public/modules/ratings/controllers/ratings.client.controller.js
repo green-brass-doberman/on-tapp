@@ -9,8 +9,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 		$scope.create = function() {
 			// Create new Rating object
 			var rating = new Ratings ({
-				name: this.name
+				name: this.name,
+        percent: $scope.percent
 			});
+
+      console.log(rating);
 
 			// Redirect after save
 			rating.$save(function(response) {
@@ -25,7 +28,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
 		// Remove existing Rating
 		$scope.remove = function(rating) {
-			if ( rating ) { 
+			if ( rating ) {
 				rating.$remove();
 
 				for (var i in $scope.ratings) {
@@ -58,9 +61,27 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
 		// Find existing Rating
 		$scope.findOne = function() {
-			$scope.rating = Ratings.get({ 
+			$scope.rating = Ratings.get({
 				ratingId: $stateParams.ratingId
 			});
+      console.log($scope.rating);
 		};
+
+
+    // handle the stars rating
+    $scope.rate = 0;
+    $scope.max = 5;
+    $scope.isReadonly = false;
+
+    // hoveing over on ratings stars
+    $scope.hoveringOver = function(value) {
+      $scope.overStar = value;
+      $scope.percent = 100 * (value / $scope.max);
+    };
+
+    // set the ratings stars
+    $scope.ratingStates = [
+      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
+    ];
 	}
 ]);
