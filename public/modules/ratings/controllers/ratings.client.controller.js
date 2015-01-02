@@ -13,8 +13,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
         percent: $scope.percent
 			});
 
-      console.log(rating);
-
 			// Redirect after save
 			rating.$save(function(response) {
 				$location.path('ratings/' + response._id);
@@ -64,24 +62,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 			$scope.rating = Ratings.get({
 				ratingId: $stateParams.ratingId
 			});
-      console.log($scope.rating);
 		};
-
-
-    // handle the stars rating
-    $scope.rate = 0;
-    $scope.max = 5;
-    $scope.isReadonly = false;
-
-    // hoveing over on ratings stars
-    $scope.hoveringOver = function(value) {
-      $scope.overStar = value;
-      $scope.percent = 100 * (value / $scope.max);
-    };
-
-    // set the ratings stars
-    $scope.ratingStates = [
-      {stateOn: 'glyphicon-star', stateOff: 'glyphicon-star-empty'},
-    ];
 	}
 ]);
