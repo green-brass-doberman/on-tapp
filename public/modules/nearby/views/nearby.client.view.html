@@ -18,6 +18,8 @@
     <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
  -->
 
+   <hr>
+
     <div class="container-fluid">
       <accordion>
         <accordion-group ng-repeat="brewery in breweries | orderBy: 'distance'" is-open="status.isItemOpen[$index]">

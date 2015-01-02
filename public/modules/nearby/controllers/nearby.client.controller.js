@@ -101,7 +101,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
       // Create new Rating object
       var rating = new Ratings ({
-        name: $scope.breweries[0].name,
+        name: $scope.breweries[0].brewery.name,
         stars: this.rate
       });
 

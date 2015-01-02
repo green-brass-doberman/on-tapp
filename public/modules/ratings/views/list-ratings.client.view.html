@@ -1,20 +1,20 @@
 <section data-ng-controller="RatingsController" data-ng-init="find()">
-    <div class="page-header">
-        <h1>Ratings</h1>
-    </div>
-    <div class="list-group">
-        <a data-ng-repeat="rating in ratings" data-ng-href="#!/ratings/{{rating._id}}" class="list-group-item">
-			<small class="list-group-item-text">
-				Posted on
-				<span data-ng-bind="rating.created | date:'medium'"></span>
-				by
-				<span data-ng-bind="rating.user.displayName"></span>
-			</small>
-			<h4 class="list-group-item-heading" data-ng-bind="rating.name"></h4>
-      {{rating.stars}}
-        </a>
-    </div>
-    <div class="alert alert-warning text-center" data-ng-hide="!ratings.$resolved || ratings.length">
-    	No Ratings yet, why don't you <a href="/#!/ratings/create">create one</a>?
-    </div>
+  <div class="page-header">
+    <h1 class="text-center">Top Rated Breweries</h1>
+  </div>
+  <div class="list-group">
+      <a data-ng-repeat="rating in ratings | orderBy: '-stars'" data-ng-href="#!/ratings/{{rating._id}}" class="list-group-item">
+    		<h4 class="list-group-item-heading" data-ng-bind="rating.name"></h4>
+        Number of stars: {{rating.stars}}
+        <small class="list-group-item-text pull-right">
+          Posted on
+          <span data-ng-bind="rating.created | date:'medium'"></span>
+          by
+          <span data-ng-bind="rating.user.displayName"></span>
+        </small>
+      </a>
+  </div>
+  <div class="alert alert-warning text-center" data-ng-hide="!ratings.$resolved || ratings.length">
+  	No Ratings yet, why don't you <a href="/#!/ratings/create">create one</a>?
+  </div>
 </section>
