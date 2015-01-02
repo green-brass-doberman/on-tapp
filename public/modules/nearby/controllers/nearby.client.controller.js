@@ -16,8 +16,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     // function to access users geolocation coordinates
     geolocation.getLocation().then(function(data){
-      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      // $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
 
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
       curLocationMarker();
