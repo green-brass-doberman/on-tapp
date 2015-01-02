@@ -16,7 +16,7 @@ var RatingSchema = new Schema({
 		required: 'Please fill Rating name',
 		trim: true
 	},
-  percent: {
+  stars: {
     type: Number,
     default: 0
   },

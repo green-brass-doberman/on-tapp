@@ -95,11 +95,14 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     ];
 
     // Create new Rating
-    $scope.create = function() {
+    $scope.create = function(name) {
+
+      console.log(this);
+
       // Create new Rating object
       var rating = new Ratings ({
-        name: this.name,
-        percent: $scope.percent
+        name: $scope.breweries[0].name,
+        stars: this.rate
       });
 
       // Redirect after save
