@@ -31,7 +31,7 @@ p.beer-btn {
 .beer p {
   margin-top: 10px;
 }
-form.form-horizontal {
+form.list-beers {
   display: block;
   position:absolute;
   bottom: 10px;
