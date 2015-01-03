@@ -20,6 +20,10 @@ var RatingSchema = new Schema({
     type: Number,
     default: 0
   },
+  styleName: {
+    type: String,
+    default: 0
+  },
 	created: {
 		type: Date,
 		default: Date.now

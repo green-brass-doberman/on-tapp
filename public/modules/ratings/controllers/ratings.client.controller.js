@@ -5,25 +5,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 	function($scope, $stateParams, $location, Authentication, Ratings) {
 		$scope.authentication = Authentication;
 
-		// Create new Rating
-		$scope.create = function() {
-			// Create new Rating object
-			var rating = new Ratings ({
-				name: this.name,
-        percent: $scope.percent
-			});
-
-			// Redirect after save
-			rating.$save(function(response) {
-				$location.path('ratings/' + response._id);
-
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
-
 		// Remove existing Rating
 		$scope.remove = function(rating) {
 			if ( rating ) {
