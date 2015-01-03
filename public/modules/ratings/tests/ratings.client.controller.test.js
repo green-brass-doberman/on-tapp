@@ -90,34 +90,6 @@
 			expect(scope.rating).toEqualData(sampleRating);
 		}));
 
-		it('$scope.create() with valid form data should send a POST request with the form input values and then locate to new object URL', inject(function(Ratings) {
-			// Create a sample Rating object
-			var sampleRatingPostData = new Ratings({
-				name: 'New Rating'
-			});
-
-			// Create a sample Rating response
-			var sampleRatingResponse = new Ratings({
-				_id: '525cf20451979dea2c000001',
-				name: 'New Rating'
-			});
-
-			// Fixture mock form input values
-			scope.name = 'New Rating';
-
-			// Set POST response
-			$httpBackend.expectPOST('ratings', sampleRatingPostData).respond(sampleRatingResponse);
-
-			// Run controller functionality
-			scope.create();
-			$httpBackend.flush();
-
-			// Test form inputs are reset
-			expect(scope.name).toEqual('');
-
-			// Test URL redirection after the Rating was created
-			expect($location.path()).toBe('/ratings/' + sampleRatingResponse._id);
-		}));
 
 		it('$scope.update() should update a valid Rating', inject(function(Ratings) {
 			// Define a sample Rating put data

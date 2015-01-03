@@ -1,5 +1,8 @@
 'use strict';
 
+var secret = require('../../api-key');
+var request = require('request');
+
 module.exports = function(app) {
 	var users = require('../../app/controllers/users.server.controller');
 	var ratings = require('../../app/controllers/ratings.server.controller');
@@ -16,4 +19,13 @@ module.exports = function(app) {
 
 	// Finish by binding the Rating middleware
 	app.param('ratingId', ratings.ratingByID);
+
+  // search by style
+  app.get('/style/:styleName', function(req, res){
+    request('https://api.brewerydb.com/v2/search/style?q=' + req.params.styleName + '&key=' + secret.keys.brewerydb, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        res.send(body);
+      }
+    });
+  });
 };

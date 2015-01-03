@@ -1,28 +1,9 @@
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings',
-	function($scope, $stateParams, $location, Authentication, Ratings) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings', 'StyleQuery',
+	function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery) {
 		$scope.authentication = Authentication;
-
-		// Create new Rating
-		$scope.create = function() {
-			// Create new Rating object
-			var rating = new Ratings ({
-				name: this.name,
-        percent: $scope.percent
-			});
-
-			// Redirect after save
-			rating.$save(function(response) {
-				$location.path('ratings/' + response._id);
-
-				// Clear form fields
-				$scope.name = '';
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
 
 		// Remove existing Rating
 		$scope.remove = function(rating) {
@@ -62,6 +43,35 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 			$scope.rating = Ratings.get({
 				ratingId: $stateParams.ratingId
 			});
+
+      $scope.rating.$promise.then(function(data) {
+        getStars(data.stars)
+        getRecommendations(data.styleName);
+      });
 		};
+
+    //an array to store number of stars
+    $scope.stars = [];
+
+    // get the number of stars
+    var getStars = function(noOfStars){
+      for (var i = 0; i < noOfStars; i++) {
+        $scope.stars.push(i);
+      }
+    };
+
+    // Find the beers in the same category
+    var getRecommendations = function(styleName){
+      StyleQuery.getStyle(styleName).success(handleSuccess);
+    };
+
+    // an array to store recommendations
+    $scope.recommendations = [];
+
+    // pushing recommendations data from $http request
+    var handleSuccess = function(data, status){
+      console.log(data.data);
+      $scope.recommendations = data.data;
+    };
 	}
 ]);
