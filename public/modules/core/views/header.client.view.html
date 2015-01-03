@@ -24,7 +24,7 @@
 				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title"></a>
 			</li>
       <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank">About</a></li>
-      <form class="navbar-form navbar-right" action="#" role="search">
+<!--       <form class="navbar-form navbar-right" action="#" role="search"> -->
 
 <!-- 		<ul class="nav navbar-nav" data-ng-if="menu.shouldRender(authentication.user);">
       <li><a href="#!/nearby"><i class="fa fa-map-marker"></i> Nearby</a></li>
@@ -35,9 +35,11 @@
       <form class="navbar-form navbar-right" action="#" role="search">
         <div class="form-group">
           <div class="input-group">
-            <input type="text" data-ng-model="selected" data-typeahead="name as name.name for name in beersAndBreweries | filter:$viewValue | limitTo:8" class="form-control ta-search" id="navbarInput-01" placeholder="Search for beers or breweries">
+            <input type="search" ng-model="name" class="form-control ta-search" id="navbarInput-01" placeholder="Search for beers or breweries...">
             <span class="input-group-btn">
-              <button type="submit" class="btn"><span class="fui-search"></span></button>
+              <button type="submit" ng-click="search(name)" class="btn">
+                <span class="fui-search"></span>
+              </button>
             </span>
           </div>
         </div>

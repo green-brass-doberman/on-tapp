@@ -165,23 +165,12 @@ angular.module('core').service('Menus', [
 	}
 ]);
 
-angular.module('core').factory('allBeers', ['$http',
+angular.module('core').factory('Search', ['$http',
 	function($http) {
 		// Public API
 		return {
-      getData: function(){
-        return $http.get('/beers/all');
-      }
-    };
-	}
-]);
-
-angular.module('core').factory('allBreweries', ['$http',
-	function($http) {
-		// Public API
-		return {
-      getData: function(){
-        return $http.get('/breweries/all/all');
+      getData: function(item){
+        return $http.get('/search/' + item);
       }
     };
 	}
