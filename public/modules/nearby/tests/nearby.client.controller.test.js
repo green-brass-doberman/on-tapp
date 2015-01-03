@@ -50,6 +50,9 @@
 			});
 		}));
 
+    it('Should have an array to store breweries data', inject(function() {
+      expect(scope.breweries).toBeArray();
+    }));
 
     it('Should have an array to store markers', inject(function() {
       expect(scope.allMarkers).toBeArray();
