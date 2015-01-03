@@ -1,8 +1,8 @@
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings',
-	function($scope, $stateParams, $location, Authentication, Ratings) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings', 'StyleQuery',
+	function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery) {
 		$scope.authentication = Authentication;
 
 		// Remove existing Rating
@@ -43,6 +43,24 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 			$scope.rating = Ratings.get({
 				ratingId: $stateParams.ratingId
 			});
+
+      $scope.rating.$promise.then(function(data) {
+         getRecommendations(data.styleName);
+      });
+
 		};
+
+    // Find the beers in the same category
+    var getRecommendations = function(styleName){
+      StyleQuery.getStyle(styleName).success(handleSuccess);
+    }
+
+    // an array to store recommendations
+    $scope.recommendations = [];
+
+    // pushing recommendations data from $http request
+    var handleSuccess = function(data, status){
+      $scope.recommendations = data.data;
+    };
 	}
 ]);

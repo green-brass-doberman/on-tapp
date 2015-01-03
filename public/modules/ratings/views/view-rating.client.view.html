@@ -24,5 +24,10 @@
   <hr>
 
   <h2>You may also like {{rating.styleName}} :</h2>
+  <ul data-ng-init="getRecommendations()">
+    <li ng-repeat="recommendation in recommendations">
+      {{recommendation.name}}
+    </li>
+  </ul>
 
 </section>
