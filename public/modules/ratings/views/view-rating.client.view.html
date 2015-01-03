@@ -25,7 +25,7 @@
 
   <hr>
 
-  <h2>You may also like:</h2>
+  <h2>You may also <span data-ng-if="rating.stars >= 3">like</span><span data-ng-if="rating.stars < 3">dislike</span>:</h2>
 
   <div class="list-group">
     <div class="list-group-item" ng-repeat="recommendation in recommendations">
