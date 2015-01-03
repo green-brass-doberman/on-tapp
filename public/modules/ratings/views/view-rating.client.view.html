@@ -1,8 +1,10 @@
 <section data-ng-controller="RatingsController" data-ng-init="findOne()">
 	<div class="page-header">
 		<h1 data-ng-bind="rating.name"></h1>
-    Stars:
-    <p data-ng-bind="rating.stars"></p>
+    Your ratings:
+    <ul class="list-inline">
+      <li ng-repeat="star in stars"><span class="glyphicon glyphicon-star"></span></li>
+    </ul>
 	</div>
 	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == rating.user._id))">
 		<a class="btn btn-primary" href="/#!/ratings/{{rating._id}}/edit">
@@ -23,8 +25,8 @@
 
   <hr>
 
-  <h2>You may also like {{rating.styleName}} :</h2>
-  <ul data-ng-init="getRecommendations()">
+  <h2>You may also like:</h2>
+  <ul>
     <li ng-repeat="recommendation in recommendations">
       {{recommendation.name}}
     </li>

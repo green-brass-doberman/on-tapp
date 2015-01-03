@@ -45,15 +45,25 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 			});
 
       $scope.rating.$promise.then(function(data) {
-         getRecommendations(data.styleName);
+        getStars(data.stars)
+        getRecommendations(data.styleName);
       });
-
 		};
+
+    //an array to store number of stars
+    $scope.stars = [];
+
+    // get the number of stars
+    var getStars = function(noOfStars){
+      for (var i = 0; i < noOfStars; i++) {
+        $scope.stars.push(i);
+      }
+    };
 
     // Find the beers in the same category
     var getRecommendations = function(styleName){
       StyleQuery.getStyle(styleName).success(handleSuccess);
-    }
+    };
 
     // an array to store recommendations
     $scope.recommendations = [];
