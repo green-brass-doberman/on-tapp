@@ -70,7 +70,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
     // pushing recommendations data from $http request
     var handleSuccess = function(data, status){
-      console.log(data.data);
       $scope.recommendations = data.data;
     };
 	}
