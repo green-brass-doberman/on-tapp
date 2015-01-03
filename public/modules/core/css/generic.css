@@ -40,3 +40,6 @@ form.list-beers {
 .beer img {
   margin-bottom: 20px;
 }
+#navbarInput-01.ta-search {
+  width: 300px;
+}
