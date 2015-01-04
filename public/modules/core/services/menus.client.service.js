@@ -164,14 +164,3 @@ angular.module('core').service('Menus', [
 		this.addMenu('topbar');
 	}
 ]);
-
-angular.module('core').factory('Search', ['$http',
-	function($http) {
-		// Public API
-		return {
-      getData: function(item){
-        return $http.get('/search/' + item);
-      }
-    };
-	}
-]);

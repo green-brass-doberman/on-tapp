@@ -1,0 +1,27 @@
+<section data-ng-controller="SearchController">
+
+<!--    <form novalidate class="search-form form-group" action="#" role="search">
+    <div class="form-group">
+      <label for="searchField">Search for:</label>
+      <input type="search" ng-model="name" class="form-control" id="searchFieldId" placeholder="Search for beers/breweries...">
+    </div>
+    <button type="submit" ng-click="searchRequest(name)" class="btn btn-default">Search</button> 
+  </form>
+ -->
+  <form novalidate class="search-form form-group" action="#" role="search">
+    <div class="input-group">
+      <input type="text" ng-model="name" class="form-control ta-search" id="navbarInput-01" placeholder="Search for beers or breweries...">
+      <span class="input-group-btn">
+        <button type="submit" ng-click="searchRequest(name)" class="btn">
+          <span class="fui-search"></span>
+        </button>
+      </span>
+    </div>
+  </form>
+
+  <div class="container">
+    <div ng-repeat="result in results">
+      <p>{{result.name}} - {{result.type}}</p>
+    </div>
+  </div>
+</section>

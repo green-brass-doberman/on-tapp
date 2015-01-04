@@ -11,12 +11,6 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		state('home', {
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
-		})
-
-		$stateProvider.
-		state('home.search', {
-			url: '/search',
-			templateUrl: 'modules/core/views/search.client.view.html'
 		});
 	}
 ]);
