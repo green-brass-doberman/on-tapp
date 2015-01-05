@@ -18,14 +18,24 @@
     <div class="container-fluid">
 
       <div class="col-md-4">
-      </div>
-
-      <div class="col-md-4">
-      </div>
-
-      <div class="col-md-4">
         <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
-        <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
+      </div>
+
+      <div class="col-md-4">
+
+        <div class="btn-group" dropdown is-open="status.isopen">
+          <button type="button" class="btn btn-primary btn-lg dropdown-toggle" dropdown-toggle ng-disabled="disabled">
+            Choose your State <span class="caret"></span>
+          </button>
+          <ul class="dropdown-menu" role="menu">
+            <li ng-repeat="choice in items">
+              <a href>{{choice}}</a>
+            </li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="col-md-4">
       </div>
 
       <div class="clearfix">
