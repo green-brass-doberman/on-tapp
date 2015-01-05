@@ -43,9 +43,27 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
           latitude: $scope.coords.lat,
           longitude: $scope.coords.long,
         },
-        options: { title: 'You are here' }
+        options: {
+          title: 'You are here',
+          animation: 'DROP'
+        }
       };
     };
+
+      $scope.clickEventsObject = {
+        mouseover: markerMouseOver,
+        mouseout: markerMouseOut
+      };
+
+      function markerMouseOver(marker, e) {
+          //Callback
+          console.log('mouseOver');
+      }
+
+      function markerMouseOut(marker, e) {
+          //Callback
+          console.log('mouseOut');
+      }
 
     // an array to store all breweries marker
     $scope.allMarkers = [];
@@ -56,13 +74,14 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         id: i,
         latitude: lat,
         longitude: lng,
-        options: { title: name },
+        title: name,
         icon: '/modules/nearby/images/beer-icon.png',
         show: false
       };
       ret.onClick = function() {
         ret.show = !ret.show;
       };
+
       return ret;
     };
 
