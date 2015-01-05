@@ -20,7 +20,6 @@
     <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
 
     <hr ng-init="getBreweries()">
-
       <div class="panel panel-default" ng-repeat="brewery in breweries | orderBy: 'distance'">
           <div class="panel-heading">
             {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
@@ -28,7 +27,8 @@
           <div class="panel-body">
             <div class="row">
               <div class="col-md-8">
-                <p class="content">{{brewery.brewery.description}}</p>
+                 <p class="content">{{brewery.brewery.description}}</p>
+                 <p ng-if="!brewery.brewery.description" class="content">No description</p>
               </div>
               <div class="col-md-4">
                 <div ng-if="brewery.brewery.images.medium">

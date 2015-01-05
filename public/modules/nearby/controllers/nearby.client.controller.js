@@ -17,6 +17,12 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     // initialize the Google map
     $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
 
+    // pushing breweries data from $http request and place markers
+    var handleSuccess = function(data, status){
+      $scope.breweries = data.data;
+      placeMarker();
+    };
+
     // get Breweries data from factory
     $scope.getBreweries = function(){
       Breweries.getData($scope.coords).success(handleSuccess);
@@ -32,12 +38,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         Breweries.getData($scope.coords).success(handleSuccess);
       });
     }
-
-    // pushing breweries data from $http request and place markers
-    var handleSuccess = function(data, status){
-      $scope.breweries = data.data;
-      placeMarker();
-    };
 
     // marker for current coordinate
     var curLocationMarker = function(){
@@ -72,6 +72,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     // a function to place all breweries markers
     var placeMarker = function(){
+
       var markers = [];
       for (var i = 0; i < $scope.breweries.length; i++) {
         var lat = $scope.breweries[i].latitude;
