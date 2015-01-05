@@ -11,18 +11,27 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     // this array would be used to fetch data from brewerydb factory
     $scope.breweries = [];
 
-    // an object to story user's current coordinate
-    $scope.coords = {};
+    // an object to story user's current coordinate, set to san francisco by Default
+    $scope.coords = {lat:37.7833, long:-122.4167};
+
+    // initialize the Google map
+    $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
+
+    // get Breweries data from factory
+    $scope.getBreweries = function(){
+      Breweries.getData($scope.coords).success(handleSuccess);
+    };
 
     // function to access users geolocation coordinates
-    geolocation.getLocation().then(function(data){
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      // $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
+    $scope.getCurrentLocation = function(){
+      geolocation.getLocation().then(function(data){
+        $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
-      curLocationMarker();
-      Breweries.getData($scope.coords).success(handleSuccess);
-    });
+        $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
+        curLocationMarker();
+        Breweries.getData($scope.coords).success(handleSuccess);
+      });
+    }
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
