@@ -61,14 +61,6 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
     // send the brewery id
     Beers.getData($scope.breweryId).success(handleSuccess);
 
-    // $scope.status = {
-    //   isItemOpen: new Array($scope.beers.length),
-    //   isFirstDisabled: false
-    // };
-
-    // $scope.status.isItemOpen[0] = true;
-
-
     // handle the stars rating
     $scope.rate = 0;
     $scope.max = 5;
@@ -90,6 +82,7 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
 
       // Create new Rating object
       var rating = new Ratings ({
+        beerId: $scope.beers[index].id,
         name: $scope.beers[index].name,
         stars: this.rate,
         styleName: $scope.beers[index].style.name
