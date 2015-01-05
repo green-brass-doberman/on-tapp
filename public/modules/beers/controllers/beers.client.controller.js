@@ -91,7 +91,8 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
       // Create new Rating object
       var rating = new Ratings ({
         name: $scope.beers[index].name,
-        stars: this.rate
+        stars: this.rate,
+        styleName: $scope.beers[index].style.name
       });
 
       // Redirect after save
