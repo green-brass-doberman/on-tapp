@@ -15,39 +15,39 @@
     </ui-gmap-google-map>
   </div>
   <div class="right-half-container">
+    <div class="container-fluid">
     <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
     <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
 
     <hr ng-init="getBreweries()">
 
-    <accordion>
-        <accordion-group ng-repeat="brewery in breweries | orderBy: 'distance'" is-open="status.isItemOpen[$index]">
-          <accordion-heading>
+      <div class="panel panel-default" ng-repeat="brewery in breweries | orderBy: 'distance'">
+          <div class="panel-heading">
             {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
-          </accordion-heading>
-          <div class="row">
-            <div class="col-md-8">
-              <p class="content">{{brewery.brewery.description}}</p>
-            </div>
-            <div class="col-md-4">
-              <div ng-if="brewery.brewery.images.medium">
-                <img class="brewery-img img-responsive center-block" src="{{brewery.brewery.images.medium}}">
+          </div>
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-md-8">
+                <p class="content">{{brewery.brewery.description}}</p>
               </div>
-              <div ng-if="brewery.brewery.established">
-                <p class="center"><strong>Established:</strong> {{brewery.brewery.established}}</p>
+              <div class="col-md-4">
+                <div ng-if="brewery.brewery.images.medium">
+                  <img class="brewery-img img-responsive center-block" src="{{brewery.brewery.images.medium}}">
+                </div>
+                <div ng-if="brewery.brewery.established">
+                  <p class="center"><strong>Established:</strong> {{brewery.brewery.established}}</p>
+                </div>
+                <div ng-if="brewery.brewery.website">
+                  <p class="center"><a href="{{brewery.brewery.website}}" target="_blank">{{brewery.brewery.website}}</a></p>
+                </div>
+                <div ng-if="brewery.brewery.isOrganic == 'Y'">
+                  <p class="center">Certified Organic</p>
+                </div>
+                <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
               </div>
-              <div ng-if="brewery.brewery.website">
-                <p class="center"><a href="{{brewery.brewery.website}}" target="_blank">{{brewery.brewery.website}}</a></p>
-              </div>
-              <div ng-if="brewery.brewery.isOrganic == 'Y'">
-                <p class="center">Certified Organic</p>
-              </div>
-              <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
-            </div>
-
-          </div><!-- /.row -->
-
-        </accordion-group>
-      </accordion>
+            </div><!-- /.row -->
+          </div>
+        </div>
+      </div>
     </div>
 </section>
