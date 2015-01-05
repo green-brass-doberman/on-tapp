@@ -16,10 +16,20 @@
   </div>
   <div class="right-half-container">
     <div class="container-fluid">
-    <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
-    <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
 
-    <hr ng-init="getBreweries()">
+      <div class="col-md-4">
+      </div>
+
+      <div class="col-md-4">
+      </div>
+
+      <div class="col-md-4">
+        <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
+        <p class="pull-right">My current location is: {{coords.lat}}, {{coords.long}}</p>
+      </div>
+
+      <div class="clearfix">
+      <hr ng-init="getBreweries()">
       <div class="panel panel-default" ng-repeat="brewery in breweries | orderBy: 'distance'">
           <div class="panel-heading">
             {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
