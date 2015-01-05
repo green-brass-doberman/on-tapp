@@ -16,30 +16,6 @@
   </div>
   <div class="right-half-container">
     <div class="container-fluid">
-
-      <div class="col-md-4">
-        <button class="btn btn-primary btn-lg" ng-click="getCurrentLocation()"> Get my location</button>
-      </div>
-
-      <div class="col-md-4">
-
-        <div class="btn-group" dropdown is-open="status.isopen">
-          <button type="button" class="btn btn-primary btn-lg dropdown-toggle" dropdown-toggle ng-disabled="disabled">
-            Choose your State <span class="caret"></span>
-          </button>
-          <ul class="dropdown-menu" role="menu">
-            <li ng-repeat="choice in items">
-              <a href>{{choice}}</a>
-            </li>
-          </ul>
-        </div>
-      </div>
-
-      <div class="col-md-4">
-      </div>
-
-      <div class="clearfix">
-      <hr ng-init="getBreweries()">
       <div class="panel panel-default" ng-repeat="brewery in breweries | orderBy: 'distance'">
           <div class="panel-heading">
             {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
@@ -70,4 +46,5 @@
         </div>
       </div>
     </div>
+  </div>
 </section>

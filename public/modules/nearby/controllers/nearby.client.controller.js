@@ -2,8 +2,6 @@
 
 angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger',
 	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger) {
-		// Controller Logic
-		// ...
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
@@ -11,11 +9,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     // this array would be used to fetch data from brewerydb factory
     $scope.breweries = [];
 
-    // an object to story user's current coordinate, set to san francisco by Default
-    $scope.coords = {lat:37.7833, long:-122.4167};
-
-    // initialize the Google map
-    $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
+    // an object to story user's current coordinate,
+    $scope.coords = {};
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -23,23 +18,22 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       placeMarker();
     };
 
-    // get Breweries data from factory
-    $scope.getBreweries = function(){
-      Breweries.getData($scope.coords).success(handleSuccess);
-    };
-
     // function to access users geolocation coordinates
-    $scope.getCurrentLocation = function(){
-      geolocation.getLocation().then(function(data){
-        $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+    geolocation.getLocation().then(function(data){
+      // get user coordinates
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
-        $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
+      // set to san francisco by Default for Victor
+      // $scope.coords = {lat:37.7833, long:-122.4167};
 
-        curLocationMarker();
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
 
-        $scope.getBreweries();
-      });
-    };
+      // add maker for current location
+      curLocationMarker();
+
+      // get Breweries data from factory
+      Breweries.getData($scope.coords).success(handleSuccess);
+    });
 
     // marker for current coordinate
     var curLocationMarker = function(){
@@ -83,71 +77,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         markers.push(createMarker(i, lat, lng, name));
       }
       $scope.allMarkers = markers;
-    };
-
-    // dropdown menu to select States
-    $scope.items = [
-      'Alabama',
-      'Alaska',
-      'Arizona',
-      'Arkansas',
-      'California',
-      'Colorado',
-      'Connecticut',
-      'Delaware',
-      'Florida',
-      'Georgia',
-      'Hawaii',
-      'Idaho',
-      'Illinois Indiana',
-      'Iowa',
-      'Kansas',
-      'Kentucky',
-      'Louisiana',
-      'Maine',
-      'Maryland',
-      'Massachusetts',
-      'Michigan',
-      'Minnesota',
-      'Mississippi',
-      'Missouri',
-      'Montana Nebraska',
-      'Nevada',
-      'New Hampshire',
-      'New Jersey',
-      'New Mexico',
-      'New York',
-      'North Carolina',
-      'North Dakota',
-      'Ohio',
-      'Oklahoma',
-      'Oregon',
-      'Pennsylvania Rhode Island',
-      'South Carolina',
-      'South Dakota',
-      'Tennessee',
-      'Texas',
-      'Utah',
-      'Vermont',
-      'Virginia',
-      'Washington',
-      'West Virginia',
-      'Wisconsin',
-      'Wyoming'
-    ];
-
-    $scope.status = {
-      isopen: false
-    };
-
-    $scope.toggled = function(open) {
-      $log.log('Dropdown is now: ', open);
-    };
-
-    $scope.toggleDropdown = function($event) {
-      $event.preventDefault();
-      $event.stopPropagation();
-      $scope.status.isopen = !$scope.status.isopen;
     };
   }
 ]);
