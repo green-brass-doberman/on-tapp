@@ -45,7 +45,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 			});
 
       $scope.rating.$promise.then(function(data) {
-        getStars(data.stars)
+        getStars(data.stars);
         getRecommendations(data.styleName);
       });
 		};

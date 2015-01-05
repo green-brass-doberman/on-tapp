@@ -46,7 +46,7 @@ module.exports = {
 				'public/lib/bootstrap/dist/css/bootstrap.css',
         'public/lib/fontawesome/css/font-awesome.css',
         'public/lib/flat-ui/dist/css/flat-ui.css',
-        '/public/lib/angular-ui-select/dist/select.css'
+        'public/lib/angular-ui-select/dist/select.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -58,7 +58,7 @@ module.exports = {
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
         'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
-        '/public/lib/angular-ui-select/dist/select.js'
+        'public/lib/angular-ui-select/dist/select.js'
 			]
 		},
 		css: [

@@ -39,7 +39,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
         $scope.getBreweries();
       });
-    }
+    };
 
     // marker for current coordinate
     var curLocationMarker = function(){
