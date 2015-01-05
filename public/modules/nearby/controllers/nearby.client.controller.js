@@ -39,15 +39,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       placeMarker();
     };
 
-    // set status of the accordion
-    $scope.status = {
-      isItemOpen: new Array($scope.breweries.length),
-      isFirstDisabled: false
-    };
-
-    // open the first item of the accordion
-    $scope.status.isItemOpen[0] = true;
-
     // marker for current coordinate
     var curLocationMarker = function(){
       $scope.marker = {
