@@ -15,15 +15,24 @@ exports.create = function(req, res) {
 	var rating = new Rating(req.body);
 	rating.user = req.user;
 
-	rating.save(function(err) {
-		if (err) {
-			return res.status(400).send({
-				message: errorHandler.getErrorMessage(err)
-			});
-		} else {
-			res.jsonp(rating);
-		}
-	});
+  Rating.findByBeerId(rating.beerId, function (err, beer) {
+    if (beer.length){
+      rating.stars += beer[0].stars;
+    }
+
+    console.log(rating);
+
+    rating.save(function(err) {
+      if (err) {
+        return res.status(400).send({
+          message: errorHandler.getErrorMessage(err)
+        });
+      } else {
+        res.jsonp(rating);
+      }
+    });
+
+  });
 };
 
 /**
@@ -72,7 +81,7 @@ exports.delete = function(req, res) {
 /**
  * List of Ratings
  */
-exports.list = function(req, res) { 
+exports.list = function(req, res) {
 	Rating.find().sort('-created').populate('user', 'displayName').exec(function(err, ratings) {
 		if (err) {
 			return res.status(400).send({
@@ -87,7 +96,7 @@ exports.list = function(req, res) {
 /**
  * Rating middleware
  */
-exports.ratingByID = function(req, res, next, id) { 
+exports.ratingByID = function(req, res, next, id) {
 	Rating.findById(id).populate('user', 'displayName').exec(function(err, rating) {
 		if (err) return next(err);
 		if (! rating) return next(new Error('Failed to load Rating ' + id));

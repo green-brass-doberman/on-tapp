@@ -1,39 +1,41 @@
-<section data-ng-controller="RatingsController" data-ng-init="findOne()">
-	<div class="page-header">
-		<h1 class="text-center" data-ng-bind="rating.name"></h1>
-    <span class="text-center">Your ratings:</span>
-    <ul class="list-inline text-center">
-      <li ng-repeat="star in stars"><span class="glyphicon glyphicon-star stars"></span></li>
-    </ul>
-	</div>
-	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == rating.user._id))">
-		<a class="btn btn-primary" href="/#!/ratings/{{rating._id}}/edit">
-			<i class="glyphicon glyphicon-edit"></i>
-		</a>
-		<a class="btn btn-primary" data-ng-click="remove();">
-			<i class="glyphicon glyphicon-trash"></i>
-		</a>
-	</div>
-	<small>
-		<em class="text-muted">
-			Posted on
-			<span data-ng-bind="rating.created | date:'mediumDate'"></span>
-			by
-			<span data-ng-bind="rating.user.displayName"></span>
-		</em>
-	</small>
+<div class="container">
+  <section data-ng-controller="RatingsController" data-ng-init="findOne()">
+  	<div class="page-header">
+  		<h1 class="text-center" data-ng-bind="rating.name"></h1>
+      <span class="text-center">Total number of stars:</span>
+      <ul class="list-inline text-center">
+        <li ng-repeat="star in stars"><span class="glyphicon glyphicon-star stars"></span></li>
+      </ul>
+  	</div>
+  	<div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == rating.user._id))">
+  		<a class="btn btn-primary" href="/#!/ratings/{{rating._id}}/edit">
+  			<i class="glyphicon glyphicon-edit"></i>
+  		</a>
+  		<a class="btn btn-primary" data-ng-click="remove();">
+  			<i class="glyphicon glyphicon-trash"></i>
+  		</a>
+  	</div>
+  	<small>
+  		<em class="text-muted">
+  			Posted on
+  			<span data-ng-bind="rating.created | date:'mediumDate'"></span>
+  			by
+  			<span data-ng-bind="rating.user.displayName"></span>
+  		</em>
+  	</small>
 
-  <hr>
+    <hr>
 
-  <h2>You may also <span data-ng-if="rating.stars >= 3">like</span><span data-ng-if="rating.stars < 3">dislike</span>:</h2>
+    <h2>You may also <span data-ng-if="rating.stars >= 3">like</span><span data-ng-if="rating.stars < 3">dislike</span>:</h2>
 
-  <div class="list-group">
-    <div class="list-group-item" ng-repeat="recommendation in recommendations">
-      <h4 class="list-group-item-heading">{{recommendation.name}}</h4>
-      <small class="list-group-item-text">
-        {{recommendation.category.name}}
-      </small>
+    <div class="list-group">
+      <div class="list-group-item" ng-repeat="recommendation in recommendations">
+        <h4 class="list-group-item-heading">{{recommendation.name}}</h4>
+        <small class="list-group-item-text">
+          {{recommendation.category.name}}
+        </small>
+      </div>
     </div>
-  </div>
 
-</section>
+  </section>
+</div>

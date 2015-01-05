@@ -10,6 +10,10 @@ var mongoose = require('mongoose'),
  * Rating Schema
  */
 var RatingSchema = new Schema({
+  beerId: {
+    type: String,
+    default: '',
+  },
 	name: {
 		type: String,
 		default: '',
@@ -33,5 +37,10 @@ var RatingSchema = new Schema({
 		ref: 'User'
 	}
 });
+
+// assign a function to the "statics" object of our RatingSchema
+RatingSchema.statics.findByBeerId = function (beerId, cb) {
+  this.find({ beerId: new RegExp(beerId, 'i') }, cb);
+};
 
 mongoose.model('Rating', RatingSchema);
