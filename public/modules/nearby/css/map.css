@@ -10,7 +10,7 @@
 .left-half-container{
   position: absolute;
   left: 0;
-  right: 50%;
+  right: 60%;
   top: 0;
   bottom: 0;
   height: 100%;
@@ -19,7 +19,7 @@
 
 .right-half-container{
   position: absolute;
-  left: 50%;
+  left: 40%;
   right: 0;
   top: 0;
   bottom: 0;

@@ -2,8 +2,6 @@
 
 angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger',
 	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger) {
-		// Controller Logic
-		// ...
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
@@ -11,18 +9,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     // this array would be used to fetch data from brewerydb factory
     $scope.breweries = [];
 
-    // an object to story user's current coordinate
+    // an object to story user's current coordinate,
     $scope.coords = {};
-
-    // function to access users geolocation coordinates
-    geolocation.getLocation().then(function(data){
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      // $scope.coords = {lat:37.7833, long:-122.4167}; // hard code san francisco for Victor
-
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 11};
-      curLocationMarker();
-      Breweries.getData($scope.coords).success(handleSuccess);
-    });
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -30,14 +18,22 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       placeMarker();
     };
 
-    // set status of the accordion
-    $scope.status = {
-      isItemOpen: new Array($scope.breweries.length),
-      isFirstDisabled: false
-    };
+    // function to access users geolocation coordinates
+    geolocation.getLocation().then(function(data){
+      // get user coordinates
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
-    // open the first item of the accordion
-    $scope.status.isItemOpen[0] = true;
+      // set to san francisco by Default for Victor
+      // $scope.coords = {lat:37.7833, long:-122.4167};
+
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
+
+      // add maker for current location
+      curLocationMarker();
+
+      // get Breweries data from factory
+      Breweries.getData($scope.coords).success(handleSuccess);
+    });
 
     // marker for current coordinate
     var curLocationMarker = function(){
@@ -72,6 +68,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     // a function to place all breweries markers
     var placeMarker = function(){
+
       var markers = [];
       for (var i = 0; i < $scope.breweries.length; i++) {
         var lat = $scope.breweries[i].latitude;
@@ -81,6 +78,5 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       }
       $scope.allMarkers = markers;
     };
-
   }
 ]);
