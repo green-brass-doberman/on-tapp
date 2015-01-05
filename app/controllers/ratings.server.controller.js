@@ -17,10 +17,9 @@ exports.create = function(req, res) {
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
     if (beer.length){
+      rating = beer[0];
       rating.stars += beer[0].stars;
     }
-
-    console.log(rating);
 
     rating.save(function(err) {
       if (err) {
