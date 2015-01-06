@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger', '$anchorScroll', '$location',
-	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger, $anchorScroll, $location) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger', '$anchorScroll', '$location', 'usSpinnerService',
+	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger, $anchorScroll, $location, usSpinnerService) {
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
@@ -33,6 +33,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
       // get Breweries data from factory
       Breweries.getData($scope.coords).success(handleSuccess);
+
+      // stop the spinner
+      usSpinnerService.stop('spinner-1');
     });
 
     // marker for current coordinate
@@ -50,18 +53,14 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       };
     };
 
-      $scope.clickEventsObject = {
-        mouseover: function(marker, e, model)  {
-          model.mouseOver();
-        },
-        mouseout: function(marker, e, model)  {
-          model.mouseOut();
-        }
-      };
-
-      // var markerMouseOver =
-
-      // var markerMouseOut =
+    $scope.clickEventsObject = {
+      mouseover: function(marker, e, model)  {
+        model.mouseOver();
+      },
+      mouseout: function(marker, e, model)  {
+        model.mouseOut();
+      }
+    };
 
     // an array to store all breweries marker
     $scope.allMarkers = [];
@@ -124,4 +123,4 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
 angular.module('nearby').run(['$anchorScroll', function($anchorScroll) {
   $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
-}])
+}]);
