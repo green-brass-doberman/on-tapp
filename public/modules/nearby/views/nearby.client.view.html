@@ -17,7 +17,7 @@
   <div class="right-half-container">
     <div class="container-fluid">
       <div class="panel panel-default" ng-repeat="brewery in breweries | orderBy: 'distance'">
-          <div class="panel-heading">
+          <div class="panel-heading anchor" id="anchor{{brewery.brewery.id}}">
             {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
           </div>
           <div class="panel-body">

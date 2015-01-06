@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger',
-	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger', '$anchorScroll', '$location',
+	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger, $anchorScroll, $location) {
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
@@ -82,6 +82,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       };
       ret.mouseOver = function(){
         ret.show = !ret.show;
+        $scope.gotoAnchor(breweryId);
       };
       ret.mouseOut = function(){
         ret.show = !ret.show;
@@ -105,5 +106,22 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
       $scope.allMarkers = markers;
     };
+
+    $scope.gotoAnchor = function(x) {
+      var newHash = 'anchor' + x;
+      if ($location.hash() !== newHash) {
+        // set the $location.hash to `newHash` and
+        // $anchorScroll will automatically scroll to it
+        $location.hash('anchor' + x);
+      } else {
+        // call $anchorScroll() explicitly,
+        // since $location.hash hasn't changed
+        $anchorScroll();
+      }
+    };
   }
 ]);
+
+angular.module('nearby').run(['$anchorScroll', function($anchorScroll) {
+  $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
+}])
