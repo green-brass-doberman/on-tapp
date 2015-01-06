@@ -1,23 +1,23 @@
 <section data-ng-controller="NearbyController">
   <div class="left-half-container">
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+
+      <!-- marker to show current user location -->
       <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id" click="'onClick'">
-      <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
+
+      <!-- markers to show all breweries location -->
+      <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'" events="clickEventsObject">
         <ui-gmap-windows show="show">
           <div ng-non-bindable>{{title}}</div>
         </ui-gmap-windows>
       </ui-gmap-markers>
-
-      <!-- marker to show user cuurent coordinate -->
-      <ui-gmap-marker coords="marker.coords" options="marker.options" events="marker.events" idkey="marker.id">
-      </ui-gmap-marker>
 
     </ui-gmap-google-map>
   </div>
   <div class="right-half-container">
     <div class="container-fluid">
       <div class="panel panel-default" ng-repeat="brewery in breweries | orderBy: 'distance'">
-          <div class="panel-heading">
+          <div class="panel-heading anchor" id="anchor{{brewery.brewery.id}}">
             {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
           </div>
           <div class="panel-body">
