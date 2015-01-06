@@ -51,27 +51,26 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     };
 
       $scope.clickEventsObject = {
-        mouseover: markerMouseOver,
-        mouseout: markerMouseOut
+        mouseover: function(marker, e, model)  {
+          model.mouseOver();
+        },
+        mouseout: function(marker, e, model)  {
+          model.mouseOut();
+        }
       };
 
-      function markerMouseOver(marker, e) {
-          //Callback
-          console.log('mouseOver');
-      }
+      // var markerMouseOver =
 
-      function markerMouseOut(marker, e) {
-          //Callback
-          console.log('mouseOut');
-      }
+      // var markerMouseOut =
 
     // an array to store all breweries marker
     $scope.allMarkers = [];
 
     // create markers for all breweries
-    var createMarker = function (i, lat, lng, name) {
+    var createMarker = function (i, lat, lng, name, breweryId) {
       var ret = {
         id: i,
+        breweryId: breweryId,
         latitude: lat,
         longitude: lng,
         title: name,
@@ -79,6 +78,12 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         show: false
       };
       ret.onClick = function() {
+        ret.show = !ret.show;
+      };
+      ret.mouseOver = function(){
+        ret.show = !ret.show;
+      };
+      ret.mouseOut = function(){
         ret.show = !ret.show;
       };
 
@@ -93,8 +98,11 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
         var lat = $scope.breweries[i].latitude;
         var lng = $scope.breweries[i].longitude;
         var name = $scope.breweries[i].brewery.name;
-        markers.push(createMarker(i, lat, lng, name));
+        var breweryId = $scope.breweries[i].brewery.id;
+
+        markers.push(createMarker(i, lat, lng, name, breweryId));
       }
+
       $scope.allMarkers = markers;
     };
   }
