@@ -36,6 +36,7 @@
     "angularjs-geolocation": "~0.1.1",
     "flat-ui": "~2.2.2",
     "angular-spinner": "~0.6.1",
-    "spin.js": "~2.0.2"
+    "spin.js": "~2.0.2",
+    "fastclick": "~1.0.3"
   }
 }
