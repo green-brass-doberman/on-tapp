@@ -71,7 +71,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       $scope.windowOptions.visible = false;
     };
 
-    $scope.title = "You are here!";
+    $scope.title = 'You are here!';
 
     $scope.clickEventsObject = {
       mouseover: function(marker, e, model)  {

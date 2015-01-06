@@ -41,6 +41,14 @@
 	<!--[if lt IE 9]>
 		<script src="http://html5shim.googlecode.com/svn/trunk/html5.js"></script>
 	<![endif]-->
+
+  <script type="application/javascript">
+    if ('addEventListener' in document) {
+    document.addEventListener('DOMContentLoaded', function() {
+          FastClick.attach(document.body);
+      }, false);
+    }
+  </script>
 </head>
 
 <body class="ng-cloak">
