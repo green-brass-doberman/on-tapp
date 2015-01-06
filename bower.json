@@ -34,6 +34,8 @@
     "fontawesome": "~4.2.0",
     "angular-google-maps": "~2.0.12",
     "angularjs-geolocation": "~0.1.1",
-    "flat-ui": "~2.2.2"
+    "flat-ui": "~2.2.2",
+    "angular-spinner": "~0.6.1",
+    "spin.js": "~2.0.2"
   }
 }
