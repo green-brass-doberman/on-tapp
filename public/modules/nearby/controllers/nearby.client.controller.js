@@ -16,6 +16,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     var handleSuccess = function(data, status){
       $scope.breweries = data.data;
       placeMarker();
+
+      // stop the spinner
+      usSpinnerService.stop('spinner-1');
     };
 
     // function to access users geolocation coordinates
@@ -26,7 +29,13 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       // set to san francisco by Default for Victor
       $scope.coords = {lat:37.7833, long:-122.4167};
 
+      // initialise the Google map
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
+
+      // allow scroll to zoom
+      $scope.windowOptions = {
+         visible: true
+      };
 
       // add maker for current location
       curLocationMarker();
@@ -34,8 +43,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       // get Breweries data from factory
       Breweries.getData($scope.coords).success(handleSuccess);
 
-      // stop the spinner
-      usSpinnerService.stop('spinner-1');
     });
 
     // marker for current coordinate
@@ -47,11 +54,24 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
           longitude: $scope.coords.long,
         },
         options: {
-          title: 'You are here',
           animation: 'DROP'
         }
       };
     };
+
+    $scope.windowOptions = {
+      visible: true
+    };
+
+    $scope.onClick = function() {
+      $scope.windowOptions.visible = !$scope.windowOptions.visible;
+    };
+
+    $scope.closeClick = function() {
+      $scope.windowOptions.visible = false;
+    };
+
+    $scope.title = "You are here!";
 
     $scope.clickEventsObject = {
       mouseover: function(marker, e, model)  {
