@@ -4,15 +4,15 @@ angular.module('search').controller('SearchController', ['$scope', 'Search',
   function($scope, Search) {
     // Search controller logic
     $scope.results = [];
-    $scope.totalResults = 0;
+    $scope.totalResults = undefined;
     
-    $scope.search = function() {
+    $scope.search = function(currentPage) {
+      $scope.currentPage = currentPage || 1;
       $scope.results = [];
-      Search.getData($scope.keyword).success(function(results, status) {
+      $scope.searchword = $scope.searchword || $scope.keyword;
+      Search.getData($scope.searchword, $scope.currentPage).success(function(results, status) {
         if (status === 200) {
-          $scope.searchword = $scope.keyword;
           $scope.keyword = null;
-          $scope.currentPage = results.currentPage;
           $scope.status = status;
           if (results.totalResults !== undefined) {
             $scope.numberOfPages = results.numberOfPages;
@@ -20,6 +20,7 @@ angular.module('search').controller('SearchController', ['$scope', 'Search',
             $scope.results = results.data;
           } else {
             $scope.totalResults = 0;
+            $scope.numberOfPages = 0;
           }
         } else {
           $scope.results = results || 'Request failed';
