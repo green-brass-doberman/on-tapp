@@ -1,0 +1,68 @@
+<section data-ng-controller="BeerController">
+  <div class="page-header">
+    <p>{{beer.name}} - <span class="brewery-name">{{beer.breweries[0].name}}</span></p>
+  </div>
+  <div class="row">
+    <div class="col-md-4">
+      <div ng-if="beer.labels.medium">
+        <img class="brewery-img img-responsive center-block" ng-src="{{beer.labels.medium}}">
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="badge">{{beer.abv}}%</span>
+          abv
+        </li>
+          <li class="list-group-item">
+          <span class="badge">{{beer.ibu}}</span>
+          ibu
+        </li>
+        </li>
+          <li class="list-group-item">
+          <span ng-if="beer.srmId" class="badge">{{beer.srmId}}</span>
+          <span ng-if="!beer.srmId" class="badge">N/A</span>
+          srm
+        </li>
+        </li>
+          <li class="list-group-item">
+          <span ng-if="beer.og" class="badge">{{beer.og}}</span>
+          <span ng-if="!beer.og" class="badge">N/A</span>
+          og
+        </li>
+      </ul>
+    </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-sm-3"><strong>Name:</strong></div>
+        <div class="col-sm-9">{{beer.name}}</div>
+      </div>
+      <div ng-if="beer.breweries[0].id" class="row">
+        <div class="col-sm-3"><strong>Brewery:</strong></div>
+        <div class="col-sm-9">
+          <a href="#!/brewery/{{beer.breweries[0].id}}">{{beer.breweries[0].name}}</a>
+        </div>
+      </div>
+      <div ng-if="beer.style.name" class="row">
+        <div class="col-sm-3"><strong>Style:</strong></div>
+        <div ng-if="beer.style.name" class="col-sm-9">
+          <a href="#">{{beer.style.name}}</a>
+        </div>
+      </div>
+      <div ng-if="beer.available.description" class="row">
+        <div class="col-sm-3"><strong>Availability:</strong></div>
+        <div class="col-sm-9">{{beer.available.description}}</div>
+      </div>
+      <div ng-if="beer.glass.name" class="row">
+        <div class="col-sm-3"><strong>Serving:</strong></div>
+        <div class="col-sm-9">{{beer.glass.name}}</div>
+      </div>
+      <br>
+      <p class="content">{{beer.description}}</p>
+      <div ng-if="beer.foodPairings" class="row">
+        <div class="col-sm-12">
+        <strong>Food Pairings:</strong><br>
+        <p class="content">{{beer.foodPairings}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

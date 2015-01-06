@@ -6,7 +6,7 @@
         <div class="col-md-3" ng-repeat-start="beer in group.beers">
           <div class="beer">
             <div ng-if="beer.labels.medium">
-              <img width="200" height="200" src="{{beer.labels.medium}}">
+              <img width="200" height="200" ng-src="{{beer.labels.medium}}">
             </div>
             <div ng-if="!beer.labels.medium">
               <img width="200" height="200" src="/modules/core/images/no-beer-label-60.png">

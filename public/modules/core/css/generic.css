@@ -3,6 +3,11 @@ p.center {
   margin: 0;
   line-height: 1.3em;
 }
+.brewery-info p {
+  text-align: center;
+  margin: 0;
+  line-height: 1.8em;
+}
 p.content {
   white-space: pre-wrap;
   line-height: 1.3em;
@@ -21,7 +26,7 @@ p.beer-btn {
   line-height: 1.3em;
   margin: 0 15px 15px 0;
   padding: 5px 15px 0 15px;
-  border: 1px solid #351311;
+  border: 1px solid #5a5a5a;
   width: 232px;
   height: 420px;
   -webkit-border-radius: 5px;
@@ -39,4 +44,14 @@ form.list-beers {
 }
 .beer img {
   margin-bottom: 20px;
+}
+.ta-search {
+  width: 240px;
+}
+.guilds {
+  text-align: center;
+}
+.guild-image {
+  display: inline-block;
+  margin: 10px;
 }
