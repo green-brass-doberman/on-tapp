@@ -3,6 +3,11 @@ p.center {
   margin: 0;
   line-height: 1.3em;
 }
+.brewery-info p {
+  text-align: center;
+  margin: 0;
+  line-height: 1.8em;
+}
 p.content {
   white-space: pre-wrap;
   line-height: 1.3em;
@@ -42,4 +47,11 @@ form.list-beers {
 }
 .ta-search {
   width: 240px;
+}
+.guilds {
+  text-align: center;
+}
+.guild-image {
+  display: inline-block;
+  margin: 10px;
 }
