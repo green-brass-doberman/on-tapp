@@ -58,7 +58,8 @@ module.exports = {
         'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
         'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
         'public/lib/spin.js/spin.js',
-        'public/lib/angular-spinner/angular-spinner.js'
+        'public/lib/angular-spinner/angular-spinner.js',
+        'public/lib/fastclick/lib/fastclick.js'
 			]
 		},
 		css: [
