@@ -1,13 +1,13 @@
 <div class="container">
   <section data-ng-controller="RatingsController" data-ng-init="find()">
-    <div class="page-header">
-      <h1 class="text-center">Top Rated Beers</h1>
+    <div class="page-header text-center">
+      <h3> Top Rated Beers <img src="/modules/core/images/Graph%402x.png"></h3>
     </div>
     <div class="list-group">
         <a data-ng-repeat="rating in ratings | orderBy: '-stars'" data-ng-href="#!/ratings/{{rating._id}}" class="list-group-item">
-      		<h4 class="list-group-item-heading" data-ng-bind="rating.name"></h4>
-          Number of stars: {{rating.stars}}
-          <small class="list-group-item-text pull-right">
+          <h4 class="list-group-item-heading">{{$index + 1}} | {{rating.name}}</h4>
+          <span class="badge"> Stars: {{rating.stars}} </span>
+          <small class="list-group-item-text">
             Last voted on
             <span data-ng-bind="rating.created | date:'medium'"></span>
             by

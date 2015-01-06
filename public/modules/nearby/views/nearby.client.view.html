@@ -38,6 +38,9 @@
                 <div ng-if="brewery.brewery.images.medium">
                   <img class="brewery-img img-responsive center-block" src="{{brewery.brewery.images.medium}}">
                 </div>
+                <div ng-if="!brewery.brewery.images.medium">
+                  <img class="brewery-img img-responsive center-block" src="/modules/core/images/Map%402x.png">
+                </div>
                 <div ng-if="brewery.brewery.established">
                   <p class="center"><strong>Established:</strong> {{brewery.brewery.established}}</p>
                 </div>
