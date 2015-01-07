@@ -10,13 +10,13 @@ module.exports = function(app) {
         if (!error && response.statusCode === 200) {
           res.send(body);
         }
-      });      
+      });
     } else {
       request('https://api.brewerydb.com/v2/search?q=' + req.params.keyword + '&p=' + req.params.page + '&key=' + secret.keys.brewerydb, function (error, response, body) {
         if (!error && response.statusCode === 200) {
           res.send(body);
         }
-      });      
+      });
     }
   });
 };
