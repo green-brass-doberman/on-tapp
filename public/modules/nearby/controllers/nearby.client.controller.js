@@ -14,8 +14,25 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
-      $scope.breweries = data.data;
-      placeMarker();
+
+      if (data.data){
+
+        console.log(data.data)
+
+        $scope.breweries = data.data;
+
+        placeMarker();
+
+      } else {
+
+        $scope.breweries = [{
+          brewery: {
+            name: 'Sorry',
+            description: 'No breweries nearby'
+          }
+        }]
+
+      }
 
       // stop the spinner
       usSpinnerService.stop('spinner-1');
@@ -27,7 +44,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
       // set to san francisco by Default for Victor
-      //$scope.coords = {lat:37.7833, long:-122.4167};
+      // $scope.coords = {lat:37.7833, long:-122.4167};
 
       // initialise the Google map
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
