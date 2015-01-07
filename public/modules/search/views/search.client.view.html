@@ -1,6 +1,13 @@
 <section data-ng-controller="SearchController">
   <form class="search-form form-group">
-    <input type="text" ng-model="keyword" class="form-control" placeholder="Search for beers or breweries..."><br />
+    <input type="text" ng-model="keyword" class="form-control search-bar" placeholder="Search for beers or breweries...">
+    <select name="searchType" data-ng-model="searchType">
+      <option value="all">all types</option>
+      <option value="beer">beers only</option>
+      <option value="brewery">breweries only</option>
+      <option value="guild">guilds only</option>
+      <option value="event">events only</option>
+    </select>
     <button type="submit" ng-click="search()" class="btn">Search</button>
   </form>
 
@@ -19,6 +26,6 @@
   </div>
 
   <div class="alert alert-warning text-center" ng-if="totalResults === 0">
-    No beers or breweries found!!
+    Nothing found!!  Please try again...
   </div>
 </section>
