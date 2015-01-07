@@ -4,6 +4,6 @@
 angular.module('nearby').run(['Menus',
   function(Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Breweries Nearby', 'nearby', '/nearby');
+    Menus.addMenuItem('topbar', 'Nearby', 'nearby', '/nearby');
   }
 ]);
