@@ -17,8 +17,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
       if (data.data){
 
-        console.log(data.data)
-
         $scope.breweries = data.data;
 
         placeMarker();
