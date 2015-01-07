@@ -9,10 +9,8 @@ angular.module('search').controller('SearchController', ['$scope', 'Search',
     $scope.search = function(currentPage) {
       $scope.currentPage = currentPage || 1;
       $scope.results = [];
-      $scope.searchword = $scope.searchword || $scope.keyword;
-      Search.getData($scope.searchword, $scope.currentPage).success(function(results, status) {
+      Search.getData($scope.keyword, $scope.currentPage, $scope.searchType).success(function(results, status) {
         if (status === 200) {
-          $scope.keyword = null;
           $scope.status = status;
           if (results.totalResults !== undefined) {
             $scope.numberOfPages = results.numberOfPages;
