@@ -22,6 +22,8 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+				'public/lib/fontawesome/css/font-awesome.min.css',
+				'public/lib/flat-ui/dist/css/flat-ui.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.min.js',
@@ -32,21 +34,14 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
-        'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
+        'public/lib/angularjs-geolocation/dist/geolocation.min.js',
         'public/lib/spin.js/spin.js',
         'public/lib/angular-spinner/angular-spinner.js',
         'public/lib/fastclick/lib/fastclick.js'
 			]
 		},
-		css: [
-			'public/modules/**/css/*.css'
-		],
-		js: [
-			'public/config.js',
-			'public/application.js',
-			'public/modules/*/*.js',
-			'public/modules/*/*[!tests]*/*.js'
-		]
+		css: 'public/dist/application.min.css',
+		js: 'public/dist/application.min.js'
 	},
 	facebook: {
 		clientID: process.env.FACEBOOK_ID || '968149419880980',
