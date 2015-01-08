@@ -22,6 +22,7 @@ module.exports = {
 			css: [
 				'public/lib/bootstrap/dist/css/bootstrap.min.css',
 				'public/lib/bootstrap/dist/css/bootstrap-theme.min.css',
+        'public/lib/flat-ui/dist/css/flat-ui.min.css'
 			],
 			js: [
 				'public/lib/angular/angular.min.js',
@@ -29,7 +30,14 @@ module.exports = {
 				'public/lib/angular-animate/angular-animate.min.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'public/lib/lodash/dist/lodash.min.js',
+        'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
+        'public/lib/angularjs-geolocation/src/geolocation.js',
+        'public/lib/spin.js/spin.js',
+        'public/lib/angular-spinner/angular-spinner.min.js',
+        'public/lib/fastclick/lib/fastclick.js'
+
 			]
 		},
 		css: 'public/dist/application.min.css',
