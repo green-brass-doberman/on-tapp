@@ -54,9 +54,9 @@ module.exports = {
 				'public/lib/angular-ui-router/release/angular-ui-router.js',
 				'public/lib/angular-ui-utils/ui-utils.js',
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.js',
-        'public/lib/lodash/dist/lodash.min.js',
-        'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
-        'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
+        'public/lib/lodash/dist/lodash.js',
+        'public/lib/angular-google-maps/dist/angular-google-maps.js',
+        'public/lib/angularjs-geolocation/src/angularjs-geolocation.js',
         'public/lib/spin.js/spin.js',
         'public/lib/angular-spinner/angular-spinner.js',
         'public/lib/fastclick/lib/fastclick.js'
