@@ -34,7 +34,7 @@ module.exports = {
 				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
         'public/lib/lodash/dist/lodash.min.js',
         'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
-        'public/lib/angularjs-geolocation/dist/geolocation.min.js',
+        'public/lib/angularjs-geolocation/src/geolocation.js',
         'public/lib/spin.js/spin.js',
         'public/lib/angular-spinner/angular-spinner.js',
         'public/lib/fastclick/lib/fastclick.js'
