@@ -28,7 +28,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
             name: 'Sorry',
             description: 'No breweries nearby'
           }
-        }]
+        }];
 
       }
 

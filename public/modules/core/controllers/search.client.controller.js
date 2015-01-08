@@ -20,13 +20,13 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
           $scope.numberOfPages = 0;
         }
       } else {
-        $scope.results = results || 'Request failed';
+        $scope.results = response || 'Request failed';
       }
     });
 
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
       $state.go('search', {'page': currentPage, 'keyword': $scope.keyword, 'searchtype': $scope.searchType});
-    }
+    };
 	}
 ]);
