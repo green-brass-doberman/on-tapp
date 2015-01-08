@@ -36,7 +36,7 @@
               </div>
               <div class="col-md-4">
                 <div ng-if="brewery.brewery.images.medium">
-                  <img class="brewery-img img-responsive center-block" src="{{brewery.brewery.images.medium}}">
+                  <img class="brewery-img img-responsive center-block" ng-src="{{brewery.brewery.images.medium}}">
                 </div>
                 <div ng-if="!brewery.brewery.images.medium">
                   <img class="brewery-img img-responsive center-block" src="/modules/core/images/Map%402x.png">

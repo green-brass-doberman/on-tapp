@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus',
-  function($scope, Authentication, Menus) {
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$state',
+  function($scope, Authentication, Menus, $state) {
     $scope.authentication = Authentication;
     $scope.isCollapsed = false;
     $scope.menu = Menus.getMenu('topbar');
@@ -15,5 +15,13 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
       $scope.isCollapsed = false;
     });
 
+    // Search logic
+    $scope.results = [];
+    $scope.totalResults = undefined;
+    
+    $scope.search = function(currentPage) {
+      currentPage = currentPage || 1;
+      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword, 'searchtype': $scope.searchType});
+    }
   }
 ]);
