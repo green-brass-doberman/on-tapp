@@ -29,7 +29,13 @@ module.exports = {
 				'public/lib/angular-animate/angular-animate.min.js',
 				'public/lib/angular-ui-router/release/angular-ui-router.min.js',
 				'public/lib/angular-ui-utils/ui-utils.min.js',
-				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js'
+				'public/lib/angular-bootstrap/ui-bootstrap-tpls.min.js',
+        'public/lib/lodash/dist/lodash.min.js',
+        'public/lib/angular-google-maps/dist/angular-google-maps.min.js',
+        'public/lib/angularjs-geolocation/dist/angularjs-geolocation.min.js',
+        'public/lib/spin.js/spin.js',
+        'public/lib/angular-spinner/angular-spinner.js',
+        'public/lib/fastclick/lib/fastclick.js'
 			]
 		},
 		css: [
@@ -57,16 +63,6 @@ module.exports = {
 		clientSecret: process.env.GOOGLE_SECRET || '5xxSzR-ltreqF7EloyCt9JVC',
 		callbackURL: '/auth/google/callback'
 	},
-	// linkedin: {
-	// 	clientID: process.env.LINKEDIN_ID || 'APP_ID',
-	// 	clientSecret: process.env.LINKEDIN_SECRET || 'APP_SECRET',
-	// 	callbackURL: '/auth/linkedin/callback'
-	// },
-	// github: {
-	// 	clientID: process.env.GITHUB_ID || 'APP_ID',
-	// 	clientSecret: process.env.GITHUB_SECRET || 'APP_SECRET',
-	// 	callbackURL: '/auth/github/callback'
-	// },
 	mailer: {
 		from: process.env.MAILER_FROM || 'MAILER_FROM',
 		options: {
