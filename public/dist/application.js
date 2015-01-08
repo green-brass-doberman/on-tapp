@@ -71,6 +71,10 @@ angular.module('beers').config(['$stateProvider',
 	function($stateProvider) {
 		// Beers state routing
 		$stateProvider.
+		state('beer', {
+			url: '/beer/:beerId',
+			templateUrl: 'modules/beers/views/beer.client.view.html'
+		}).
 		state('beers', {
 			url: '/beers/:breweryId',
 			templateUrl: 'modules/beers/views/beers.client.view.html'
@@ -78,6 +82,18 @@ angular.module('beers').config(['$stateProvider',
 	}
 ]);
 
+'use strict';
+
+angular.module('beers').controller('BeerController', ['$scope', 'Beer', '$stateParams', 
+	function($scope, Beer, $stateParams) {
+		// Beer controller logic
+    $scope.beerId = $stateParams.beerId;
+    
+    Beer.getData($scope.beerId).success(function(results, status) {
+      $scope.beer = results.data || 'Request failed';
+    });
+	}
+]);
 'use strict';
 
 angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stateParams', 'Ratings', '$location',
@@ -183,6 +199,18 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
 
 'use strict';
 
+angular.module('beers').factory('Beer', ['$http',
+	function($http) {
+		// Public API
+		return {
+      getData: function(beerId){
+        return $http.get('/beer/' + beerId);
+      }
+    };
+	}
+]);
+'use strict';
+
 angular.module('beers').factory('Beers', ['$http', '$resource',
 	function($http, $resource) {
 		// Public API
@@ -204,6 +232,10 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 		// Home state routing
 		$stateProvider.
+		state('search', {
+			url: '/search/:page/:keyword/:searchtype',
+			templateUrl: 'modules/core/views/search.client.view.html'
+		}).
 		state('home', {
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
@@ -212,29 +244,69 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 ]);
 'use strict';
 
-angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus',
-	function($scope, Authentication, Menus) {
-		$scope.authentication = Authentication;
-		$scope.isCollapsed = false;
-		$scope.menu = Menus.getMenu('topbar');
+angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$state',
+  function($scope, Authentication, Menus, $state) {
+    $scope.authentication = Authentication;
+    $scope.isCollapsed = false;
+    $scope.menu = Menus.getMenu('topbar');
 
-		$scope.toggleCollapsibleMenu = function() {
-			$scope.isCollapsed = !$scope.isCollapsed;
-		};
+    $scope.toggleCollapsibleMenu = function() {
+      $scope.isCollapsed = !$scope.isCollapsed;
+    };
 
-		// Collapsing the menu after navigation
-		$scope.$on('$stateChangeSuccess', function() {
-			$scope.isCollapsed = false;
-		});
-	}
+    // Collapsing the menu after navigation
+    $scope.$on('$stateChangeSuccess', function() {
+      $scope.isCollapsed = false;
+    });
+
+    // Search logic
+    $scope.results = [];
+    $scope.totalResults = undefined;
+    
+    $scope.search = function(currentPage) {
+      currentPage = currentPage || 1;
+      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword, 'searchtype': $scope.searchType});
+    };
+  }
 ]);
 'use strict';
-
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 	function($scope, Authentication) {
 		// This provides Authentication context.
 		$scope.authentication = Authentication;
+	}
+]);
+'use strict';
+
+angular.module('core').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state',
+	function($scope, Search, $stateParams, $state) {
+		// Search controller logic
+    $scope.results = [];
+        
+    Search.getData($stateParams.keyword, $stateParams.page, $stateParams.searchtype).success(function(response, status) {
+      $scope.status = status;
+      if ($scope.status === 200) {
+        if (response.totalResults !== undefined) {
+          $scope.numberOfPages = response.numberOfPages;
+          $scope.totalResults = response.totalResults;
+          $scope.keyword = $stateParams.keyword;
+          $scope.currentPage = $stateParams.page;
+          $scope.searchType = $stateParams.searchtype;
+          $scope.results = response.data;
+        } else {
+          $scope.totalResults = 0;
+          $scope.numberOfPages = 0;
+        }
+      } else {
+        $scope.results = response || 'Request failed';
+      }
+    });
+
+    $scope.search = function(currentPage) {
+      currentPage = currentPage || 1;
+      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword, 'searchtype': $scope.searchType});
+    };
 	}
 ]);
 'use strict';
@@ -403,13 +475,26 @@ angular.module('core').service('Menus', [
 		this.addMenu('topbar');
 	}
 ]);
+
+'use strict';
+
+angular.module('core').factory('Search', ['$http',
+	function($http) {
+		// Public API
+		return {
+      getData: function(keyword, page, searchtype){
+        return $http.get('/search/' + keyword + '/' + page + '/' + searchtype);
+      }
+    };
+	}
+]);
 'use strict';
 
 // Configuring the Articles module
 angular.module('nearby').run(['Menus',
   function(Menus) {
     // Set top bar menu items
-    Menus.addMenuItem('topbar', 'Breweries Nearby', 'nearby', '/nearby');
+    Menus.addMenuItem('topbar', 'Nearby', 'nearby', '/nearby');
   }
 ]);
 
@@ -420,6 +505,10 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 	function($stateProvider, uiGmapGoogleMapApiProvider) {
 		// Nearby state routing
 		$stateProvider.
+		state('brewery', {
+			url: '/brewery/:breweryId',
+			templateUrl: 'modules/nearby/views/brewery.client.view.html'
+		}).
 		state('nearby', {
 			url: '/nearby',
 			templateUrl: 'modules/nearby/views/nearby.client.view.html'
@@ -435,8 +524,30 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger', '$anchorScroll', '$location', 'angularSpinner',
-	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger, $anchorScroll, $location) {
+angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 
+  function($scope, Brewery, $stateParams) {
+    // Brewery controller logic
+    $scope.breweryId = $stateParams.breweryId;
+    var holdSocial = [];
+    
+    Brewery.getData($scope.breweryId).success(function(results, status) {
+      $scope.brewery = results.data || 'Request failed';
+      for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
+        // only save the social media sites that are FB, Twitter, 4Square, 
+        // Google+, YouTube, Instagram, Yelp or Pinterest
+        var tempSocial = $scope.brewery.socialAccounts[i];
+        if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
+          holdSocial.push(tempSocial);
+        }
+      }
+      $scope.socialMedia = holdSocial;
+    });
+  }
+]);
+'use strict';
+
+angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger', '$anchorScroll', '$location', 'usSpinnerService',
+	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger, $anchorScroll, $location, usSpinnerService) {
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
@@ -449,25 +560,50 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
-      $scope.breweries = data.data;
-      placeMarker();
+
+      if (data.data){
+
+        $scope.breweries = data.data;
+
+        placeMarker();
+
+      } else {
+
+        $scope.breweries = [{
+          brewery: {
+            name: 'Sorry',
+            description: 'No breweries nearby'
+          }
+        }];
+
+      }
+
+      // stop the spinner
+      usSpinnerService.stop('spinner-1');
     };
 
     // function to access users geolocation coordinates
     geolocation.getLocation().then(function(data){
       // get user coordinates
-      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
       // set to san francisco by Default for Victor
-      $scope.coords = {lat:37.7833, long:-122.4167};
+      // $scope.coords = {lat:37.7833, long:-122.4167};
 
+      // initialise the Google map
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
+
+      // allow scroll to zoom
+      $scope.windowOptions = {
+         visible: true
+      };
 
       // add maker for current location
       curLocationMarker();
 
       // get Breweries data from factory
       Breweries.getData($scope.coords).success(handleSuccess);
+
     });
 
     // marker for current coordinate
@@ -479,24 +615,33 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
           longitude: $scope.coords.long,
         },
         options: {
-          title: 'You are here',
           animation: 'DROP'
         }
       };
     };
 
-      $scope.clickEventsObject = {
-        mouseover: function(marker, e, model)  {
-          model.mouseOver();
-        },
-        mouseout: function(marker, e, model)  {
-          model.mouseOut();
-        }
-      };
+    $scope.windowOptions = {
+      visible: true
+    };
 
-      // var markerMouseOver =
+    $scope.onClick = function() {
+      $scope.windowOptions.visible = !$scope.windowOptions.visible;
+    };
 
-      // var markerMouseOut =
+    $scope.closeClick = function() {
+      $scope.windowOptions.visible = false;
+    };
+
+    $scope.title = 'You are here!';
+
+    $scope.clickEventsObject = {
+      mouseover: function(marker, e, model)  {
+        model.mouseOver();
+      },
+      mouseout: function(marker, e, model)  {
+        model.mouseOut();
+      }
+    };
 
     // an array to store all breweries marker
     $scope.allMarkers = [];
@@ -559,7 +704,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
 
 angular.module('nearby').run(['$anchorScroll', function($anchorScroll) {
   $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
-}])
+}]);
 
 'use strict';
 
@@ -579,11 +724,23 @@ angular.module('nearby').factory('Breweries', ['$http',
 
 'use strict';
 
+angular.module('nearby').factory('Brewery', ['$http',
+	function($http) {
+		// Public API
+		return {
+      getData: function(breweryId){
+        return $http.get('/brewery/' + breweryId);
+      }
+    };
+	}
+]);
+'use strict';
+
 // Configuring the Articles module
 angular.module('ratings').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Beers Ratings', 'ratings', '/ratings(/create)?');
+		Menus.addMenuItem('topbar', 'Ratings', 'ratings', '/ratings(/create)?');
 	}
 ]);
 
