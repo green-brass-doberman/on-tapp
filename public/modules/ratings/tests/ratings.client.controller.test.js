@@ -70,27 +70,6 @@
 			expect(scope.ratings).toEqualData(sampleRatings);
 		}));
 
-		it('$scope.findOne() should create an array with one Rating object fetched from XHR using a ratingId URL parameter', inject(function(Ratings) {
-			// Define a sample Rating object
-			var sampleRating = new Ratings({
-				name: 'New Rating'
-			});
-
-			// Set the URL parameter
-			$stateParams.ratingId = '525a8422f6d0f87f0e407a33';
-
-			// Set GET response
-			$httpBackend.expectGET(/ratings\/([0-9a-fA-F]{24})$/).respond(sampleRating);
-
-			// Run controller functionality
-			scope.findOne();
-			$httpBackend.flush();
-
-			// Test scope value
-			expect(scope.rating).toEqualData(sampleRating);
-		}));
-
-
 		it('$scope.update() should update a valid Rating', inject(function(Ratings) {
 			// Define a sample Rating put data
 			var sampleRatingPutData = new Ratings({
