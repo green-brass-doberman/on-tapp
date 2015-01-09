@@ -2,6 +2,7 @@
 
 var secret = require('../../api-key');
 var predictionio = require('predictionio-driver');
+// accessKey is required for PredictionIO 0.8.2+
 var client = new predictionio.Events({appId: 1, accessKey: secret.keys.predictionio});
 
 /**
@@ -18,11 +19,6 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var rating = new Rating(req.body);
 	rating.user = req.user;
-
-  client.status().
-    then(function(status) {
-        console.log(status); // Prints "{status: 'alive'}"
-    });
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
     if (beer.length){

@@ -9,6 +9,12 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	User = mongoose.model('User');
 
+var secret = require('../../../api-key');
+var predictionio = require('predictionio-driver');
+// accessKey is required for PredictionIO 0.8.2+
+var client = new predictionio.Events({appId: 1, accessKey: secret.keys.predictionio});
+
+
 /**
  * Signup
  */
@@ -24,7 +30,7 @@ exports.signup = function(req, res) {
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
 
-	// Then save the user 
+	// Then save the user
 	user.save(function(err) {
 		if (err) {
 			return res.status(400).send({
@@ -34,6 +40,15 @@ exports.signup = function(req, res) {
 			// Remove sensitive data before login
 			user.password = undefined;
 			user.salt = undefined;
+
+      // Register a new user for predictionIO
+      client.createUser({uid: 'user-id'}).
+        then(function(result) {
+          console.log(result); // Prints "{eventId: 'something'}"
+      }).
+      catch(function(err) {
+        console.error(err); // Something went wrong
+      });
 
 			req.login(user, function(err) {
 				if (err) {
