@@ -1,4 +1,6 @@
 'use strict';
+
+require('newrelic');
 /**
  * Module dependencies.
  */
