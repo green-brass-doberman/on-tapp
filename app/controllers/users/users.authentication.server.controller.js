@@ -42,7 +42,7 @@ exports.signup = function(req, res) {
 			user.salt = undefined;
 
       // Register a new user for predictionIO
-      client.createUser({uid: 'user-id'}).
+      client.createUser({uid: user._id}).
         then(function(result) {
           console.log(result); // Prints "{eventId: 'something'}"
       }).
