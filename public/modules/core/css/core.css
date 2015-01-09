@@ -33,3 +33,7 @@ body.ng-cloak
 .search-form {
   margin-bottom: 5px;
 }
+
+.sponsor{
+  height: 150px;
+}
