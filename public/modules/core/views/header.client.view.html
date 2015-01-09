@@ -24,23 +24,20 @@
 				<a ng-switch-default href="/#!/{{item.link}}" data-ng-bind="item.title">{{subitem.uiRoute}} {{item.uiRoute}}</a>
 			</li>
       <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank">About</a></li>
+      <li data-ng-controller="SearchController" ui-route="/search">
+        <form class="search-form form-group">
+          <input type="text" ng-model="keyword" class="form-control search-bar" placeholder="Search for beers or breweries...">
+          <select name="searchType" data-ng-model="searchType">
+            <option value="all">all types</option>
+            <option value="beer">beers only</option>
+            <option value="brewery">breweries only</option>
+            <option value="guild">guilds only</option>
+            <option value="event">events only</option>
+          </select>
+          <button type="submit" ng-click="search()" class="btn">Search</button>
+        </form>
+      </li>
 		</ul>
-
-    <ul class="nav navbar-nav">
-			<li data-ng-controller="SearchController" ui-route="/search">
-			  <form class="search-form form-group">
-			    <input type="text" ng-model="keyword" class="form-control search-bar" placeholder="Search for beers or breweries...">
-			    <select name="searchType" data-ng-model="searchType">
-			      <option value="all">all types</option>
-			      <option value="beer">beers only</option>
-			      <option value="brewery">breweries only</option>
-			      <option value="guild">guilds only</option>
-			      <option value="event">events only</option>
-			    </select>
-			    <button type="submit" ng-click="search()" class="btn">Search</button>
-			  </form>
-			</li>
-    </ul>
 
 		<ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
 			<li ui-route="/signup" ng-class="{active: $uiRoute}">
