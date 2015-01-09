@@ -1,5 +1,9 @@
 'use strict';
 
+var secret = require('../../api-key');
+var predictionio = require('predictionio-driver');
+var client = new predictionio.Events({appId: 1, accessKey: secret.keys.predictionio});
+
 /**
  * Module dependencies.
  */
@@ -14,6 +18,11 @@ var mongoose = require('mongoose'),
 exports.create = function(req, res) {
 	var rating = new Rating(req.body);
 	rating.user = req.user;
+
+  client.status().
+    then(function(status) {
+        console.log(status); // Prints "{status: 'alive'}"
+    });
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
     if (beer.length){
