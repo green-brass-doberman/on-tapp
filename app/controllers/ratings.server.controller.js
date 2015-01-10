@@ -22,27 +22,18 @@ exports.create = function(req, res) {
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
 
-    // Register a new item
-    client.createItem({
-      iid: rating.beerId,
-      eventTime: new Date().toISOString()
-    }).
-      then(function(result) {
-        console.log(result); // Prints "{eventId: 'something'}"
-      }).
-      catch(function(err) {
-        console.error(err); // Something went wrong
-      });
-
     // Register a new user-to-item action
     client.createAction({
       event: 'rate',
       uid: rating.user,
       iid: rating.beerId,
+      properties : {
+        rating : rating.stars
+      },
       eventTime: new Date().toISOString()
     }).
       then(function(result) {
-        console.log(result); // Prints "{eventId: 'something'}"
+        console.log('here is the result', result); // Prints "{eventId: 'something'}"
       }).
       catch(function(err) {
         console.error(err); // Something went wrong
