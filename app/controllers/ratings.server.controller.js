@@ -22,39 +22,36 @@ exports.create = function(req, res) {
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
 
-    console.log('this is user id', rating.user);
-    console.log('this is rating id', rating.beerId);
-
     // Register a new item
-    // client.createItem({
-    //   iid: rating.beerId,
-    //   eventTime: new Date().toISOString()
-    // }).
-    //   then(function(result) {
-    //     console.log(result); // Prints "{eventId: 'something'}"
-    //   }).
-    //   catch(function(err) {
-    //     console.error(err); // Something went wrong
-    //   });
+    client.createItem({
+      iid: rating.beerId,
+      eventTime: new Date().toISOString()
+    }).
+      then(function(result) {
+        console.log(result); // Prints "{eventId: 'something'}"
+      }).
+      catch(function(err) {
+        console.error(err); // Something went wrong
+      });
 
     // Register a new user-to-item action
-    // client.createAction({
-    //   event: 'rate',
-    //   uid: rating.user,
-    //   iid: rating.beerId,
-    //   eventTime: new Date().toISOString()
-    // }).
-    //   then(function(result) {
-    //     console.log(result); // Prints "{eventId: 'something'}"
-    //   }).
-    //   catch(function(err) {
-    //     console.error(err); // Something went wrong
-    //   });
+    client.createAction({
+      event: 'rate',
+      uid: rating.user,
+      iid: rating.beerId,
+      eventTime: new Date().toISOString()
+    }).
+      then(function(result) {
+        console.log(result); // Prints "{eventId: 'something'}"
+      }).
+      catch(function(err) {
+        console.error(err); // Something went wrong
+      });
 
-    // if (beer.length){
-    //   rating = beer[0];
-    //   rating.stars += beer[0].stars;
-    // }
+    if (beer.length){
+      rating = beer[0];
+      rating.stars += beer[0].stars;
+    }
 
     rating.save(function(err) {
       if (err) {
