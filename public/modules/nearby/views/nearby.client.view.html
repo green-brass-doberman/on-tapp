@@ -16,7 +16,7 @@
       <!-- markers to show all breweries location -->
       <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'" events="clickEventsObject">
         <ui-gmap-windows show="show">
-          <div ng-non-bindable>{{title}}</div>
+          <div data-ng-non-bindable>{{title}}</div>
         </ui-gmap-windows>
       </ui-gmap-markers>
 
@@ -24,7 +24,7 @@
   </div>
   <div class="right-half-container">
     <div class="container-fluid">
-      <div class="panel panel-default" ng-repeat="brewery in breweries | orderBy: 'distance'">
+      <div class="panel panel-default" data-ng-repeat="brewery in breweries | orderBy: 'distance'">
           <div class="panel-heading anchor" id="anchor{{brewery.brewery.id}}">
             {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
           </div>
@@ -32,22 +32,22 @@
             <div class="row">
               <div class="col-md-8">
                  <p class="content">{{brewery.brewery.description}}</p>
-                 <p ng-if="!brewery.brewery.description" class="content">No description</p>
+                 <p data-ng-if="!brewery.brewery.description" class="content">No description</p>
               </div>
               <div class="col-md-4">
-                <div ng-if="brewery.brewery.images.medium">
+                <div data-ng-if="brewery.brewery.images.medium">
                   <img class="brewery-img img-responsive center-block" ng-src="{{brewery.brewery.images.medium}}">
                 </div>
-                <div ng-if="!brewery.brewery.images.medium">
+                <div data-ng-if="!brewery.brewery.images.medium">
                   <img class="brewery-img img-responsive center-block" src="/modules/core/images/Map%402x.png">
                 </div>
-                <div ng-if="brewery.brewery.established">
+                <div data-ng-if="brewery.brewery.established">
                   <p class="center"><strong>Established:</strong> {{brewery.brewery.established}}</p>
                 </div>
-                <div ng-if="brewery.brewery.website">
+                <div data-ng-if="brewery.brewery.website">
                   <p class="center"><a href="{{brewery.brewery.website}}" target="_blank">{{brewery.brewery.website}}</a></p>
                 </div>
-                <div ng-if="brewery.brewery.isOrganic == 'Y'">
+                <div data-ng-if="brewery.brewery.isOrganic == 'Y'">
                   <p class="center">Certified Organic</p>
                 </div>
                 <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>

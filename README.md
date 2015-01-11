@@ -21,7 +21,7 @@
 
 ## Usage
 
-> For demo, please visit: [https://on-tapp.herokuapp.com/](https://on-tapp.herokuapp.com/) or [http://ontappapp.azurewebsites.net/](http://ontappapp.azurewebsites.net/)
+> For demo, please visit: [http://ontappapp.com](http://ontappapp.com)
 
 ## Requirements
 
