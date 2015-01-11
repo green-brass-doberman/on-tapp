@@ -4,8 +4,8 @@
   </div>
   <div class="row">
     <div class="col-md-4">
-      <div ng-if="beer.labels.medium">
-        <img class="brewery-img img-responsive center-block" ng-src="{{beer.labels.medium}}">
+      <div data-ng-if="beer.labels.medium">
+        <img class="brewery-img img-responsive center-block" data-ng-src="{{beer.labels.medium}}">
       </div>
       <ul class="list-group">
         <li class="list-group-item">
@@ -18,14 +18,14 @@
         </li>
         </li>
           <li class="list-group-item">
-          <span ng-if="beer.srmId" class="badge">{{beer.srmId}}</span>
-          <span ng-if="!beer.srmId" class="badge">N/A</span>
+          <span data-ng-if="beer.srmId" class="badge">{{beer.srmId}}</span>
+          <span data-ng-if="!beer.srmId" class="badge">N/A</span>
           srm
         </li>
         </li>
           <li class="list-group-item">
-          <span ng-if="beer.og" class="badge">{{beer.og}}</span>
-          <span ng-if="!beer.og" class="badge">N/A</span>
+          <span data-ng-if="beer.og" class="badge">{{beer.og}}</span>
+          <span data-ng-if="!beer.og" class="badge">N/A</span>
           og
         </li>
       </ul>
@@ -35,29 +35,29 @@
         <div class="col-sm-3"><strong>Name:</strong></div>
         <div class="col-sm-9">{{beer.name}}</div>
       </div>
-      <div ng-if="beer.breweries[0].id" class="row">
+      <div data-ng-if="beer.breweries[0].id" class="row">
         <div class="col-sm-3"><strong>Brewery:</strong></div>
         <div class="col-sm-9">
           <a href="#!/brewery/{{beer.breweries[0].id}}">{{beer.breweries[0].name}}</a>
         </div>
       </div>
-      <div ng-if="beer.style.name" class="row">
+      <div data-ng-if="beer.style.name" class="row">
         <div class="col-sm-3"><strong>Style:</strong></div>
         <div ng-if="beer.style.name" class="col-sm-9">
           <a href="#">{{beer.style.name}}</a>
         </div>
       </div>
-      <div ng-if="beer.available.description" class="row">
+      <div data-ng-if="beer.available.description" class="row">
         <div class="col-sm-3"><strong>Availability:</strong></div>
         <div class="col-sm-9">{{beer.available.description}}</div>
       </div>
-      <div ng-if="beer.glass.name" class="row">
+      <div data-ng-if="beer.glass.name" class="row">
         <div class="col-sm-3"><strong>Serving:</strong></div>
         <div class="col-sm-9">{{beer.glass.name}}</div>
       </div>
       <br>
       <p class="content">{{beer.description}}</p>
-      <div ng-if="beer.foodPairings" class="row">
+      <div data-ng-if="beer.foodPairings" class="row">
         <div class="col-sm-12">
         <strong>Food Pairings:</strong><br>
         <p class="content">{{beer.foodPairings}}</p>

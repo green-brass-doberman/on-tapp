@@ -21,7 +21,7 @@
 
 ## Usage
 
-> For demo, please visit: [http://ontappapp.azurewebsites.net/](http://ontappapp.azurewebsites.net/)
+> For demo, please visit: [http://ontappapp.com](http://ontappapp.com)
 
 ## Requirements
 

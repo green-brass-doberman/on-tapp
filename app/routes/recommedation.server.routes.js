@@ -7,9 +7,8 @@ module.exports = function(app) {
 	// Routing logic
 	// ...
   app.get('/recommendation/:userId', function(req, res){
-    console.log('coming to this route', req.params.beerId, req.params.userId);
     engine.sendQuery({
-      uid: req.params.userId,
+      user: req.params.userId,
       num: 2
     }).
     then(function (result) {
