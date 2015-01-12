@@ -51,7 +51,7 @@
 
 // fontawesome
 // @import "../lib/fontawesome/less/variables.less";
-@import "../lib/fontawesome/less/mixins.less";
+// @import "../lib/fontawesome/less/mixins.less";
 @import "../lib/fontawesome/less/path.less";
 @import "../lib/fontawesome/less/core.less";
 @import "../lib/fontawesome/less/larger.less";
@@ -62,6 +62,55 @@
 @import "../lib/fontawesome/less/rotated-flipped.less";
 @import "../lib/fontawesome/less/stacked.less";
 @import "../lib/fontawesome/less/icons.less";
+
+//
+// Flat UI main stylesheet that aggregates all modules
+// --------------------------------------------------
+
+// Loading config with variables (changing them leads to changing a color scheme)
+// @import "../lib/flat-ui/less/variables";
+
+// Utility mixins for greater good
+// @import "../lib/flat-ui/less/mixins";
+
+// Loading custom fonts
+//@import url("https://fonts.googleapis.com/css?family=Lato:400,700,700italic,900,400italic,300");
+@import "../lib/flat-ui/less/modules/local-fonts";
+@import "../lib/flat-ui/less/modules/glyphicons";
+
+// Modules
+@import "../lib/flat-ui/less/modules/scaffolding";
+@import "../lib/flat-ui/less/modules/type";
+@import "../lib/flat-ui/less/modules/code";
+@import "../lib/flat-ui/less/modules/thumbnails";
+@import "../lib/flat-ui/less/modules/buttons";
+@import "../lib/flat-ui/less/modules/button-groups";
+@import "../lib/flat-ui/less/modules/forms";
+@import "../lib/flat-ui/less/modules/input-groups";
+@import "../lib/flat-ui/less/modules/radiocheck";
+@import "../lib/flat-ui/less/modules/tagsinput";
+@import "../lib/flat-ui/less/modules/typeahead";
+@import "../lib/flat-ui/less/modules/progress-bars";
+@import "../lib/flat-ui/less/modules/slider";
+@import "../lib/flat-ui/less/modules/pager";
+@import "../lib/flat-ui/less/modules/pagination";
+@import "../lib/flat-ui/less/modules/tooltip";
+@import "../lib/flat-ui/less/modules/dropdowns";
+@import "../lib/flat-ui/less/modules/select";
+@import "../lib/flat-ui/less/modules/tiles";
+@import "../lib/flat-ui/less/modules/navbar";
+@import "../lib/flat-ui/less/modules/switch";
+@import "../lib/flat-ui/less/modules/share";
+@import "../lib/flat-ui/less/modules/video";
+@import "../lib/flat-ui/less/modules/todo-list";
+
+// Examples
+@import "../lib/flat-ui/less/modules/palette";
+@import "../lib/flat-ui/less/modules/login";
+@import "../lib/flat-ui/less/modules/footer";
+
+// Spaces
+@import "../lib/flat-ui/less/spaces";
 
 
 // these are your LESS files
