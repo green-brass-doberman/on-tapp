@@ -149,7 +149,7 @@ module.exports = function(grunt) {
           compress: true
         },
         files: {
-          'public/application.min.css': 'public/less/application.less'
+          'public/dist/application.min.css': 'public/less/application.less'
         }
       },
       development: {
