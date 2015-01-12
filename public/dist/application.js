@@ -233,7 +233,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		// Home state routing
 		$stateProvider.
 		state('search', {
-			url: '/search/:page/:keyword/:searchtype',
+			url: '/search/:page/:keyword',
 			templateUrl: 'modules/core/views/search.client.view.html'
 		}).
 		state('home', {
@@ -265,7 +265,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
     
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
-      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword, 'searchtype': $scope.searchType});
+      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
     };
   }
 ]);
@@ -284,7 +284,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
 		// Search controller logic
     $scope.results = [];
         
-    Search.getData($stateParams.keyword, $stateParams.page, $stateParams.searchtype).success(function(response, status) {
+    Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
       $scope.status = status;
       if ($scope.status === 200) {
         if (response.totalResults !== undefined) {
@@ -292,7 +292,6 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
           $scope.totalResults = response.totalResults;
           $scope.keyword = $stateParams.keyword;
           $scope.currentPage = $stateParams.page;
-          $scope.searchType = $stateParams.searchtype;
           $scope.results = response.data;
         } else {
           $scope.totalResults = 0;
@@ -305,7 +304,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
 
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
-      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword, 'searchtype': $scope.searchType});
+      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
     };
 	}
 ]);
@@ -482,8 +481,8 @@ angular.module('core').factory('Search', ['$http',
 	function($http) {
 		// Public API
 		return {
-      getData: function(keyword, page, searchtype){
-        return $http.get('/search/' + keyword + '/' + page + '/' + searchtype);
+      getData: function(keyword, page){
+        return $http.get('/search/' + keyword + '/' + page);
       }
     };
 	}
