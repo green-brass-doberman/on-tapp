@@ -769,8 +769,8 @@ angular.module('ratings').config(['$stateProvider',
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings', 'StyleQuery',
-	function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings', 'StyleQuery', 'PredictionIO',
+	function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery, PredictionIO) {
 		$scope.authentication = Authentication;
 
 		// Remove existing Rating
@@ -815,6 +815,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       $scope.rating.$promise.then(function(data) {
         getStars(data.stars);
         getRecommendations(data.styleName);
+        // getPredition(data.user._id);
       });
 		};
 
@@ -833,6 +834,13 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       StyleQuery.getStyle(styleName).success(handleSuccess);
     };
 
+    // get result for PreditionIO
+    // var getPredition = function(userId){
+    //   PredictionIO.getRecommendaton(userId).success(function(data, status){
+    //     console.log('this is the data', data);
+    //   });
+    // };
+
     // an array to store recommendations
     $scope.recommendations = [];
 
@@ -840,6 +848,22 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     var handleSuccess = function(data, status){
       $scope.recommendations = data.data;
     };
+	}
+]);
+
+'use strict';
+
+angular.module('ratings').factory('PredictionIO', ['$http',
+	function($http) {
+		// Predictionio service logic
+		// ...
+
+		// Public API
+		return {
+			getRecommendaton: function(userId) {
+				return $http.get('/recommendation/' + userId);
+			}
+		};
 	}
 ]);
 

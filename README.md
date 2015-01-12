@@ -1,6 +1,6 @@
-# On Tapp
+# OnTapp
 
-> HRR2 Thesis Project
+> Discover breweries around you and receive personalized recommendations based on your rated beers. OnTapp uses your geolocation and machine learning algorithms to find the perfect beer you’ll love.
 
 [![Circle CI](https://circleci.com/gh/green-brass-doberman/on-tapp.svg?style=svg)](https://circleci.com/gh/green-brass-doberman/on-tapp)
 

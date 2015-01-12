@@ -2,13 +2,81 @@
   <section data-ng-controller="RatingsController" data-ng-init="findOne()">
     <div class="page-header">
       <h1 class="text-center" data-ng-bind="rating.name"></h1>
+      <p class="brewery-name text-center">{{beer.breweries[0].name}}</p>
 
-      <hr>
-      <span class="text-center">Total number of stars:</span>
-      <ul class="list-inline text-center">
-        <li data-ng-repeat="star in stars"><span class="glyphicon glyphicon-star stars"></span></li>
+      <span class="text-center">Total number of stars: {{rating.stars}}</span>
+      <!-- <ul class="list-inline text-center"> -->
+        <!-- <li data-ng-repeat="star in stars"><span class="glyphicon glyphicon-star stars"></span></li> -->
+      <!-- </ul> -->
+    </div>
+
+  <hr>
+
+   <div class="row">
+    <div class="col-md-4">
+      <div data-ng-if="beer.labels.medium">
+        <img class="brewery-img img-responsive center-block" data-ng-src="{{beer.labels.medium}}">
+      </div>
+      <ul class="list-group">
+        <li class="list-group-item">
+          <span class="badge">{{beer.abv}}%</span>
+          abv
+        </li>
+          <li class="list-group-item">
+          <span class="badge">{{beer.ibu}}</span>
+          ibu
+        </li>
+        </li>
+          <li class="list-group-item">
+          <span data-ng-if="beer.srmId" class="badge">{{beer.srmId}}</span>
+          <span data-ng-if="!beer.srmId" class="badge">N/A</span>
+          srm
+        </li>
+        </li>
+          <li class="list-group-item">
+          <span data-ng-if="beer.og" class="badge">{{beer.og}}</span>
+          <span data-ng-if="!beer.og" class="badge">N/A</span>
+          og
+        </li>
       </ul>
     </div>
+    <div class="col-md-8">
+      <div class="row">
+        <div class="col-sm-3"><strong>Name:</strong></div>
+        <div class="col-sm-9">{{beer.name}}</div>
+      </div>
+      <div data-ng-if="beer.breweries[0].id" class="row">
+        <div class="col-sm-3"><strong>Brewery:</strong></div>
+        <div class="col-sm-9">
+          <a href="#!/brewery/{{beer.breweries[0].id}}">{{beer.breweries[0].name}}</a>
+        </div>
+      </div>
+      <div data-ng-if="beer.style.name" class="row">
+        <div class="col-sm-3"><strong>Style:</strong></div>
+        <div ng-if="beer.style.name" class="col-sm-9">
+          <a href="#">{{beer.style.name}}</a>
+        </div>
+      </div>
+      <div data-ng-if="beer.available.description" class="row">
+        <div class="col-sm-3"><strong>Availability:</strong></div>
+        <div class="col-sm-9">{{beer.available.description}}</div>
+      </div>
+      <div data-ng-if="beer.glass.name" class="row">
+        <div class="col-sm-3"><strong>Serving:</strong></div>
+        <div class="col-sm-9">{{beer.glass.name}}</div>
+      </div>
+      <br>
+      <p class="content">{{beer.description}}</p>
+      <div data-ng-if="beer.foodPairings" class="row">
+        <div class="col-sm-12">
+        <strong>Food Pairings:</strong><br>
+        <p class="content">{{beer.foodPairings}}</p>
+        </div>
+      </div>
+    </div>
+  </div>
+
+
     <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == rating.user._id))">
       <small>
         <em class="text-muted">
