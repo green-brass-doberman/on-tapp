@@ -8493,43 +8493,43 @@ button.close {
 }
 @font-face {
   font-family: 'Lato';
-  src: url('../lib/flat-ui/fonts/latolato-black.eot');
-  src: url('../lib/flat-ui/fonts/latolato-black.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/latolato-black.woff') format('woff'), url('../lib/flat-ui/fonts/latolato-black.ttf') format('truetype'), url('../lib/flat-ui/fonts/latolato-black.svg#latoblack') format('svg');
+  src: url('../lib/flat-ui/fonts/lato/lato-black.eot');
+  src: url('../lib/flat-ui/fonts/lato/lato-black.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/lato/lato-black.woff') format('woff'), url('../lib/flat-ui/fonts/lato/lato-black.ttf') format('truetype'), url('../lib/flat-ui/fonts/lato/lato-black.svg#latoblack') format('svg');
   font-weight: 900;
   font-style: normal;
 }
 @font-face {
   font-family: 'Lato';
-  src: url('../lib/flat-ui/fonts/latolato-bold.eot');
-  src: url('../lib/flat-ui/fonts/latolato-bold.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/latolato-bold.woff') format('woff'), url('../lib/flat-ui/fonts/latolato-bold.ttf') format('truetype'), url('../lib/flat-ui/fonts/latolato-bold.svg#latobold') format('svg');
+  src: url('../lib/flat-ui/fonts/lato/lato-bold.eot');
+  src: url('../lib/flat-ui/fonts/lato/lato-bold.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/lato/lato-bold.woff') format('woff'), url('../lib/flat-ui/fonts/lato/lato-bold.ttf') format('truetype'), url('../lib/flat-ui/fonts/lato/lato-bold.svg#latobold') format('svg');
   font-weight: bold;
   font-style: normal;
 }
 @font-face {
   font-family: 'Lato';
-  src: url('../lib/flat-ui/fonts/latolato-bolditalic.eot');
-  src: url('../lib/flat-ui/fonts/latolato-bolditalic.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/latolato-bolditalic.woff') format('woff'), url('../lib/flat-ui/fonts/latolato-bolditalic.ttf') format('truetype'), url('../lib/flat-ui/fonts/latolato-bolditalic.svg#latobold-italic') format('svg');
+  src: url('../lib/flat-ui/fonts/lato/lato-bolditalic.eot');
+  src: url('../lib/flat-ui/fonts/lato/lato-bolditalic.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/lato/lato-bolditalic.woff') format('woff'), url('../lib/flat-ui/fonts/lato/lato-bolditalic.ttf') format('truetype'), url('../lib/flat-ui/fonts/lato/lato-bolditalic.svg#latobold-italic') format('svg');
   font-weight: bold;
   font-style: italic;
 }
 @font-face {
   font-family: 'Lato';
-  src: url('../lib/flat-ui/fonts/latolato-italic.eot');
-  src: url('../lib/flat-ui/fonts/latolato-italic.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/latolato-italic.woff') format('woff'), url('../lib/flat-ui/fonts/latolato-italic.ttf') format('truetype'), url('../lib/flat-ui/fonts/latolato-italic.svg#latoitalic') format('svg');
+  src: url('../lib/flat-ui/fonts/lato/lato-italic.eot');
+  src: url('../lib/flat-ui/fonts/lato/lato-italic.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/lato/lato-italic.woff') format('woff'), url('../lib/flat-ui/fonts/lato/lato-italic.ttf') format('truetype'), url('../lib/flat-ui/fonts/lato/lato-italic.svg#latoitalic') format('svg');
   font-weight: normal;
   font-style: italic;
 }
 @font-face {
   font-family: 'Lato';
-  src: url('../lib/flat-ui/fonts/latolato-light.eot');
-  src: url('../lib/flat-ui/fonts/latolato-light.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/latolato-light.woff') format('woff'), url('../lib/flat-ui/fonts/latolato-light.ttf') format('truetype'), url('../lib/flat-ui/fonts/latolato-light.svg#latolight') format('svg');
+  src: url('../lib/flat-ui/fonts/lato/lato-light.eot');
+  src: url('../lib/flat-ui/fonts/lato/lato-light.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/lato/lato-light.woff') format('woff'), url('../lib/flat-ui/fonts/lato/lato-light.ttf') format('truetype'), url('../lib/flat-ui/fonts/lato/lato-light.svg#latolight') format('svg');
   font-weight: 300;
   font-style: normal;
 }
 @font-face {
   font-family: 'Lato';
-  src: url('../lib/flat-ui/fonts/latolato-regular.eot');
-  src: url('../lib/flat-ui/fonts/latolato-regular.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/latolato-regular.woff') format('woff'), url('../lib/flat-ui/fonts/latolato-regular.ttf') format('truetype'), url('../lib/flat-ui/fonts/latolato-regular.svg#latoregular') format('svg');
+  src: url('../lib/flat-ui/fonts/lato/lato-regular.eot');
+  src: url('../lib/flat-ui/fonts/lato/lato-regular.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/lato/lato-regular.woff') format('woff'), url('../lib/flat-ui/fonts/lato/lato-regular.ttf') format('truetype'), url('../lib/flat-ui/fonts/lato/lato-regular.svg#latoregular') format('svg');
   font-weight: normal;
   font-style: normal;
 }

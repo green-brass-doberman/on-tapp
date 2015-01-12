@@ -8,7 +8,7 @@ module.exports = function(grunt) {
 		clientViews: ['public/modules/**/views/**/*.html'],
 		clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
 		// clientCSS: ['public/modules/**/*.css'],
-    // clientCSS: ['public/application.min.css', 'public/modules/**/*.css'],
+    clientCSS: ['public/application.min.css', 'public/modules/**/*.less'],
 		mochaTests: ['app/tests/**/*.js']
 	};
 
@@ -63,7 +63,7 @@ module.exports = function(grunt) {
 				csslintrc: '.csslintrc'
 			},
 			all: {
-				src: watchFiles.clientCSS
+				src: 'public/modules/**/*.less'
 			}
 		},
 		// uglify: {
@@ -143,24 +143,24 @@ module.exports = function(grunt) {
 		},
     less: {
       production: {
-          options: {
-              paths: ['public/less'],
-              cleancss: true,
-              compress: true
-          },
-          files: {
-              'public/application.min.css': 'public/less/application.less'
-          }
+        options: {
+          paths: ['public/less'],
+          cleancss: true,
+          compress: true
+        },
+        files: {
+          'public/application.min.css': 'public/less/application.less'
+        }
       },
       development: {
-          options: {
-              sourceMap: true,
-              ieCompat:true,
-              dumpLineNumbers:true
-          },
-          files: {
-              'public/application.min.css': 'public/less/application.less'
-          }
+        options: {
+          sourceMap: true,
+          ieCompat:true,
+          dumpLineNumbers:true
+        },
+        files: {
+          'public/application.min.css': 'public/less/application.less'
+        }
       }
     }
 	});
