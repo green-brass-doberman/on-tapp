@@ -20,9 +20,9 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				'public/lib/bootstrap/dist/css/bootstrap.min.css',
-        'public/lib/fontawesome/css/font-awesome.min.css',
-        'public/lib/flat-ui/dist/css/flat-ui.min.css'
+				// 'public/lib/bootstrap/dist/css/bootstrap.min.css',
+    //     'public/lib/fontawesome/css/font-awesome.min.css',
+    //     'public/lib/flat-ui/dist/css/flat-ui.min.css'
 			],
 			js: [
         'public/lib/angular/angular.min.js',

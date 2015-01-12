@@ -43,9 +43,9 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				'public/lib/bootstrap/dist/css/bootstrap.css',
-        'public/lib/fontawesome/css/font-awesome.css',
-        'public/lib/flat-ui/dist/css/flat-ui.css'
+				// 'public/lib/bootstrap/dist/css/bootstrap.css',
+    //     'public/lib/fontawesome/css/font-awesome.css',
+    //     'public/lib/flat-ui/dist/css/flat-ui.css'
 			],
 			js: [
 				'public/lib/angular/angular.js',
@@ -63,7 +63,8 @@ module.exports = {
 			]
 		},
 		css: [
-			'public/modules/**/css/*.css'
+			// 'public/modules/**/css/*.css'
+      'public/application.min.css'
 		],
 		js: [
 			'public/config.js',
