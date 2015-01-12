@@ -1,8 +1,8 @@
 'use strict';
 
 // Ratings controller
-angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings', 'StyleQuery', 'PredictionIO',
-	function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery, PredictionIO) {
+angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings', 'StyleQuery', 'PredictionIO', 'Beer',
+	function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery, PredictionIO, Beer) {
 		$scope.authentication = Authentication;
 
 		// Remove existing Rating
@@ -48,6 +48,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
         getStars(data.stars);
         getRecommendations(data.styleName);
         // getPredition(data.user._id);
+        getBeerDetails(data.beerId);
       });
 		};
 
@@ -73,6 +74,14 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     //     console.log('this is the data', data);
     //   });
     // };
+
+    $scope.beer = {};
+
+    var getBeerDetails = function(beerId){
+      Beer.getData(beerId).success(function(results, status) {
+        $scope.beer = results.data || 'Request failed';
+      });
+    };
 
     // an array to store recommendations
     $scope.recommendations = [];
