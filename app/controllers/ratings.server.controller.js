@@ -4,6 +4,7 @@ var secret = require('../../api-key');
 var predictionio = require('predictionio-driver');
 // accessKey is required for PredictionIO 0.8.2+
 var client = new predictionio.Events({appId: 1, accessKey: secret.keys.predictionio});
+var curl = require('node-curl');
 
 /**
  * Module dependencies.
@@ -22,22 +23,30 @@ exports.create = function(req, res) {
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
 
+    curl('www.google.com', function(err) {
+      console.info(this.status);
+      console.info('-----');
+      console.info(this.body);
+      console.info('-----');
+      console.info(this.info('SIZE_DOWNLOAD'));
+    });
+
     // Register a new user-to-item action
-    client.createAction({
-      event: 'rate',
-      uid: rating.user,
-      iid: rating.beerId,
-      properties : {
-        rating : rating.stars
-      },
-      eventTime: new Date().toISOString()
-    }).
-      then(function(result) {
-        console.log('here is the result', result); // Prints "{eventId: 'something'}"
-      }).
-      catch(function(err) {
-        console.error(err); // Something went wrong
-      });
+    // client.createAction({
+    //   event: 'rate',
+    //   uid: rating.user,
+    //   iid: rating.beerId,
+    //   properties : {
+    //     rating : rating.stars
+    //   },
+    //   eventTime: new Date().toISOString()
+    // }).
+    //   then(function(result) {
+    //     console.log(result); // Prints "{eventId: 'something'}"
+    //   }).
+    //   catch(function(err) {
+    //     console.error(err); // Something went wrong
+    //   });
 
     if (beer.length){
       rating = beer[0];
