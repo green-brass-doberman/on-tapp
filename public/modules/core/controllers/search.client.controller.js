@@ -5,7 +5,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
 		// Search controller logic
     $scope.results = [];
         
-    Search.getData($stateParams.keyword, $stateParams.page, $stateParams.searchtype).success(function(response, status) {
+    Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
       $scope.status = status;
       if ($scope.status === 200) {
         if (response.totalResults !== undefined) {
@@ -13,7 +13,6 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
           $scope.totalResults = response.totalResults;
           $scope.keyword = $stateParams.keyword;
           $scope.currentPage = $stateParams.page;
-          $scope.searchType = $stateParams.searchtype;
           $scope.results = response.data;
         } else {
           $scope.totalResults = 0;
@@ -26,7 +25,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
 
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
-      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword, 'searchtype': $scope.searchType});
+      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
     };
 	}
 ]);

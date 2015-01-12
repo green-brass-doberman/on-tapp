@@ -9,7 +9,7 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 		// Home state routing
 		$stateProvider.
 		state('search', {
-			url: '/search/:page/:keyword/:searchtype',
+			url: '/search/:page/:keyword',
 			templateUrl: 'modules/core/views/search.client.view.html'
 		}).
 		state('home', {
