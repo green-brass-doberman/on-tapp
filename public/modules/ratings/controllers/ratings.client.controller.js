@@ -56,9 +56,10 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
     // get the number of stars
     var getStars = function(noOfStars){
-      for (var i = 0; i < noOfStars; i++) {
-        $scope.stars.push(i);
-      }
+      // for (var i = 0; i < noOfStars; i++) {
+      //   $scope.stars.push(i);
+      // }
+      $scope.stars = noOfStars;
     };
 
     // Find the beers in the same category

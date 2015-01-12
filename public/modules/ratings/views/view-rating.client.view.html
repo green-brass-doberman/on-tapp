@@ -4,10 +4,10 @@
       <h1 class="text-center" data-ng-bind="rating.name"></h1>
 
       <hr>
-      <span class="text-center">Total number of stars:</span>
-      <ul class="list-inline text-center">
-        <li data-ng-repeat="star in stars"><span class="glyphicon glyphicon-star stars"></span></li>
-      </ul>
+      <span class="text-center">Total number of stars: {{rating.stars}}</span>
+      <!-- <ul class="list-inline text-center"> -->
+        <!-- <li data-ng-repeat="star in stars"><span class="glyphicon glyphicon-star stars"></span></li> -->
+      <!-- </ul> -->
     </div>
     <div class="pull-right" data-ng-show="((authentication.user) && (authentication.user._id == rating.user._id))">
       <small>
