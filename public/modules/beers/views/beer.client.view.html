@@ -7,6 +7,9 @@
       <div data-ng-if="beer.labels.medium">
         <img class="brewery-img img-responsive center-block" data-ng-src="{{beer.labels.medium}}">
       </div>
+      <div ng-if="!beer.labels.medium">
+        <img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/no-beer-label-60.png">
+      </div>
       <ul class="list-group">
         <li class="list-group-item">
           <span class="badge">{{beer.abv}}%</span>

@@ -15022,6 +15022,10 @@ form.list-beers {
   display: inline-block;
   margin: 10px;
 }
+.navbar-form {
+  padding-top: 0;
+  padding-bottom: 0;
+}
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;
