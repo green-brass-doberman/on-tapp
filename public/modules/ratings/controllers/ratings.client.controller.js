@@ -80,6 +80,8 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     var getBeerDetails = function(beerId){
       Beer.getData(beerId).success(function(results, status) {
         $scope.beer = results.data || 'Request failed';
+
+        console.log($scope.beer);
       });
     };
 
