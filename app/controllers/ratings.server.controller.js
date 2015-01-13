@@ -1,10 +1,12 @@
 'use strict';
 
 var secret = require('../../api-key');
-var predictionio = require('predictionio-driver');
+// var predictionio = require('predictionio-driver');
 // accessKey is required for PredictionIO 0.8.2+
-var client = new predictionio.Events({appId: 1, accessKey: secret.keys.predictionio});
-var curl = require('node-curl');
+// var client = new predictionio.Events({appId: 1, accessKey: secret.keys.predictionio});
+// var curl = require('node-curl');
+// var http = require('http');
+var request = require('request');
 
 /**
  * Module dependencies.
@@ -23,13 +25,30 @@ exports.create = function(req, res) {
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
 
-    curl('www.google.com', function(err) {
-      console.info(this.status);
-      console.info('-----');
-      console.info(this.body);
-      console.info('-----');
-      console.info(this.info('SIZE_DOWNLOAD'));
-    });
+  request.post({
+    headers: {'content-type' : 'application/json'},
+    url: 'http://54.183.105.216:7070/events.json?accessKey=' + secret.keys.predictionio,
+    body: JSON.stringify({
+      event: 'rate',
+      entityType : 'user',
+      entityId: rating.user,
+      targetEntityType: 'item',
+      targetEntityId: rating.beerId,
+      properties : {
+        rating : rating.stars
+      },
+      eventTime: new Date().toISOString()
+    })
+  }, function (error, response, body) {
+    console.log('this is error', error);
+    console.log('this is response', response.statusCode);
+    console.log('this is body', body);
+
+
+    if (!error && response.statusCode === 200) {
+      console.log('HEY', body); // Show the HTML for the Google homepage.
+    }
+  });
 
     // Register a new user-to-item action
     // client.createAction({
