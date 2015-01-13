@@ -1066,27 +1066,27 @@ h6 .small,
 }
 h1,
 .h1 {
-  font-size: 61px;
+  font-size: 46px;
 }
 h2,
 .h2 {
-  font-size: 53px;
+  font-size: 38px;
 }
 h3,
 .h3 {
-  font-size: 40px;
+  font-size: 31px;
 }
 h4,
 .h4 {
-  font-size: 29px;
+  font-size: 23px;
 }
 h5,
 .h5 {
-  font-size: 28px;
+  font-size: 18px;
 }
 h6,
 .h6 {
-  font-size: 24px;
+  font-size: 16px;
 }
 p {
   margin: 0 0 15px;
@@ -8928,27 +8928,27 @@ h6 {
 }
 h1,
 .h1 {
-  font-size: 61px;
+  font-size: 46px;
 }
 h2,
 .h2 {
-  font-size: 53px;
+  font-size: 38px;
 }
 h3,
 .h3 {
-  font-size: 40px;
+  font-size: 31px;
 }
 h4,
 .h4 {
-  font-size: 29px;
+  font-size: 23px;
 }
 h5,
 .h5 {
-  font-size: 28px;
+  font-size: 18px;
 }
 h6,
 .h6 {
-  font-size: 24px;
+  font-size: 16px;
 }
 p {
   font-size: 18px;
@@ -14964,6 +14964,12 @@ body.ng-cloak {
 }
 .sponsor {
   height: 150px;
+}
+.iconic-bar {
+  display: block;
+  width: 22px;
+  height: 2px;
+  border-radius: 1px;
 }
 p.center {
   text-align: center;

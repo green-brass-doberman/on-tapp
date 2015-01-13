@@ -11,13 +11,12 @@ module.exports = function(app) {
       headers: {'content-type' : 'application/json'},
       url: 'http://54.183.105.216:8000/queries.json',
       body: JSON.stringify({
-        user: req.params.userId,
+        user: '54b47a41557aa852537fb0ef',
         num: 1
       })
     }, function (error, response, body) {
-
       if (!error && response.statusCode === 200) {
-        console.log(body);
+        res.send(body);
       }
     });
   });

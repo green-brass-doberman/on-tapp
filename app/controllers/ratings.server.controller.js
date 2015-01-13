@@ -2,7 +2,6 @@
 
 // accessKey is required for PredictionIO 0.8.2+
 var secret = require('../../api-key');
-
 var request = require('request');
 
 /**

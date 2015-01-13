@@ -814,7 +814,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       $scope.rating.$promise.then(function(data) {
         getStars(data.stars);
         getRecommendations(data.styleName);
-        // getPredition(data.user._id);
+        getPredition(data.user._id);
         getBeerDetails(data.beerId);
       });
 		};
@@ -836,11 +836,12 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     };
 
     // get result for PreditionIO
-    // var getPredition = function(userId){
-    //   PredictionIO.getRecommendaton(userId).success(function(data, status){
-    //     console.log('this is the data', data);
-    //   });
-    // };
+    var getPredition = function(userId){
+      PredictionIO.getRecommendaton(userId).success(function(data, status){
+        console.log('this is the status', status);
+        console.log('this is the data', data);
+      });
+    };
 
     $scope.beer = {};
 

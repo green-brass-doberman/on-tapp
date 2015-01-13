@@ -9,6 +9,9 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	User = mongoose.model('User');
 
+// accessKey is required for PredictionIO 0.8.2+
+var secret = require('../../../api-key');
+var request = require('request');
 
 /**
  * Signup
@@ -24,6 +27,22 @@ exports.signup = function(req, res) {
 	// Add missing user fields
 	user.provider = 'local';
 	user.displayName = user.firstName + ' ' + user.lastName;
+
+  // Register a new user in PredictionIO
+  request.post({
+    headers: {'content-type' : 'application/json'},
+    url: 'http://54.183.105.216:7070/events.json?accessKey=' + secret.keys.predictionio,
+    body: JSON.stringify({
+      event: '$set',
+      entityType : 'user',
+      entityId: user._id,
+      eventTime: new Date().toISOString()
+    })
+  }, function (error, response, body) {
+    if (!error && response.statusCode === 200) {
+      console.log('this is body', body);
+    }
+  });
 
 	// Then save the user
 	user.save(function(err) {
