@@ -4,7 +4,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
 	function($scope, Search, $stateParams, $state) {
 		// Search controller logic
     $scope.results = [];
-        
+
     Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
       $scope.status = status;
       if ($scope.status === 200) {

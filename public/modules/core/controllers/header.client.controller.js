@@ -18,7 +18,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
     // Search logic
     $scope.results = [];
     $scope.totalResults = undefined;
-    
+
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
       $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
