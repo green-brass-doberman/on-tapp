@@ -95,16 +95,15 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
           latitude: lat,
           longitude: lng
         },
-        title: desc,
+        desc: desc,
         icon: '/modules/nearby/images/beer-icon.png',
         show: false
       };
       ret.onClick = function() {
-        alert('clicked!!');
+        $scope.gotoAnchor(breweryId);
       };
       ret.mouseOver = function(){
         ret.show = !ret.show;
-        //$scope.gotoAnchor(breweryId);
       };
       ret.mouseOut = function(){
         ret.show = !ret.show;
