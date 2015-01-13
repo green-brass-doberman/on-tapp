@@ -306,6 +306,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
       $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
+      $scope.keyword = '';
     };
 	}
 ]);

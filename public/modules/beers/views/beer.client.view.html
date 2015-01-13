@@ -1,69 +1,72 @@
 <section data-ng-controller="BeerController">
-  <div class="page-header">
-    <p>{{beer.name}} - <span class="brewery-name">{{beer.breweries[0].name}}</span></p>
-  </div>
-  <div class="row">
-    <div class="col-md-4">
-      <div data-ng-if="beer.labels.medium">
-        <img class="brewery-img img-responsive center-block" data-ng-src="{{beer.labels.medium}}">
-      </div>
-      <div ng-if="!beer.labels.medium">
-        <img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/no-beer-label-60.png">
-      </div>
-      <ul class="list-group">
-        <li class="list-group-item">
-          <span class="badge">{{beer.abv}}%</span>
-          abv
-        </li>
-          <li class="list-group-item">
-          <span class="badge">{{beer.ibu}}</span>
-          ibu
-        </li>
-        </li>
-          <li class="list-group-item">
-          <span data-ng-if="beer.srmId" class="badge">{{beer.srmId}}</span>
-          <span data-ng-if="!beer.srmId" class="badge">N/A</span>
-          srm
-        </li>
-        </li>
-          <li class="list-group-item">
-          <span data-ng-if="beer.og" class="badge">{{beer.og}}</span>
-          <span data-ng-if="!beer.og" class="badge">N/A</span>
-          og
-        </li>
-      </ul>
-    </div>
-    <div class="col-md-8">
-      <div class="row">
-        <div class="col-sm-3"><strong>Name:</strong></div>
-        <div class="col-sm-9">{{beer.name}}</div>
-      </div>
-      <div data-ng-if="beer.breweries[0].id" class="row">
-        <div class="col-sm-3"><strong>Brewery:</strong></div>
-        <div class="col-sm-9">
-          <a href="#!/brewery/{{beer.breweries[0].id}}">{{beer.breweries[0].name}}</a>
+  <div class="container">
+    <div class="row">
+      <div class="col-sm-4 col-md-3">
+        <div class="panel panel-default" data-ng-if="beer.labels.medium">
+          <img class="brewery-img img-responsive center-block" data-ng-src="{{beer.labels.medium}}">
         </div>
-      </div>
-      <div data-ng-if="beer.style.name" class="row">
-        <div class="col-sm-3"><strong>Style:</strong></div>
-        <div ng-if="beer.style.name" class="col-sm-9">
-          <a href="#">{{beer.style.name}}</a>
+        <div ng-if="!beer.labels.medium">
+          <img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/no-beer-label-60.png">
         </div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="badge">{{beer.abv}}%</span>
+            abv
+          </li>
+            <li class="list-group-item">
+            <span class="badge">{{beer.ibu}}</span>
+            ibu
+          </li>
+          </li>
+            <li class="list-group-item">
+            <span data-ng-if="beer.srmId" class="badge">{{beer.srmId}}</span>
+            <span data-ng-if="!beer.srmId" class="badge">N/A</span>
+            srm
+          </li>
+          </li>
+            <li class="list-group-item">
+            <span data-ng-if="beer.og" class="badge">{{beer.og}}</span>
+            <span data-ng-if="!beer.og" class="badge">N/A</span>
+            og
+          </li>
+        </ul>
       </div>
-      <div data-ng-if="beer.available.description" class="row">
-        <div class="col-sm-3"><strong>Availability:</strong></div>
-        <div class="col-sm-9">{{beer.available.description}}</div>
-      </div>
-      <div data-ng-if="beer.glass.name" class="row">
-        <div class="col-sm-3"><strong>Serving:</strong></div>
-        <div class="col-sm-9">{{beer.glass.name}}</div>
-      </div>
-      <br>
-      <p class="content">{{beer.description}}</p>
-      <div data-ng-if="beer.foodPairings" class="row">
-        <div class="col-sm-12">
-        <strong>Food Pairings:</strong><br>
-        <p class="content">{{beer.foodPairings}}</p>
+      <div class="col-sm-8 col-md-9">
+        <div class="panel panel-default">
+          <div class="panel-body">
+            <div class="row">
+              <div class="col-sm-3"><strong>Name:</strong></div>
+              <div class="col-sm-9">{{beer.name}}</div>
+            </div>
+            <div data-ng-if="beer.breweries[0].id" class="row">
+              <div class="col-sm-3"><strong>Brewery:</strong></div>
+              <div class="col-sm-9">
+                <a href="#!/brewery/{{beer.breweries[0].id}}">{{beer.breweries[0].name}}</a>
+              </div>
+            </div>
+            <div data-ng-if="beer.style.name" class="row">
+              <div class="col-sm-3"><strong>Style:</strong></div>
+              <div ng-if="beer.style.name" class="col-sm-9">
+                <a href="#">{{beer.style.name}}</a>
+              </div>
+            </div>
+            <div data-ng-if="beer.available.description" class="row">
+              <div class="col-sm-3"><strong>Availability:</strong></div>
+              <div class="col-sm-9">{{beer.available.description}}</div>
+            </div>
+            <div data-ng-if="beer.glass.name" class="row">
+              <div class="col-sm-3"><strong>Serving:</strong></div>
+              <div class="col-sm-9">{{beer.glass.name}}</div>
+            </div>
+            <hr>
+            <p class="content">{{beer.description}}</p>
+            <div data-ng-if="beer.foodPairings" class="row">
+              <div class="col-sm-12">
+              <strong>Food Pairings:</strong><br>
+              <p class="content">{{beer.foodPairings}}</p>
+              </div>
+            </div>
+          </div>
         </div>
       </div>
     </div>
