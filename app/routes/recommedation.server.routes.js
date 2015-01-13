@@ -20,13 +20,5 @@ module.exports = function(app) {
         console.log(body);
       }
     });
-
-    // engine.sendQuery({
-    //   user: req.params.userId,
-    //   num: 2
-    // }).
-    // then(function (result) {
-    //   console.log('here we go!', result);
-    // });
   });
 };
