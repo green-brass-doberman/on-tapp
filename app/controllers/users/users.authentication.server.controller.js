@@ -9,9 +9,11 @@ var _ = require('lodash'),
 	passport = require('passport'),
 	User = mongoose.model('User');
 
-// accessKey is required for PredictionIO 0.8.2+
-var secret = require('../../../api-key');
 var request = require('request');
+var config = require('../../../config/config');
+var predictionio = require('predictionio-driver');
+// accessKey is required for PredictionIO 0.8.2+
+var client = new predictionio.Events({appId: 1, accessKey: config.predictionio.api});
 
 /**
  * Signup
