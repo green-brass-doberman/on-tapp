@@ -4,7 +4,7 @@
   <span us-spinner spinner-key="spinner-1" spinner-start-active="true"></span>
 
   <div class="left-half-container">
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options" bounds="map.bounds">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
 
       <!-- marker to show current user location -->
       <ui-gmap-marker coords="marker.coords" idkey="marker.id">
@@ -13,49 +13,12 @@
         </ui-gmap-window>
       </ui-gmap-marker>
 
-      <!-- markers to show all breweries location -->
-      <ui-gmap-markers models="allMarkers" coords="'coords'" options="'options'" icon="'icon'" click="'onClick'" events="clickEventsObject">
-        <ui-gmap-windows show="'show'">
+      <ui-gmap-markers models="allMarkers" coords="'coords'" options="'options'" icon="'icon'" click="'onClick'">
+        <ui-gmap-windows show="'show'" templateUrl="'templateUrl'" templateParameter="'templateParameter'">
           <div data-ng-non-bindable>{{desc}}</div>
         </ui-gmap-windows>
       </ui-gmap-markers>
 
     </ui-gmap-google-map>
-  </div>
-  <div class="right-half-container">
-    <div class="container-fluid">
-      <div class="panel panel-default" data-ng-repeat="brewery in breweries | orderBy: 'distance'">
-          <div class="panel-heading anchor" id="anchor{{brewery.brewery.id}}">
-            {{brewery.brewery.name}} <span class="pull-right badge">{{brewery.distance}} miles away</span>
-          </div>
-          <div class="panel-body">
-            <div class="row">
-              <div class="col-md-8">
-                 <p class="content">{{brewery.brewery.description}}</p>
-                 <p data-ng-if="!brewery.brewery.description" class="content">No description</p>
-              </div>
-              <div class="col-md-4">
-                <div data-ng-if="brewery.brewery.images.medium">
-                  <img class="brewery-img img-responsive center-block" ng-src="{{brewery.brewery.images.medium}}">
-                </div>
-                <div data-ng-if="!brewery.brewery.images.medium">
-                  <img class="brewery-img img-responsive center-block" src="/modules/core/images/Map%402x.png">
-                </div>
-                <div data-ng-if="brewery.brewery.established">
-                  <p class="center"><strong>Established:</strong> {{brewery.brewery.established}}</p>
-                </div>
-                <div data-ng-if="brewery.brewery.website">
-                  <p class="center"><a href="{{brewery.brewery.website}}" target="_blank">{{brewery.brewery.website}}</a></p>
-                </div>
-                <div data-ng-if="brewery.brewery.isOrganic == 'Y'">
-                  <p class="center">Certified Organic</p>
-                </div>
-                <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.brewery.id}}" role="button">List their beers &raquo;</a></p>
-              </div>
-            </div><!-- /.row -->
-          </div>
-        </div>
-      </div>
-    </div>
   </div>
 </section>

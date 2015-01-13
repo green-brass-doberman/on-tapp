@@ -7,6 +7,9 @@
       <div data-ng-if="brewery.images.medium">
         <img class="brewery-img img-responsive center-block" ng-src="{{brewery.images.medium}}">
       </div>
+      <div data-ng-if="!brewery.images.medium">
+        <img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Map%402x.png">
+      </div>
       <div data-ng-if="brewery.established">
         <p class="center"><strong>Established:</strong> {{brewery.established}}</p>
       </div>
@@ -53,6 +56,8 @@
     </div>
     <div class="col-md-8">
       <p class="content">{{brewery.description}}</p>
+      <p data-ng-if="!brewery.description" class="content">No description</p>
+      <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.id}}" role="button">List their beers &raquo;</a></p>
       <h4>Locations:</h4>
       <ul data-ng-repeat="location in brewery.locations">
         <li>
