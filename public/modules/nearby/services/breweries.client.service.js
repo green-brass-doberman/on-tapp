@@ -2,9 +2,6 @@
 
 angular.module('nearby').factory('Breweries', ['$http',
 	function($http) {
-		// Breweries service logic
-		// ...
-
 		// Public API
 		return {
       getData: function(coords){
