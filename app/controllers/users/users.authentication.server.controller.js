@@ -11,7 +11,6 @@ var _ = require('lodash'),
 
 var request = require('request');
 var config = require('../../../config/config');
-var predictionio = require('predictionio-driver');
 // accessKey is required for PredictionIO 0.8.2+
 var client = new predictionio.Events({appId: 1, accessKey: config.predictionio.api});
 
