@@ -68,13 +68,12 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       StyleQuery.getStyle(styleName).success(handleSuccess);
     };
 
+    $scope.itemScores = [];
+
     // get result for PreditionIO
     var getPredition = function(userId){
-      console.log('this is user id ', userId);
-
       PredictionIO.getRecommendaton(userId).success(function(data, status){
-        console.log('this is the status', status);
-        console.log('this is the data', data);
+        $scope.itemScores = data.itemScores;
       });
     };
 
@@ -83,8 +82,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     var getBeerDetails = function(beerId){
       Beer.getData(beerId).success(function(results, status) {
         $scope.beer = results.data || 'Request failed';
-
-        console.log($scope.beer);
       });
     };
 
