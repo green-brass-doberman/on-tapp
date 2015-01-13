@@ -255,8 +255,8 @@ th {
 }
 @font-face {
   font-family: 'Glyphicons Halflings';
-  src: url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.eot');
-  src: url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.woff') format('woff'), url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.ttf') format('truetype'), url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.svg#flat-ui-icons-regular') format('svg');
+  src: url('../lib/bootstrap/fonts/glyphicons-halflings-regular.eot');
+  src: url('../lib/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../lib/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../lib/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../lib/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 .glyphicon {
   position: relative;
@@ -8535,8 +8535,8 @@ button.close {
 }
 @font-face {
   font-family: 'Flat-UI-Icons';
-  src: url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.eot');
-  src: url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.eot?#iefix') format('embedded-opentype'), url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.woff') format('woff'), url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.ttf') format('truetype'), url('../lib/flat-ui/fonts/glyphicons/flat-ui-icons-regular.svg#flat-ui-icons-regular') format('svg');
+  src: url('../lib/bootstrap/fonts/glyphicons-halflings-regular.eot');
+  src: url('../lib/bootstrap/fonts/glyphicons-halflings-regular.eot?#iefix') format('embedded-opentype'), url('../lib/bootstrap/fonts/glyphicons-halflings-regular.woff') format('woff'), url('../lib/bootstrap/fonts/glyphicons-halflings-regular.ttf') format('truetype'), url('../lib/bootstrap/fonts/glyphicons-halflings-regular.svg#glyphicons_halflingsregular') format('svg');
 }
 [class^="fui-"],
 [class*="fui-"] {
