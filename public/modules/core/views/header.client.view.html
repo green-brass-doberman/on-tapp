@@ -27,28 +27,12 @@
       <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank">About</a></li>
 
       <li class="navbar-form navbar-right">
-        <form class="search-form form-group">
-          <input type="text" ng-model="keyword" class="form-control" placeholder="Search">
-          <button type="submit" class="btn" ng-click="search()">
-            <span class="fa fa-search"></span>
-          </button>
-        </form>
-
-<!--         <form action="#" role="search">
-          <div class="form-group">
-            <div class="input-group">
-              <input class="form-control" ng-model="keyword" type="text">
-              <span class="input-group-btn">
-                <button type="submit" class="btn" ng-click="search()"><span class="fui-search"></span></button>
-              </span>
-            </div>
-          </div>
-        </form>
- -->
-<!--         <form class="search-form form-group">
-          <input type="text" ng-model="keyword" class="form-control search-bar" placeholder="Search for beers or breweries...">
-          <button type="submit" ng-click="search()" class="btn">Search</button>
-        </form> -->
+        <div class="input-group">
+          <input type="text" class="form-control" placeholder="Search..." data-ng-model="keyword">
+          <span class="input-group-btn">
+            <button class="btn btn-primary" type="button" data-ng-click="search()"><span class="fa fa-search"></span></button>
+          </span>
+        </div>
       </li>
 		</ul>
 
