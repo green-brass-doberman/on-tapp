@@ -15,7 +15,6 @@ module.exports = function(app) {
         num: 1
       })
     }, function (error, response, body) {
-
       if (!error && response.statusCode === 200) {
         res.send(body);
       }
