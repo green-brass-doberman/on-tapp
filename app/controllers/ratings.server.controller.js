@@ -1,11 +1,8 @@
 'use strict';
 
-var secret = require('../../api-key');
-// var predictionio = require('predictionio-driver');
 // accessKey is required for PredictionIO 0.8.2+
-// var client = new predictionio.Events({appId: 1, accessKey: secret.keys.predictionio});
-// var curl = require('node-curl');
-// var http = require('http');
+var secret = require('../../api-key');
+
 var request = require('request');
 
 /**
@@ -25,47 +22,27 @@ exports.create = function(req, res) {
 
   Rating.findByBeerId(rating.beerId, function (err, beer) {
 
-  request.post({
-    headers: {'content-type' : 'application/json'},
-    url: 'http://54.183.105.216:7070/events.json?accessKey=' + secret.keys.predictionio,
-    body: JSON.stringify({
-      event: 'rate',
-      entityType : 'user',
-      entityId: rating.user,
-      targetEntityType: 'item',
-      targetEntityId: rating.beerId,
-      properties : {
-        rating : rating.stars
-      },
-      eventTime: new Date().toISOString()
-    })
-  }, function (error, response, body) {
-    console.log('this is error', error);
-    console.log('this is response', response.statusCode);
-    console.log('this is body', body);
-
-
-    if (!error && response.statusCode === 200) {
-      console.log('HEY', body); // Show the HTML for the Google homepage.
-    }
-  });
-
+    var result;
     // Register a new user-to-item action
-    // client.createAction({
-    //   event: 'rate',
-    //   uid: rating.user,
-    //   iid: rating.beerId,
-    //   properties : {
-    //     rating : rating.stars
-    //   },
-    //   eventTime: new Date().toISOString()
-    // }).
-    //   then(function(result) {
-    //     console.log(result); // Prints "{eventId: 'something'}"
-    //   }).
-    //   catch(function(err) {
-    //     console.error(err); // Something went wrong
-    //   });
+    request.post({
+      headers: {'content-type' : 'application/json'},
+      url: 'http://54.183.105.216:7070/events.json?accessKey=' + secret.keys.predictionio,
+      body: JSON.stringify({
+        event: 'rate',
+        entityType : 'user',
+        entityId: rating.user,
+        targetEntityType: 'item',
+        targetEntityId: rating.beerId,
+        properties : {
+          rating : rating.stars
+        },
+        eventTime: new Date().toISOString()
+      })
+    }, function (error, response, body) {
+      if (!error && response.statusCode === 200) {
+        console.log(body);
+      }
+    });
 
     if (beer.length){
       rating = beer[0];

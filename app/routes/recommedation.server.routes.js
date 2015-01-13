@@ -1,18 +1,32 @@
 'use strict';
 
-var predictionio = require('predictionio-driver');
-var engine = new predictionio.Engine({url: 'http://54.183.105.216:8000'});
+var request = require('request');
 
 module.exports = function(app) {
 	// Routing logic
 	// ...
   app.get('/recommendation/:userId', function(req, res){
-    engine.sendQuery({
-      user: req.params.userId,
-      num: 2
-    }).
-    then(function (result) {
-      console.log('here we go!', result);
+
+    request.post({
+      headers: {'content-type' : 'application/json'},
+      url: 'http://54.183.105.216:8000/queries.json',
+      body: JSON.stringify({
+        user: req.params.userId,
+        num: 1
+      })
+    }, function (error, response, body) {
+
+      if (!error && response.statusCode === 200) {
+        console.log(body);
+      }
     });
+
+    // engine.sendQuery({
+    //   user: req.params.userId,
+    //   num: 2
+    // }).
+    // then(function (result) {
+    //   console.log('here we go!', result);
+    // });
   });
 };
