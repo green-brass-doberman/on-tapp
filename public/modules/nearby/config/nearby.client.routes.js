@@ -16,8 +16,8 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 
     uiGmapGoogleMapApiProvider.configure({
       key: 'AIzaSyAQHm36O2gZr34HkBjElKYHox3LVWR8UWY',
-      v: '3.17',
-      libraries: 'weather,geometry,visualization'
+      v: '3.18',
+      libraries: 'geometry,visualization'
     });
 	}
 ]);
