@@ -14125,7 +14125,6 @@ img.brewery-img {
   margin-bottom: 15px;
 }
 p.beer-btn {
-  text-align: center;
   margin-top: 15px;
 }
 .beer {
@@ -14198,7 +14197,7 @@ body {
 .left-half-container {
   position: absolute;
   left: 0;
-  right: 60%;
+  right: 0;
   top: 53px;
   bottom: 0;
   height: 100%;
@@ -14221,7 +14220,7 @@ body {
     left: 0;
     right: 0;
     top: 0;
-    bottom: 75%;
+    bottom: 0;
     height: 100%;
     margin-top: 53px;
   }

@@ -262,13 +262,14 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
     // Search logic
     $scope.results = [];
     $scope.totalResults = undefined;
-    
+
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
       $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
     };
   }
 ]);
+
 'use strict';
 
 angular.module('core').controller('HomeController', ['$scope', 'Authentication',
@@ -283,7 +284,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
 	function($scope, Search, $stateParams, $state) {
 		// Search controller logic
     $scope.results = [];
-        
+
     Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
       $scope.status = status;
       if ($scope.status === 200) {
@@ -308,6 +309,7 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
     };
 	}
 ]);
+
 'use strict';
 
 //Menu service used for managing  menus
@@ -515,8 +517,8 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 
     uiGmapGoogleMapApiProvider.configure({
       key: 'AIzaSyAQHm36O2gZr34HkBjElKYHox3LVWR8UWY',
-      v: '3.17',
-      libraries: 'weather,geometry,visualization'
+      v: '3.18',
+      libraries: 'geometry,visualization'
     });
 	}
 ]);
@@ -551,167 +553,99 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
 
-    // this array would be used to fetch data from brewerydb factory
-    $scope.breweries = [];
-
-    // an object to story user's current coordinate,
-    $scope.coords = {};
+    $scope.breweries = []; // used to fetch data from brewerydb factory
+    $scope.coords = {}; // user's current coordinates
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
-
       if (data.data){
-
         $scope.breweries = data.data;
-
         placeMarker();
-
       } else {
-
         $scope.breweries = [{
           brewery: {
             name: 'Sorry',
             description: 'No breweries nearby'
           }
         }];
-
       }
-
-      // stop the spinner
-      usSpinnerService.stop('spinner-1');
+      usSpinnerService.stop('spinner-1'); //stop the spinner
     };
 
-    // function to access users geolocation coordinates
+    // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
-      // get user coordinates
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-
       // set to san francisco by Default for Victor
       // $scope.coords = {lat:37.7833, long:-122.4167};
 
-      // initialise the Google map
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
-
-      // allow scroll to zoom
-      $scope.windowOptions = {
-         visible: true
-      };
-
-      // add maker for current location
-      curLocationMarker();
-
-      // get Breweries data from factory
-      Breweries.getData($scope.coords).success(handleSuccess);
-
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+      curLocationMarker(); // add marker for current location
+      Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
     });
 
     // marker for current coordinate
+    $scope.title = 'You are here!';
     var curLocationMarker = function(){
       $scope.marker = {
         id: 'curLoc',
         coords: {
           latitude: $scope.coords.lat,
           longitude: $scope.coords.long,
-        },
-        options: {
-          animation: 'DROP'
         }
       };
-    };
-
-    $scope.windowOptions = {
-      visible: true
-    };
-
-    $scope.onClick = function() {
-      $scope.windowOptions.visible = !$scope.windowOptions.visible;
     };
 
     $scope.closeClick = function() {
       $scope.windowOptions.visible = false;
     };
 
-    $scope.title = 'You are here!';
-
-    $scope.clickEventsObject = {
-      mouseover: function(marker, e, model)  {
-        model.mouseOver();
-      },
-      mouseout: function(marker, e, model)  {
-        model.mouseOut();
-      }
-    };
-
-    // an array to store all breweries marker
-    $scope.allMarkers = [];
-
     // create markers for all breweries
-    var createMarker = function (i, lat, lng, name, breweryId) {
+    var createMarker = function (i) {
+      // var hours = $scope.breweries[i].hoursOfOperation || '';
+      // hours = hours.replace(/\n/g, "<br>");
+      var name = $scope.breweries[i].brewery.name;
+      var addr = $scope.breweries[i].streetAddress;
+      var phone = $scope.breweries[i].phone;
+      var id = $scope.breweries[i].brewery.id;
+      var dist = $scope.breweries[i].distance;
+      var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/beers/' + id + '">List their beers</a>';
       var ret = {
         id: i,
-        breweryId: breweryId,
-        latitude: lat,
-        longitude: lng,
-        title: name,
+        breweryId: id,
+        coords: {
+          latitude: $scope.breweries[i].latitude,
+          longitude: $scope.breweries[i].longitude
+        },
+        options: {
+          title: name
+        },
+        desc: desc,
         icon: '/modules/nearby/images/beer-icon.png',
         show: false
       };
       ret.onClick = function() {
         ret.show = !ret.show;
       };
-      ret.mouseOver = function(){
-        ret.show = !ret.show;
-        $scope.gotoAnchor(breweryId);
-      };
-      ret.mouseOut = function(){
-        ret.show = !ret.show;
-      };
 
       return ret;
     };
 
-    // a function to place all breweries markers
-    var placeMarker = function(){
-
+    $scope.allMarkers = []; // array to store the brewery markers
+    var placeMarker = function() { // places all the brewery markers
       var markers = [];
       for (var i = 0; i < $scope.breweries.length; i++) {
-        var lat = $scope.breweries[i].latitude;
-        var lng = $scope.breweries[i].longitude;
-        var name = $scope.breweries[i].brewery.name;
-        var breweryId = $scope.breweries[i].brewery.id;
-
-        markers.push(createMarker(i, lat, lng, name, breweryId));
+        markers.push(createMarker(i));
       }
-
       $scope.allMarkers = markers;
     };
 
-    $scope.gotoAnchor = function(x) {
-      var newHash = 'anchor' + x;
-      if ($location.hash() !== newHash) {
-        // set the $location.hash to `newHash` and
-        // $anchorScroll will automatically scroll to it
-        $location.hash('anchor' + x);
-      } else {
-        // call $anchorScroll() explicitly,
-        // since $location.hash hasn't changed
-        $anchorScroll();
-      }
-    };
   }
 ]);
-
-angular.module('nearby').run(['$anchorScroll', function($anchorScroll) {
-  $anchorScroll.yOffset = 50;   // always scroll by 50 extra pixels
-}]);
 
 'use strict';
 
 angular.module('nearby').factory('Breweries', ['$http',
 	function($http) {
-		// Breweries service logic
-		// ...
-
 		// Public API
 		return {
       getData: function(coords){

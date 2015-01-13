@@ -57,8 +57,5 @@ build/
 # Misc
 # ====
 .bash_profile
-mockups.pdf
 public/assets/
-results/
-*.publishsettings
 recommendation-engine/
