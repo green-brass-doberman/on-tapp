@@ -584,10 +584,10 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     // function to access users geolocation coordinates
     geolocation.getLocation().then(function(data){
       // get user coordinates
-      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
       // set to san francisco by Default for Victor
-      $scope.coords = {lat:37.7833, long:-122.4167};
+      // $scope.coords = {lat:37.7833, long:-122.4167};
 
       // initialise the Google map
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
@@ -835,11 +835,14 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       StyleQuery.getStyle(styleName).success(handleSuccess);
     };
 
+    $scope.itemScores = [];
+
     // get result for PreditionIO
     var getPredition = function(userId){
       PredictionIO.getRecommendaton(userId).success(function(data, status){
-        console.log('this is the status', status);
-        console.log('this is the data', data);
+        Beer.getData(data.itemScores[0].item).success(function(data, status){
+          $scope.itemScores.push(data.data);
+        });
       });
     };
 
@@ -848,8 +851,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     var getBeerDetails = function(beerId){
       Beer.getData(beerId).success(function(results, status) {
         $scope.beer = results.data || 'Request failed';
-
-        console.log($scope.beer);
       });
     };
 
