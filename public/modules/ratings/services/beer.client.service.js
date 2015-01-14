@@ -1,6 +1,6 @@
 'use strict';
 
-angular.module('beers').factory('Beer', ['$http',
+angular.module('beer').factory('Beer', ['$http',
   function($http) {
     // Public API
     return {
