@@ -645,8 +645,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         // set to san francisco by Default for Victor
         $scope.coords = {lat:37.783973, long:-122.409100};
 
-        console.log('this is my location', $scope.coords);
-
         // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
         $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
         $scope.windowOptions = {
