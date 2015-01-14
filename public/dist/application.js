@@ -640,8 +640,18 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         longitude: $scope.breweries[i].longitude,
         options: {
           title: name,
+<<<<<<< HEAD
         },
         title: desc,
+=======
+          id: $scope.breweries[i].brewery.id,
+          name: $scope.breweries[i].brewery.name,
+          dist: $scope.breweries[i].distance,
+          addr: $scope.breweries[i].streetAddress,
+          phone: $scope.breweries[i].phone
+        },
+        desc: desc,
+>>>>>>> trying yet again
         icon: '/modules/nearby/images/beer-icon.png',
         showWindow: false
       };
