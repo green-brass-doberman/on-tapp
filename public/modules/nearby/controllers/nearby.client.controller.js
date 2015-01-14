@@ -32,6 +32,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
 
       // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+      $scope.windowOptions = {    
+        visible: true   
+      };
       curLocationMarker(); // add marker for current location
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
     });
