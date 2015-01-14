@@ -2,7 +2,7 @@
 
 module.exports = {
 	db: {
-		uri: process.env.MONGOHQ_URL || 'mongodb://MongoLab-i:8Lu9GZSXvdiVCqOTDGRZL7CHOS4XN.FzDpCqHCeTKhc-@ds052827.mongolab.com:52827/MongoLab-i' || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean',
+		uri: process.env.MONGOHQ_URL || 'gmongodb://MongoLab-i:8Lu9GZSXvdiVCqOTDGRZL7CHOS4XN.FzDpCqHCeTKhc-@ds052827.mongolab.com:52827/MongoLab-i' || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean',
 		options: {
 			user: '',
 			pass: ''
