@@ -45,7 +45,7 @@ angular.element(document).ready(function() {
 'use strict';
 
 // Use application configuration module to register a new module
-ApplicationConfiguration.registerModule('beers');
+ApplicationConfiguration.registerModule('beer');
 
 'use strict';
 
@@ -67,23 +67,58 @@ ApplicationConfiguration.registerModule('nearby');
 ApplicationConfiguration.registerModule('ratings');
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('search');
+
+'use strict';
+
 // Use Application configuration module to register a new module
 ApplicationConfiguration.registerModule('users');
 'use strict';
 
-angular.module('beers').controller('BeerController', ['$scope', 'Beer', '$stateParams', 
-	function($scope, Beer, $stateParams) {
+//Setting up route
+angular.module('beer').config(['$stateProvider',
+  function($stateProvider) {
+    // Beers state routing
+    $stateProvider.
+    state('beer', {
+      url: '/beer/:beerId',
+      templateUrl: 'modules/beer/views/beer.client.view.html'
+    });
+  }
+]);
+
+'use strict';
+
+angular.module('beer').controller('BeerController', ['$scope', 'Beer', '$stateParams', 'StyleQuery',
+	function($scope, Beer, $stateParams, StyleQuery) {
 		// Beer controller logic
     $scope.beerId = $stateParams.beerId;
-    
+
+    // an array to store recommendations
+    $scope.recommendations = [];
+
+    // pushing recommendations data from $http request
+    var handleSuccess = function(data, status){
+      console.log(data.data);
+      $scope.recommendations = data.data;
+    };
+
+    // Find the beers in the same category
+    var getRecommendations = function(styleName){
+      StyleQuery.getStyle(styleName).success(handleSuccess);
+    };
+
     Beer.getData($scope.beerId).success(function(results, status) {
       $scope.beer = results.data || 'Request failed';
+      getRecommendations(results.data.style.name);
     });
 	}
 ]);
+
 'use strict';
 
-angular.module('beers').factory('Beer', ['$http',
+angular.module('beer').factory('Beer', ['$http',
 	function($http) {
 		// Public API
 		return {
@@ -93,10 +128,27 @@ angular.module('beers').factory('Beer', ['$http',
     };
 	}
 ]);
+
+'use strict';
+
+angular.module('beer').factory('StyleQuery', ['$http',
+  function($http) {
+    // Stylequery service logic
+    // ...
+
+    // Public API
+    return {
+      getStyle: function(styleName) {
+        return $http.get('/style/' + styleName);
+      }
+    };
+  }
+]);
+
 'use strict';
 
 //Setting up route
-angular.module('beers').config(['$stateProvider',
+angular.module('brewery').config(['$stateProvider',
   function($stateProvider) {
     // Beers state routing
     $stateProvider.
@@ -254,16 +306,13 @@ angular.module('core').config(['$stateProvider', '$urlRouterProvider',
 
 		// Home state routing
 		$stateProvider.
-		state('search', {
-			url: '/search/:page/:keyword',
-			templateUrl: 'modules/core/views/search.client.view.html'
-		}).
 		state('home', {
 			url: '/',
 			templateUrl: 'modules/core/views/home.client.view.html'
 		});
 	}
 ]);
+
 'use strict';
 
 angular.module('core').controller('HeaderController', ['$scope', 'Authentication', 'Menus', '$state',
@@ -301,35 +350,6 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 		$scope.authentication = Authentication;
 	}
 ]);
-'use strict';
-
-angular.module('core').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state', 'usSpinnerService',
-	function($scope, Search, $stateParams, $state, usSpinnerService) {
-		// Search controller logic
-    $scope.results = [];
-
-    Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
-      $scope.status = status;
-      if ($scope.status === 200) {
-        if (response.totalResults !== undefined) {
-          $scope.numberOfPages = response.numberOfPages;
-          $scope.totalResults = response.totalResults;
-          $scope.keyword = $stateParams.keyword;
-          $scope.currentPage = $stateParams.page;
-          $scope.results = response.data;
-        } else {
-          $scope.totalResults = 0;
-          $scope.numberOfPages = 0;
-        }
-      } else {
-        $scope.results = response || 'Request failed';
-      }
-
-      usSpinnerService.stop('spinner-2'); //stop the spinner
-    });
-	}
-]);
-
 'use strict';
 
 //Menu service used for managing  menus
@@ -807,7 +827,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 
 'use strict';
 
-angular.module('beers').factory('Beer', ['$http',
+angular.module('beer').factory('Beer', ['$http',
   function($http) {
     // Public API
     return {
@@ -863,6 +883,49 @@ angular.module('ratings').factory('StyleQuery', ['$http',
 			}
 		};
 	}
+]);
+
+'use strict';
+
+//Setting up route
+angular.module('search').config(['$stateProvider',
+  function($stateProvider) {
+    // Ratings state routing
+    $stateProvider.
+    state('search', {
+      url: '/search/:page/:keyword',
+      templateUrl: 'modules/search/views/search.client.view.html'
+    });
+  }
+]);
+
+'use strict';
+
+angular.module('search').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state', 'usSpinnerService',
+  function($scope, Search, $stateParams, $state, usSpinnerService) {
+    // Search controller logic
+    $scope.results = [];
+
+    Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
+      $scope.status = status;
+      if ($scope.status === 200) {
+        if (response.totalResults !== undefined) {
+          $scope.numberOfPages = response.numberOfPages;
+          $scope.totalResults = response.totalResults;
+          $scope.keyword = $stateParams.keyword;
+          $scope.currentPage = $stateParams.page;
+          $scope.results = response.data;
+        } else {
+          $scope.totalResults = 0;
+          $scope.numberOfPages = 0;
+        }
+      } else {
+        $scope.results = response || 'Request failed';
+      }
+
+      usSpinnerService.stop('spinner-2'); //stop the spinner
+    });
+  }
 ]);
 
 'use strict';
