@@ -594,7 +594,10 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     };
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 =======
+=======
+>>>>>>> yatt
     // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
       // set to san francisco by Default for Victor
@@ -609,6 +612,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
     });
 
+<<<<<<< HEAD
+>>>>>>> yatt
+=======
 >>>>>>> yatt
     // marker for current coordinate
     var curLocationMarker = function(){
@@ -641,6 +647,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         options: {
           title: name,
 <<<<<<< HEAD
+<<<<<<< HEAD
         },
         title: desc,
 =======
@@ -652,6 +659,10 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         },
         desc: desc,
 >>>>>>> trying yet again
+=======
+        },
+        title: desc,
+>>>>>>> yatt
         icon: '/modules/nearby/images/beer-icon.png',
         showWindow: false
       };
