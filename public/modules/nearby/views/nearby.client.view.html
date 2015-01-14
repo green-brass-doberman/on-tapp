@@ -13,14 +13,9 @@
       </ui-gmap-marker>
 
       <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
-        <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
+        <ui-gmap-windows show="'showWindow'">
           <div data-ng-non-bindable>
-            {{ desc }}
-            <a href="#!/brewery/{{ id }}"><strong>{{ name }}</strong></a><br>
-            {{ dist }} miles away<br>
-            {{ addr }}<br>
-            {{ phone}}<br>
-            <a href="#!/beers/{{ id }}">List their beers</a>            
+            {{ title }}          
           </div>
         </ui-gmap-windows>
       </ui-gmap-markers>
