@@ -1,11 +1,8 @@
 <section data-ng-controller="BreweryController">
   <div class="container">
-    <div class="page-header">
-      <h3>{{brewery.name}}</h3>
-    </div>
     <div class="row">
-      <div class="col-md-4 brewery-info">
-        <div data-ng-if="brewery.images.medium">
+      <div class="col-sm-4 col-md-3 brewery-info">
+        <div class="panel panel-default" data-ng-if="brewery.images.medium">
           <img class="brewery-img img-responsive center-block" ng-src="{{brewery.images.medium}}">
         </div>
         <div data-ng-if="!brewery.images.medium">
@@ -54,11 +51,6 @@
             </div>
           </div>
         </div>
-      </div>
-      <div class="col-md-8">
-        <p class="content">{{brewery.description}}</p>
-        <p data-ng-if="!brewery.description" class="content">No description</p>
-        <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.id}}" role="button">List their beers &raquo;</a></p>
         <h4>Locations:</h4>
         <ul data-ng-repeat="location in brewery.locations">
           <li>
@@ -70,6 +62,12 @@
             <div data-ng-if="location.yearOpened">Year Opened: {{location.yearOpened}}</div>
           </li>
         </ul>
+        <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.id}}" role="button">List their beers &raquo;</a></p>
+      </div>
+      <div class="col-sm-8 col-md-9">
+        <h3>{{brewery.name}}</h3>
+        <p class="content">{{brewery.description}}</p>
+        <p data-ng-if="!brewery.description" class="content">No description</p>
       </div>
     </div>
   </div>
