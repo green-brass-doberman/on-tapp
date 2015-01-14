@@ -1,4 +1,8 @@
 <section data-ng-controller="SearchController">
+
+    <!-- spinner while searching -->
+  <span us-spinner spinner-key="spinner-2" spinner-start-active="true"></span>
+
   <div class="container">
     <div ng-if="totalResults">
       <h2>Your search for "{{keyword}}" returned {{totalResults}} results:</h2>

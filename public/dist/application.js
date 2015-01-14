@@ -266,6 +266,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
       $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
+      $scope.keyword = '';
     };
   }
 ]);
@@ -280,8 +281,8 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 ]);
 'use strict';
 
-angular.module('core').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state',
-	function($scope, Search, $stateParams, $state) {
+angular.module('core').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state', 'usSpinnerService',
+	function($scope, Search, $stateParams, $state, usSpinnerService) {
 		// Search controller logic
     $scope.results = [];
 
@@ -301,13 +302,9 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
       } else {
         $scope.results = response || 'Request failed';
       }
-    });
 
-    $scope.search = function(currentPage) {
-      currentPage = currentPage || 1;
-      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
-      $scope.keyword = '';
-    };
+      usSpinnerService.stop('spinner-2'); //stop the spinner
+    });
 	}
 ]);
 
@@ -548,14 +545,16 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 ]);
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 'geolocation', '$stateParams', 'uiGmapLogger', '$anchorScroll', '$location', 'usSpinnerService',
-	function($scope, Breweries, geolocation, $stateParams, uiGmapLogger, $anchorScroll, $location, usSpinnerService) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogleMapApi', 'Breweries', 'geolocation', 'uiGmapLogger', 'usSpinnerService',
+	function($scope, uiGmapGoogleMapApi, Breweries, geolocation, uiGmapLogger, usSpinnerService) {
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
 
     $scope.breweries = []; // used to fetch data from brewerydb factory
     $scope.coords = {}; // user's current coordinates
+
+uiGmapGoogleMapApi.then(function(maps) {
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -639,6 +638,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
       }
       $scope.allMarkers = markers;
     };
+
+});
 
   }
 ]);

@@ -1,5 +1,6 @@
 'use strict';
 
+// accessKey is required for PredictionIO 0.8.2+
 var request = require('request');
 var config = require('../../config/config');
 

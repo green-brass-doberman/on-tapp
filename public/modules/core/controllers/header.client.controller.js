@@ -22,6 +22,7 @@ angular.module('core').controller('HeaderController', ['$scope', 'Authentication
     $scope.search = function(currentPage) {
       currentPage = currentPage || 1;
       $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
+      $scope.keyword = '';
     };
   }
 ]);
