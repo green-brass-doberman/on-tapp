@@ -7,14 +7,14 @@
     <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
 
       <!-- marker to show current user location -->
-      <ui-gmap-marker coords="marker.coords" idkey="marker.id">
+      <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id">
         <ui-gmap-window show="true" closeClick="closeClick()">
         </ui-gmap-window>
       </ui-gmap-marker>
 
       <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
-        <ui-gmap-windows show="'show'" templateUrl="'templateUrl'" templateParameter="'templateParameter'">
-          <div data-ng-non-bindable>{{desc}}</div>
+        <ui-gmap-windows show="'show'">
+          <div data-ng-non-bindable>{{title}}</div>
         </ui-gmap-windows>
       </ui-gmap-markers>
 

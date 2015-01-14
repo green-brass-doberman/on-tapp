@@ -31,7 +31,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       $scope.coords = {lat:37.7833, long:-122.4167};
 
       // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 13}; // initialize the Google map
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
       $scope.windowOptions = {    
         visible: true   
       };
@@ -40,13 +40,15 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     });
 
     // marker for current coordinate
-    $scope.title = 'You are here!';
     var curLocationMarker = function(){
       $scope.marker = {
         id: 'curLoc',
         coords: {
           latitude: $scope.coords.lat,
           longitude: $scope.coords.long,
+        },
+        options: {
+          title: 'You are here!'
         }
       };
     };
@@ -76,7 +78,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         options: {
           title: name
         },
-        desc: desc,
+        title: desc,
         icon: '/modules/nearby/images/beer-icon.png',
         show: false
       };
