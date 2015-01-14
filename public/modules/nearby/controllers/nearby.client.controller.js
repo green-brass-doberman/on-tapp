@@ -9,13 +9,13 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     $scope.breweries = []; // used to fetch data from brewerydb factory
     $scope.coords = {}; // user's current coordinates
 
-uiGmapGoogleMapApi.then(function(maps) {
-
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
       if (data.data){
         $scope.breweries = data.data;
-        placeMarker();
+        uiGmapGoogleMapApi.then(function(maps) {
+          placeMarker();
+        });
       } else {
         $scope.breweries = [{
           brewery: {
@@ -33,7 +33,7 @@ uiGmapGoogleMapApi.then(function(maps) {
       // $scope.coords = {lat:37.7833, long:-122.4167};
 
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
       curLocationMarker(); // add marker for current location
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
     });
@@ -93,8 +93,6 @@ uiGmapGoogleMapApi.then(function(maps) {
       }
       $scope.allMarkers = markers;
     };
-
-});
 
   }
 ]);
