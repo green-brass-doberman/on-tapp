@@ -1,8 +1,8 @@
 'use strict';
 
-angular.module('core').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state', 'usSpinnerService',
-	function($scope, Search, $stateParams, $state, usSpinnerService) {
-		// Search controller logic
+angular.module('search').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state', 'usSpinnerService',
+  function($scope, Search, $stateParams, $state, usSpinnerService) {
+    // Search controller logic
     $scope.results = [];
 
     Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
@@ -24,5 +24,5 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
 
       usSpinnerService.stop('spinner-2'); //stop the spinner
     });
-	}
+  }
 ]);

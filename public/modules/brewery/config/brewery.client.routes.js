@@ -1,7 +1,7 @@
 'use strict';
 
 //Setting up route
-angular.module('beers').config(['$stateProvider',
+angular.module('brewery').config(['$stateProvider',
   function($stateProvider) {
     // Beers state routing
     $stateProvider.
