@@ -2,9 +2,6 @@
 
 var request = require('request');
 var config = require('../../config/config');
-// accessKey is required for PredictionIO 0.8.2+
-var predictionio = require('predictionio-driver');
-var client = new predictionio.Events({appId: 1, accessKey: config.predictionio.api});
 
 /**
  * Module dependencies.
@@ -27,7 +24,7 @@ exports.create = function(req, res) {
     // Register a new user-to-item action
     request.post({
       headers: {'content-type' : 'application/json'},
-      url: 'http://54.183.105.216:7070/events.json?accessKey=' + secret.keys.predictionio,
+      url: 'http://54.183.105.216:7070/events.json?accessKey=' + config.predictionio.api,
       body: JSON.stringify({
         event: 'rate',
         entityType : 'user',
