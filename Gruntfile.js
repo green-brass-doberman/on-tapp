@@ -154,7 +154,7 @@ module.exports = function(grunt) {
       },
       development: {
         options: {
-          sourceMap: true,
+          sourceMap: false,
           ieCompat:true,
           dumpLineNumbers:true
         },
