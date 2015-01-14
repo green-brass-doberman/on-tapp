@@ -549,6 +549,13 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 ]);
 'use strict';
 
+angular.module('nearby').controller('infoWindowController', ['$scope', '$stateParams', 
+  function($scope, $stateParams) {
+    $scope.params = $stateParams;
+  }
+]);
+'use strict';
+
 angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogleMapApi', 'Breweries', 'geolocation', 'uiGmapLogger', 'usSpinnerService',
 	function($scope, uiGmapGoogleMapApi, Breweries, geolocation, uiGmapLogger, usSpinnerService) {
 
@@ -577,10 +584,10 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
       // set to san francisco by Default for Victor
-      $scope.coords = {lat:37.7833, long:-122.4167};
+      $scope.coords = {lat:37.783973, long:-122.409100};
 
       // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 13}; // initialize the Google map
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
       $scope.windowOptions = {    
         visible: true   
       };
@@ -589,13 +596,15 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     });
 
     // marker for current coordinate
-    $scope.title = 'You are here!';
     var curLocationMarker = function(){
       $scope.marker = {
         id: 'curLoc',
         coords: {
           latitude: $scope.coords.lat,
           longitude: $scope.coords.long,
+        },
+        options: {
+          title: 'You are here!'
         }
       };
     };
@@ -625,9 +634,17 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         options: {
           title: name
         },
+        templateUrl: 'modules/nearby/views/info.client.view.html',
+        templateParameter: {
+          id: $scope.breweries[i].brewery.id,
+          name: $scope.breweries[i].brewery.name,
+          dist: $scope.breweries[i].distance,
+          addr: $scope.breweries[i].streetAddress,
+          phone: $scope.breweries[i].phone
+        },
         desc: desc,
         icon: '/modules/nearby/images/beer-icon.png',
-        show: false
+        showWindow: false
       };
       ret.onClick = function() {
         ret.show = !ret.show;

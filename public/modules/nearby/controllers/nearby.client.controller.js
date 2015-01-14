@@ -28,7 +28,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
       // set to san francisco by Default for Victor
-      $scope.coords = {lat:37.7833, long:-122.4167};
+      $scope.coords = {lat:37.783973, long:-122.409100};
 
       // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
@@ -78,9 +78,17 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         options: {
           title: name
         },
-        title: desc,
+        templateUrl: 'modules/nearby/views/info.client.view.html',
+        templateParameter: {
+          id: $scope.breweries[i].brewery.id,
+          name: $scope.breweries[i].brewery.name,
+          dist: $scope.breweries[i].distance,
+          addr: $scope.breweries[i].streetAddress,
+          phone: $scope.breweries[i].phone
+        },
+        desc: desc,
         icon: '/modules/nearby/images/beer-icon.png',
-        show: false
+        showWindow: false
       };
       ret.onClick = function() {
         ret.show = !ret.show;

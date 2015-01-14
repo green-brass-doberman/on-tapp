@@ -13,8 +13,8 @@
       </ui-gmap-marker>
 
       <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
-        <ui-gmap-windows show="'show'">
-          <div data-ng-non-bindable>{{title}}</div>
+        <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
+          <div data-ng-non-bindable>{{desc}}</div>
         </ui-gmap-windows>
       </ui-gmap-markers>
 
