@@ -49,6 +49,11 @@ ApplicationConfiguration.registerModule('beers');
 
 'use strict';
 
+// Use application configuration module to register a new module
+ApplicationConfiguration.registerModule('brewery');
+
+'use strict';
+
 // Use Applicaion configuration module to register a new module
 ApplicationConfiguration.registerModule('core');
 'use strict';
@@ -66,24 +71,6 @@ ApplicationConfiguration.registerModule('ratings');
 ApplicationConfiguration.registerModule('users');
 'use strict';
 
-//Setting up route
-angular.module('beers').config(['$stateProvider',
-	function($stateProvider) {
-		// Beers state routing
-		$stateProvider.
-		state('beer', {
-			url: '/beer/:beerId',
-			templateUrl: 'modules/beers/views/beer.client.view.html'
-		}).
-		state('beers', {
-			url: '/beers/:breweryId',
-			templateUrl: 'modules/beers/views/beers.client.view.html'
-		});
-	}
-]);
-
-'use strict';
-
 angular.module('beers').controller('BeerController', ['$scope', 'Beer', '$stateParams', 
 	function($scope, Beer, $stateParams) {
 		// Beer controller logic
@@ -96,8 +83,53 @@ angular.module('beers').controller('BeerController', ['$scope', 'Beer', '$stateP
 ]);
 'use strict';
 
-angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stateParams', 'Ratings', '$location',
-	function($scope, Beers, $stateParams, Ratings, $location) {
+angular.module('beers').factory('Beer', ['$http',
+	function($http) {
+		// Public API
+		return {
+      getData: function(beerId){
+        return $http.get('/beer/' + beerId);
+      }
+    };
+	}
+]);
+'use strict';
+
+//Setting up route
+angular.module('beers').config(['$stateProvider',
+  function($stateProvider) {
+    // Beers state routing
+    $stateProvider.
+    state('brewery', {
+      url: '/brewery/:breweryId',
+      templateUrl: 'modules/brewery/views/brewery.client.view.html'
+    });
+  }
+]);
+
+'use strict';
+
+angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 'Ratings', '$location',
+  function($scope, Brewery, $stateParams, Ratings, $location) {
+    // Brewery controller logic
+    $scope.breweryId = $stateParams.breweryId;
+    var holdSocial = [];
+
+    Brewery.getData($scope.breweryId).success(function(results, status) {
+      $scope.brewery = results.data || 'Request failed';
+
+      if ($scope.brewery.socialAccounts){
+        for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
+          // only save the social media sites that are FB, Twitter, 4Square,
+          // Google+, YouTube, Instagram, Yelp or Pinterest
+          var tempSocial = $scope.brewery.socialAccounts[i];
+          if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
+            holdSocial.push(tempSocial);
+          }
+        }
+        $scope.socialMedia = holdSocial;
+      }
+    });
 
     // sort the given collection on the given property
     function sortOn(collection, name) {
@@ -155,7 +187,7 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
     };
 
     // send the brewery id
-    Beers.getData($scope.breweryId).success(handleSuccess);
+    Brewery.getBeersData($scope.breweryId).success(handleSuccess);
 
     // handle the stars rating
     $scope.rate = 0;
@@ -194,28 +226,19 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
         $scope.error = errorResponse.data.message;
       });
     };
-	}
+  }
 ]);
 
 'use strict';
 
-angular.module('beers').factory('Beer', ['$http',
+angular.module('nearby').factory('Brewery', ['$http',
 	function($http) {
 		// Public API
 		return {
-      getData: function(beerId){
-        return $http.get('/beer/' + beerId);
-      }
-    };
-	}
-]);
-'use strict';
-
-angular.module('beers').factory('Beers', ['$http', '$resource',
-	function($http, $resource) {
-		// Public API
-		return {
       getData: function(breweryId){
+        return $http.get('/brewery/' + breweryId);
+      },
+      getBeersData: function(breweryId){
         return $http.get('/beers/' + breweryId);
       }
     };
@@ -504,10 +527,6 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 	function($stateProvider, uiGmapGoogleMapApiProvider) {
 		// Nearby state routing
 		$stateProvider.
-		state('brewery', {
-			url: '/brewery/:breweryId',
-			templateUrl: 'modules/nearby/views/brewery.client.view.html'
-		}).
 		state('nearby', {
 			url: '/nearby',
 			templateUrl: 'modules/nearby/views/nearby.client.view.html'
@@ -521,28 +540,6 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 	}
 ]);
 
-'use strict';
-
-angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 
-  function($scope, Brewery, $stateParams) {
-    // Brewery controller logic
-    $scope.breweryId = $stateParams.breweryId;
-    var holdSocial = [];
-    
-    Brewery.getData($scope.breweryId).success(function(results, status) {
-      $scope.brewery = results.data || 'Request failed';
-      for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
-        // only save the social media sites that are FB, Twitter, 4Square, 
-        // Google+, YouTube, Instagram, Yelp or Pinterest
-        var tempSocial = $scope.brewery.socialAccounts[i];
-        if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
-          holdSocial.push(tempSocial);
-        }
-      }
-      $scope.socialMedia = holdSocial;
-    });
-  }
-]);
 'use strict';
 
 angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogleMapApi', 'Breweries', 'geolocation', 'uiGmapLogger', 'usSpinnerService',
@@ -577,8 +574,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
 
       // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
-      $scope.windowOptions = {    
-        visible: true   
+      $scope.windowOptions = {
+        visible: true
       };
       curLocationMarker(); // add marker for current location
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
@@ -610,7 +607,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var phone = $scope.breweries[i].phone;
       var id = $scope.breweries[i].brewery.id;
       var dist = $scope.breweries[i].distance;
-      var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/beers/' + id + '">List their beers</a>';
+      var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/brewery/' + id + '/#list">List their beers</a>';
       var ret = {
         id: i,
         breweryId: id,
@@ -655,18 +652,6 @@ angular.module('nearby').factory('Breweries', ['$http',
 	}
 ]);
 
-'use strict';
-
-angular.module('nearby').factory('Brewery', ['$http',
-	function($http) {
-		// Public API
-		return {
-      getData: function(breweryId){
-        return $http.get('/brewery/' + breweryId);
-      }
-    };
-	}
-]);
 'use strict';
 
 // Configuring the Articles module

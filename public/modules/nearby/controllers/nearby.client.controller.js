@@ -32,8 +32,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
 
       // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
-      $scope.windowOptions = {    
-        visible: true   
+      $scope.windowOptions = {
+        visible: true
       };
       curLocationMarker(); // add marker for current location
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
@@ -65,7 +65,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var phone = $scope.breweries[i].phone;
       var id = $scope.breweries[i].brewery.id;
       var dist = $scope.breweries[i].distance;
-      var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/beers/' + id + '">List their beers</a>';
+      var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/brewery/' + id + '">List their beers</a>';
       var ret = {
         id: i,
         breweryId: id,
