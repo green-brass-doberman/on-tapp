@@ -515,7 +515,7 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 
     uiGmapGoogleMapApiProvider.configure({
       key: 'AIzaSyAQHm36O2gZr34HkBjElKYHox3LVWR8UWY',
-      v: '3.18',
+      v: '3.17',
       libraries: 'geometry,visualization'
     });
 	}
@@ -559,7 +559,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       if (data.data){
         $scope.breweries = data.data;
         uiGmapGoogleMapApi.then(function(maps) {
-          placeMarker();
+//          placeMarker();
         });
       } else {
         $scope.breweries = [{

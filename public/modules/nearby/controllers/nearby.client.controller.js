@@ -14,7 +14,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       if (data.data){
         $scope.breweries = data.data;
         uiGmapGoogleMapApi.then(function(maps) {
-          placeMarker();
+//          placeMarker();
         });
       } else {
         $scope.breweries = [{
