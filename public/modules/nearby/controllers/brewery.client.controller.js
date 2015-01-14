@@ -8,15 +8,17 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     
     Brewery.getData($scope.breweryId).success(function(results, status) {
       $scope.brewery = results.data || 'Request failed';
-      for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
-        // only save the social media sites that are FB, Twitter, 4Square, 
-        // Google+, YouTube, Instagram, Yelp or Pinterest
-        var tempSocial = $scope.brewery.socialAccounts[i];
-        if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
-          holdSocial.push(tempSocial);
+      if ($scope.brewery.socialAccounts !== undefined) {
+        for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
+          // only save the social media sites that are FB, Twitter, 4Square, 
+          // Google+, YouTube, Instagram, Yelp or Pinterest
+          var tempSocial = $scope.brewery.socialAccounts[i];
+          if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
+            holdSocial.push(tempSocial);
+          }
         }
+        $scope.socialMedia = holdSocial;
       }
-      $scope.socialMedia = holdSocial;
     });
   }
 ]);

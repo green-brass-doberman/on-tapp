@@ -28,7 +28,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
       // set to san francisco by Default for Victor
-      $scope.coords = {lat:37.7833, long:-122.4167};
+      $scope.coords = {lat:37.783973, long:-122.409100};
 
       // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
@@ -40,13 +40,15 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     });
 
     // marker for current coordinate
-    $scope.title = 'You are here!';
     var curLocationMarker = function(){
       $scope.marker = {
         id: 'curLoc',
         coords: {
           latitude: $scope.coords.lat,
           longitude: $scope.coords.long,
+        },
+        options: {
+          title: 'You are here!'
         }
       };
     };
@@ -65,20 +67,28 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var phone = $scope.breweries[i].phone;
       var id = $scope.breweries[i].brewery.id;
       var dist = $scope.breweries[i].distance;
+      var lat = $scope.breweries[i].latitude;
+      var lng = $scope.breweries[i].longitude;
       var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/beers/' + id + '">List their beers</a>';
       var ret = {
         id: i,
         breweryId: id,
-        coords: {
-          latitude: $scope.breweries[i].latitude,
-          longitude: $scope.breweries[i].longitude
-        },
+        latitude: lat,
+        longitude: lng,
         options: {
           title: name
         },
+        templateUrl: 'modules/nearby/views/info.client.view.html',
+        templateParameter: {
+          id: $scope.breweries[i].brewery.id,
+          name: $scope.breweries[i].brewery.name,
+          dist: $scope.breweries[i].distance,
+          addr: $scope.breweries[i].streetAddress,
+          phone: $scope.breweries[i].phone
+        },
         desc: desc,
         icon: '/modules/nearby/images/beer-icon.png',
-        show: false
+        showWindow: false
       };
       ret.onClick = function() {
         ret.show = !ret.show;
