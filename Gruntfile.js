@@ -66,23 +66,23 @@ module.exports = function(grunt) {
 				src: 'public/modules/**/*.less'
 			}
 		},
-		// uglify: {
-		// 	production: {
-		// 		options: {
-		// 			mangle: false
-		// 		},
-		// 		files: {
-		// 			'public/dist/application.min.js': 'public/dist/application.js'
-		// 		}
-		// 	}
-		// },
-		// cssmin: {
-		// 	combine: {
-		// 		files: {
-		// 			'public/dist/application.min.css': '<%= applicationCSSFiles %>'
-		// 		}
-		// 	}
-		// },
+		uglify: {
+			production: {
+				options: {
+					mangle: false
+				},
+				files: {
+					'public/dist/application.min.js': 'public/dist/application.js'
+				}
+			}
+		},
+		cssmin: {
+			combine: {
+				files: {
+					'public/dist/application.min.css': '<%= applicationCSSFiles %>'
+				}
+			}
+		},
 		nodemon: {
 			dev: {
 				script: 'server.js',
@@ -194,7 +194,7 @@ module.exports = function(grunt) {
 
 	// Build task(s).
 	// grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);
-  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'less']);
+  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'less']);
 
 	// Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
