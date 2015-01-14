@@ -9,13 +9,13 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     $scope.breweries = []; // used to fetch data from brewerydb factory
     $scope.coords = {}; // user's current coordinates
 
-uiGmapGoogleMapApi.then(function(maps) {
-
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
       if (data.data){
         $scope.breweries = data.data;
-        placeMarker();
+        uiGmapGoogleMapApi.then(function(maps) {
+//          placeMarker();
+        });
       } else {
         $scope.breweries = [{
           brewery: {
@@ -93,8 +93,6 @@ uiGmapGoogleMapApi.then(function(maps) {
       }
       $scope.allMarkers = markers;
     };
-
-});
 
   }
 ]);
