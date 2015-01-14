@@ -556,6 +556,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
 
     $scope.breweries = []; // used to fetch data from brewerydb factory
     $scope.coords = {}; // user's current coordinates
+    $scope.allMarkers = []; // array to store the brewery markers
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -573,20 +574,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };
 
-    // function to access users geolocation coordinates, draw map and place markers
-    geolocation.getLocation().then(function(data){
-      // set to san francisco by Default for Victor
-      $scope.coords = {lat:37.783973, long:-122.409100};
-
-      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
-      $scope.windowOptions = {
-        visible: true
-      };
-      curLocationMarker(); // add marker for current location
-      Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
-    });
-
     // marker for current coordinate
     var curLocationMarker = function(){
       $scope.marker = {
@@ -601,12 +588,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       };
     };
 
-    $scope.closeClick = function() {
-      $scope.windowOptions.visible = false;
-    };
-
-    // create markers for all breweries
-    $scope.allMarkers = []; // array to store the brewery markers
     var createMarker = function (i) {
       // var hours = $scope.breweries[i].hoursOfOperation || '';
       // hours = hours.replace(/\n/g, "<br>");
@@ -645,12 +626,33 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       return ret;
     };
 
+    // create markers for all breweries
     var placeMarker = function() { // places all the brewery markers
       var markers = [];
       for (var i = 0; i < $scope.breweries.length; i++) {
         markers.push(createMarker(i));
       }
       $scope.allMarkers = markers;
+    };
+
+    $scope.closeClick = function() {
+      $scope.windowOptions.visible = false;
+    };
+
+    $scope.getUserLocation = function(){
+        // function to access users geolocation coordinates, draw map and place markers
+      geolocation.getLocation().then(function(data){
+        // set to san francisco by Default for Victor
+        $scope.coords = {lat:37.783973, long:-122.409100};
+
+        // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+        $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+        $scope.windowOptions = {
+          visible: true
+        };
+        curLocationMarker(); // add marker for current location
+        Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
+      });
     };
   }
 ]);

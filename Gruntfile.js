@@ -66,16 +66,16 @@ module.exports = function(grunt) {
 				src: 'public/modules/**/*.less'
 			}
 		},
-		// uglify: {
-		// 	production: {
-		// 		options: {
-		// 			mangle: false
-		// 		},
-		// 		files: {
-		// 			'public/dist/application.min.js': 'public/dist/application.js'
-		// 		}
-		// 	}
-		// },
+		uglify: {
+			production: {
+				options: {
+					mangle: false
+				},
+				files: {
+					'public/dist/application.min.js': 'public/dist/application.js'
+				}
+			}
+		},
 		// cssmin: {
 		// 	combine: {
 		// 		files: {
@@ -154,7 +154,7 @@ module.exports = function(grunt) {
       },
       development: {
         options: {
-          sourceMap: true,
+          sourceMap: false,
           ieCompat:true,
           dumpLineNumbers:true
         },
@@ -194,7 +194,7 @@ module.exports = function(grunt) {
 
 	// Build task(s).
 	// grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'cssmin']);
-  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'less']);
+  grunt.registerTask('build', ['lint', 'loadConfig', 'ngAnnotate', 'uglify', 'less']);
 
 	// Test task.
 	grunt.registerTask('test', ['env:test', 'mochaTest', 'karma:unit']);
