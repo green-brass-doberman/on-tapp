@@ -578,7 +578,7 @@ uiGmapGoogleMapApi.then(function(maps) {
       // $scope.coords = {lat:37.7833, long:-122.4167};
 
       $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
       curLocationMarker(); // add marker for current location
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
     });
