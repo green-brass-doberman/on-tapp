@@ -8,8 +8,7 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 
     Brewery.getData($scope.breweryId).success(function(results, status) {
       $scope.brewery = results.data || 'Request failed';
-
-      if ($scope.brewery.socialAccounts){
+      if ($scope.brewery.socialAccounts !== undefined) {
         for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
           // only save the social media sites that are FB, Twitter, 4Square,
           // Google+, YouTube, Instagram, Yelp or Pinterest
