@@ -632,10 +632,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         latitude: lat,
         longitude: lng,
         options: {
-          title: name
-        },
-        templateUrl: 'modules/nearby/views/info.client.view.html',
-        templateParameter: {
+          title: name,
           id: $scope.breweries[i].brewery.id,
           name: $scope.breweries[i].brewery.name,
           dist: $scope.breweries[i].distance,
