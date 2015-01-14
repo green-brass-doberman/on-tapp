@@ -14091,7 +14091,6 @@ body.ng-cloak {
 }
 .search-bar {
   width: 240px;
-  display: inline;
   margin-top: 5px;
 }
 .search-form {
@@ -14213,7 +14212,8 @@ body {
 @media (max-width: 750px) {
   .angular-google-map,
   .angular-google-map-container {
-    height: 250px;
+    height: 100%;
+    width: 100%;
   }
   .left-half-container {
     position: absolute;

@@ -1,7 +1,25 @@
 'use strict';
 
-angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stateParams', 'Ratings', '$location',
-	function($scope, Beers, $stateParams, Ratings, $location) {
+angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 'Ratings', '$location',
+  function($scope, Brewery, $stateParams, Ratings, $location) {
+    // Brewery controller logic
+    $scope.breweryId = $stateParams.breweryId;
+    var holdSocial = [];
+
+    Brewery.getData($scope.breweryId).success(function(results, status) {
+      $scope.brewery = results.data || 'Request failed';
+      if ($scope.brewery.socialAccounts !== undefined) {
+        for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
+          // only save the social media sites that are FB, Twitter, 4Square,
+          // Google+, YouTube, Instagram, Yelp or Pinterest
+          var tempSocial = $scope.brewery.socialAccounts[i];
+          if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
+            holdSocial.push(tempSocial);
+          }
+        }
+        $scope.socialMedia = holdSocial;
+      }
+    });
 
     // sort the given collection on the given property
     function sortOn(collection, name) {
@@ -59,7 +77,7 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
     };
 
     // send the brewery id
-    Beers.getData($scope.breweryId).success(handleSuccess);
+    Brewery.getBeersData($scope.breweryId).success(handleSuccess);
 
     // handle the stars rating
     $scope.rate = 0;
@@ -98,5 +116,5 @@ angular.module('beers').controller('BeersController', ['$scope', 'Beers', '$stat
         $scope.error = errorResponse.data.message;
       });
     };
-	}
+  }
 ]);

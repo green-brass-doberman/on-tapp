@@ -6,6 +6,9 @@ angular.module('nearby').factory('Brewery', ['$http',
 		return {
       getData: function(breweryId){
         return $http.get('/brewery/' + breweryId);
+      },
+      getBeersData: function(breweryId){
+        return $http.get('/beers/' + breweryId);
       }
     };
 	}

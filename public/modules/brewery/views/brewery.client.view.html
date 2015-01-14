@@ -70,5 +70,47 @@
         <p data-ng-if="!brewery.description" class="content">No description</p>
       </div>
     </div>
+
+    <div class="clearfix">
+    <hr>
+
+    <div data-ng-repeat="group in groups">
+      <h4>{{group.beers[0].available.name}}</h4>
+      <div class="row">
+        <div class="col-md-3" data-ng-repeat-start="beer in group.beers">
+          <div class="beer">
+            <div data-ng-if="beer.labels.medium">
+              <img width="200" height="200" data-ng-src="{{beer.labels.medium}}">
+            </div>
+            <div data-ng-if="!beer.labels.medium">
+              <img width="200" height="200" src="/modules/core/images/no-beer-label-60.png">
+            </div>
+            {{beer.name}}
+            <div data-ng-if="beer.style.name">
+              <a href="#">{{beer.style.name}}</a>
+            </div>
+
+            <form class="list-beers form-horizontal text-center" data-ng-submit="create($index)" novalidate>
+              <fieldset>
+                <div class="form-group">
+                  <label class="control-label" for="rating">How many stars would you give?</label>
+                  <div class="controls">
+                    <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                  </div>
+                </div>
+                <div class="form-group">
+                  <input type="submit" class="btn btn-primary">
+                </div>
+                <div data-ng-show="error" class="text-danger">
+                  <strong data-ng-bind="error"></strong>
+                </div>
+              </fieldset>
+            </form>
+          </div>
+        </div>
+        <div class="clearfix" ng-if="$index%4==3"></div>
+        <div data-ng-repeat-end=""></div>
+      </div>
+    </div>
   </div>
 </section>
