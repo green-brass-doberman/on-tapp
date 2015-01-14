@@ -558,9 +558,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     var handleSuccess = function(data, status){
       if (data.data){
         $scope.breweries = data.data;
-        uiGmapGoogleMapApi.then(function(maps) {
-//          placeMarker();
-        });
+          placeMarker();
       } else {
         $scope.breweries = [{
           brewery: {
@@ -575,9 +573,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
       // set to san francisco by Default for Victor
-      // $scope.coords = {lat:37.7833, long:-122.4167};
+      $scope.coords = {lat:37.7833, long:-122.4167};
 
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
       $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
       curLocationMarker(); // add marker for current location
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
@@ -600,6 +598,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     };
 
     // create markers for all breweries
+    $scope.allMarkers = []; // array to store the brewery markers
     var createMarker = function (i) {
       // var hours = $scope.breweries[i].hoursOfOperation || '';
       // hours = hours.replace(/\n/g, "<br>");
@@ -630,7 +629,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       return ret;
     };
 
-    $scope.allMarkers = []; // array to store the brewery markers
     var placeMarker = function() { // places all the brewery markers
       var markers = [];
       for (var i = 0; i < $scope.breweries.length; i++) {
@@ -638,7 +636,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       }
       $scope.allMarkers = markers;
     };
-
   }
 ]);
 
