@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('core').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state',
-	function($scope, Search, $stateParams, $state) {
+angular.module('core').controller('SearchController', ['$scope', 'Search', '$stateParams', '$state', 'usSpinnerService',
+	function($scope, Search, $stateParams, $state, usSpinnerService) {
 		// Search controller logic
     $scope.results = [];
 
@@ -21,12 +21,8 @@ angular.module('core').controller('SearchController', ['$scope', 'Search', '$sta
       } else {
         $scope.results = response || 'Request failed';
       }
-    });
 
-    $scope.search = function(currentPage) {
-      currentPage = currentPage || 1;
-      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
-      $scope.keyword = '';
-    };
+      usSpinnerService.stop('spinner-2'); //stop the spinner
+    });
 	}
 ]);

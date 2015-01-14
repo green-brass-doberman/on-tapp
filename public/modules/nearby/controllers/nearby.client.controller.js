@@ -28,9 +28,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'Breweries', 
     // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
       // set to san francisco by Default for Victor
-      // $scope.coords = {lat:37.7833, long:-122.4167};
+      $scope.coords = {lat:37.7833, long:-122.4167};
 
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+      // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
        $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
       curLocationMarker(); // add marker for current location
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
