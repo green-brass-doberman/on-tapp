@@ -72,13 +72,14 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       StyleQuery.getStyle(styleName).success(handleSuccess);
     };
 
-    $scope.itemScores = [];
+    $scope.itemScores = [{name: 'no recommendations yet'}];
 
     // get result for PreditionIO
     var getPredition = function(userId){
       PredictionIO.getRecommendaton(userId).success(function(data, status){
         Beer.getData(data.itemScores[0].item).success(function(data, status){
-          $scope.itemScores.push(data.data);
+          $scope.itemScores = [data.data];
+          console.log(data.data);
         });
       });
     };
