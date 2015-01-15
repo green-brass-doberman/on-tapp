@@ -14110,6 +14110,9 @@ body.ng-cloak {
 .top-rated {
   height: 40px;
 }
+.beer-item {
+  min-height: 600px;
+}
 p.center {
   text-align: center;
   margin: 0;
