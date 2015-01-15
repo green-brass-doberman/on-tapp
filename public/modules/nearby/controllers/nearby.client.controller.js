@@ -41,8 +41,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var id = $scope.breweries[i].brewery.id;
       var dist = $scope.breweries[i].distance + ' miles away<br>';
       var desc = '<div class="info-window"><a href="#!/brewery/' + id + '"><strong>' +
-                 name + '</strong></a><br>' + dist + addr + phone +
-                 '<a href="#!/beers/' + id + '">List their beers</a></div>';
+                 name + '</strong></a><br>' + dist + addr + phone + '</div>';
       var ret = {
         id: i,
         coords : {
