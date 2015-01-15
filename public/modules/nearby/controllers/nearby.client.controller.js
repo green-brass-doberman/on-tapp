@@ -26,20 +26,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };
 
-    // function to access users geolocation coordinates, draw map and place markers
-    geolocation.getLocation().then(function(data){
-      // set to san francisco by Default for Victor
-      // $scope.coords = {lat:37.783973, long:-122.409100};
-
-      $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-      $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
-      $scope.windowOptions = {    
-        visible: true   
-      };
-      curLocationMarker(); // add marker for current location
-      Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
-    });
-
     // marker for current coordinate
     var curLocationMarker = function(){
       $scope.marker = {
@@ -58,25 +44,38 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       // var hours = $scope.breweries[i].hoursOfOperation || '';
       // hours = hours.replace(/\n/g, "<br>");
       var name = $scope.breweries[i].brewery.name;
-      var addr = $scope.breweries[i].streetAddress;
-      var phone = $scope.breweries[i].phone;
+      var addr = ($scope.breweries[i].streetAddress !== undefined) ? $scope.breweries[i].streetAddress + '<br>' : '';
+      var phone = ($scope.breweries[i].phone !== undefined) ? $scope.breweries[i].phone + '<br>' : '';
       var id = $scope.breweries[i].brewery.id;
-      var dist = $scope.breweries[i].distance;
-      var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/beers/' + id + '">List their beers</a>';
+      var dist = $scope.breweries[i].distance + ' miles away<br>';
+      var desc = '<div class="info-window"><a href="#!/brewery/' + id + '"><strong>' + 
+                 name + '</strong></a><br>' + dist + addr + phone + 
+                 '<a href="#!/beers/' + id + '">List their beers</a></div>';
       var ret = {
         id: i,
         breweryId: id,
         latitude: $scope.breweries[i].latitude,
         longitude: $scope.breweries[i].longitude,
+        coords : {
+          latitude: $scope.breweries[i].latitude,
+          longitude: $scope.breweries[i].longitude,
+        },
         options: {
           title: name,
         },
-        title: desc,
+        infoWindow: {
+          content: desc
+        },
         icon: '/modules/nearby/images/beer-icon.png',
         showWindow: false
       };
       ret.onClick = function() {
-        ret.show = !ret.show;
+        for (var i = 0; i < $scope.allMarkers.length; i++) {
+          if ($scope.allMarkers[i].showWindow === true) {
+            $scope.allMarkers[i].showWindow = false;
+          }
+        }
+        ret.showWindow = !ret.showWindow;
       };
 
       return ret;
@@ -99,9 +98,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
         // set to san francisco by Default for Victor
-        $scope.coords = {lat:37.783973, long:-122.409100};
+        // $scope.coords = {lat:37.783973, long:-122.409100};
 
-        // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+        $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
         $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
         $scope.windowOptions = {
           visible: true
