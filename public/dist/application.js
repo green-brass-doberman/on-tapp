@@ -761,9 +761,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 		$scope.find = function() {
 			$scope.ratings = Ratings.query();
 
+
+      var userId = Authentication.user._id;
+
       $scope.ratings.$promise.then(function(data){
-        console.log(data);
-        getPredition(data[0].user._id);
+        getPredition(userId);
       });
 		};
 
@@ -804,7 +806,6 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       PredictionIO.getRecommendaton(userId).success(function(data, status){
         Beer.getData(data.itemScores[0].item).success(function(data, status){
           $scope.itemScores = [data.data];
-          console.log(data.data);
         });
       });
     };
