@@ -1,21 +1,95 @@
 <div class="container">
   <section data-ng-controller="RatingsController" data-ng-init="find()">
 
-    <h3>Customized Recommendations:</h3>
+    <h2 ng-if="itemScores">Our customised recommendation for you:</h2>
 
-    <div class="list-group">
-      <div class="list-group-item" data-ng-repeat="itemScore in itemScores">
-        <h4 class="list-group-item-heading">{{itemScore.name}}</h4>
+    <div class="row" data-ng-repeat="itemScore in itemScores">
+      <div class="col-sm-4 col-md-3 panel panel-default">
+        <div data-ng-if="itemScore.labels.medium">
+          <img class="brewery-img img-responsive center-block" data-ng-src="{{itemScore.labels.medium}}">
+        </div>
+        <div data-ng-if="!itemScore.labels.medium">
+          <img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/no-itemScore-label-60.png">
+        </div>
+        <ul class="list-group">
+          <li class="list-group-item">
+            <span class="badge">{{itemScore.abv}}%</span>
+            abv
+          </li>
+          <li class="list-group-item">
+            <span class="badge">{{itemScore.ibu}}</span>
+            ibu
+          </li>
+          <li class="list-group-item">
+            <span data-ng-if="itemScore.srmId" class="badge">{{itemScore.srmId}}</span>
+            <span data-ng-if="!itemScore.srmId" class="badge">N/A</span>
+            srm
+          </li>
+          <li class="list-group-item">
+            <span data-ng-if="itemScore.og" class="badge">{{itemScore.og}}</span>
+            <span data-ng-if="!itemScore.og" class="badge">N/A</span>
+            og
+          </li>
+        </ul>
       </div>
+      <div class="col-sm-8 col-md-9 panel panel-default">
+        <div class="panel-body">
+          <div class="row">
+            <div class="col-sm-3"><strong>Name:</strong></div>
+            <div class="col-sm-9">{{itemScore.name}}</div>
+          </div>
+          <div data-ng-if="itemScore.breweries[0].id" class="row">
+            <div class="col-sm-3"><strong>Brewery:</strong></div>
+            <div class="col-sm-9">
+              <a href="#!/brewery/{{itemScore.breweries[0].id}}">{{itemScore.breweries[0].name}}</a>
+            </div>
+          </div>
+          <div data-ng-if="itemScore.style.name" class="row">
+            <div class="col-sm-3"><strong>Style:</strong></div>
+            <div ng-if="itemScore.style.name" class="col-sm-9">
+              <a href="#">{{itemScore.style.name}}</a>
+            </div>
+          </div>
+          <div data-ng-if="itemScore.available.description" class="row">
+            <div class="col-sm-3"><strong>Availability:</strong></div>
+            <div class="col-sm-9">{{itemScore.available.description}}</div>
+          </div>
+          <div data-ng-if="itemScore.glass.name" class="row">
+            <div class="col-sm-3"><strong>Serving:</strong></div>
+            <div class="col-sm-9">{{itemScore.glass.name}}</div>
+          </div>
+          <hr>
+          <p class="content">{{itemScore.description}}</p>
+          <div data-ng-if="itemScore.foodPairings" class="row">
+            <div class="col-sm-12">
+            <strong>Food Pairings:</strong><br>
+            <p class="content">{{itemScore.foodPairings}}</p>
+            </div>
+          </div>
+        </div>
+        <hr>
+
+
+        <h2 data-ng-if="recommendations">You may also want to try:</h2>
+
+        <div class="list-group">
+          <div class="list-group-item" data-ng-repeat="recommendation in recommendations | limitTo : 10">
+            <h4 class="list-group-item-heading">{{recommendation.name}}</h4>
+            <small class="list-group-item-text">
+              {{recommendation.category.name}}
+            </small>
+          </div>
+        </div>
+      </div>
+    <hr>
     </div>
 
-    <hr>
 
-    <h3><img class="top-rated" src="/modules/core/images/Graph%402x.png">  Top 10 rated beers</h3>
+    <h3><img class="top-rated" src="/modules/core/images/Graph%402x.png"> Top 10 rated beers</h3>
     <div class="list-group">
         <a data-ng-repeat="rating in ratings | orderBy: '-stars' | limitTo:10" data-ng-href="#!/beer/{{rating.beerId}}" class="list-group-item">
-          <h4 class="list-group-item-heading">{{$index + 1}} | {{rating.name}}</h4>
           <span class="badge"> Stars: {{rating.stars}} </span>
+          <p class="list-group-item-heading">{{$index + 1}} | {{rating.name}} - <small>{{rating.styleName}}</small></p>
           <small class="list-group-item-text">
             Last voted on
             <span data-ng-bind="rating.created | date:'medium'"></span>

@@ -38,6 +38,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 			$scope.ratings = Ratings.query();
 
       $scope.ratings.$promise.then(function(data){
+        console.log(data);
         getPredition(data[0].user._id);
       });
 		};
@@ -72,7 +73,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       StyleQuery.getStyle(styleName).success(handleSuccess);
     };
 
-    $scope.itemScores = [{name: 'no recommendations yet'}];
+    $scope.itemScores = [];
 
     // get result for PreditionIO
     var getPredition = function(userId){
