@@ -36,6 +36,10 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 		// Find a list of Ratings
 		$scope.find = function() {
 			$scope.ratings = Ratings.query();
+
+      $scope.ratings.$promise.then(function(data){
+        getPredition(data[0].user._id);
+      });
 		};
 
 		// Find existing Rating
