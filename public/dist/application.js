@@ -269,7 +269,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 
       // Redirect after save
       rating.$save(function(response) {
-        $location.path('ratings/' + response._id);
+        // console.log('this is the response', response);
+        // $location.path('ratings/' + response._id);
+        $location.path('beer/' + response.beerId);
 
         // Clear form fields
         $scope.name = '';
@@ -615,8 +617,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var phone = ($scope.breweries[i].phone !== undefined) ? $scope.breweries[i].phone + '<br>' : '';
       var id = $scope.breweries[i].brewery.id;
       var dist = $scope.breweries[i].distance + ' miles away<br>';
-      var desc = '<div class="info-window"><a href="#!/brewery/' + id + '"><strong>' + 
-                 name + '</strong></a><br>' + dist + addr + phone + 
+      var desc = '<div class="info-window"><a href="#!/brewery/' + id + '"><strong>' +
+                 name + '</strong></a><br>' + dist + addr + phone +
                  '<a href="#!/beers/' + id + '">List their beers</a></div>';
       var ret = {
         id: i,
@@ -661,9 +663,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
         // set to san francisco by Default for Victor
-        // $scope.coords = {lat:37.783973, long:-122.409100};
+        $scope.coords = {lat:37.783973, long:-122.409100};
 
-        $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+        // $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
         $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
         $scope.windowOptions = {
           visible: true
@@ -694,7 +696,7 @@ angular.module('nearby').factory('Breweries', ['$http',
 angular.module('ratings').run(['Menus',
 	function(Menus) {
 		// Set top bar menu items
-		Menus.addMenuItem('topbar', 'Recommendations', 'ratings', '/ratings(/create)?');
+		Menus.addMenuItem('topbar', 'Recommendations', 'recommendations', '/ratings(/create)?');
 	}
 ]);
 
@@ -706,7 +708,7 @@ angular.module('ratings').config(['$stateProvider',
 		// Ratings state routing
 		$stateProvider.
 		state('listRatings', {
-			url: '/ratings',
+			url: '/recommendations',
 			templateUrl: 'modules/ratings/views/list-ratings.client.view.html'
 		}).
 		state('viewRating', {
@@ -758,6 +760,11 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
 		// Find a list of Ratings
 		$scope.find = function() {
 			$scope.ratings = Ratings.query();
+
+      $scope.ratings.$promise.then(function(data){
+        console.log(data);
+        getPredition(data[0].user._id);
+      });
 		};
 
 		// Find existing Rating
@@ -796,7 +803,8 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     var getPredition = function(userId){
       PredictionIO.getRecommendaton(userId).success(function(data, status){
         Beer.getData(data.itemScores[0].item).success(function(data, status){
-          $scope.itemScores.push(data.data);
+          $scope.itemScores = [data.data];
+          console.log(data.data);
         });
       });
     };
