@@ -2,7 +2,7 @@
   <section data-ng-controller="RatingsController" data-ng-init="find()">
     <h3><img class="top-rated" src="/modules/core/images/Graph%402x.png">  Top 10 rated beers</h3>
     <div class="list-group">
-        <a data-ng-repeat="rating in ratings | orderBy: '-stars' | limitTo:10" data-ng-href="#!/ratings/{{rating._id}}" class="list-group-item">
+        <a data-ng-repeat="rating in ratings | orderBy: '-stars' | limitTo:10" data-ng-href="#!/beer/{{rating.beerId}}" class="list-group-item">
           <h4 class="list-group-item-heading">{{$index + 1}} | {{rating.name}}</h4>
           <span class="badge"> Stars: {{rating.stars}} </span>
           <small class="list-group-item-text">

@@ -1,121 +1,141 @@
 <section data-ng-controller="BreweryController">
   <div class="container">
     <div class="row">
-      <div class="col-sm-4 col-md-3 brewery-info">
-        <div class="panel panel-default" data-ng-if="brewery.images.medium">
-          <img class="brewery-img img-responsive center-block" width="300" height="300" data-ng-src="{{brewery.images.medium}}">
+      <div class="col-sm-4 col-md-3 panel panel-default">
+        <div data-ng-if="brewery.images.medium">
+          <img class="img-responsive center-block" data-ng-src="{{brewery.images.medium}}">
         </div>
         <div data-ng-if="!brewery.images.medium">
-          <img class="brewery-img img-responsive center-block" width="300" height="300" data-ng-src="/modules/core/images/Map%402x.png">
+          <img class="img-responsive center-block" data-ng-src="/modules/core/images/Map%402x.png">
         </div>
-        <div data-ng-if="brewery.established">
-          <p class="center"><strong>Established:</strong> {{brewery.established}}</p>
-        </div>
-        <div data-ng-if="brewery.website">
-          <p class="center"><a href="{{brewery.website}}" target="_blank">{{brewery.website}}</a></p>
-        </div>
-        <div data-ng-if="brewery.isOrganic == 'Y'">
-          <p class="center">Certified Organic</p>
-        </div>
-        <div data-ng-if="brewery.guilds.length > 0" class="guilds">
-          <p class="center"><strong>Members of:</strong></p>
-          <div data-ng-repeat="guild in brewery.guilds" class="guild-image">
-            <a href="{{guild.website}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="{{guild.images.icon}}" width="64" rel="tootltip" title="{{guild.name}}"></a>
+
+        <ul class="list-group">
+          <div data-ng-if="brewery.established">
+            <li class="list-group-item">
+                <p class="center"><strong>Established:</strong> {{brewery.established}}</p>
+            </li>
           </div>
-        </div>
-        <div data-ng-if="socialMedia.length > 0" class="guilds">
-          <div data-ng-repeat="social in socialMedia" class="guild-image">
-            <div data-ng-if="social.socialMediaId === 1">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Facebook-32.png" width="32" rel="tootltip" title="Friend them on Facebook"></a>
-            </div>
-            <div data-ng-if="social.socialMediaId === 2">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Twitter-32.png" width="32" rel="tootltip" title="Follow them on Twitter"></a>
-            </div>
-            <div data-ng-if="social.socialMediaId === 3">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Foursquare-32.png" width="32" rel="tootltip" title="Find them on Foursquare"></a>
-            </div>
-            <div data-ng-if="social.socialMediaId === 8">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/GooglePlus-32.png" width="32" rel="tootltip" title="Follow them on Google+"></a>
-            </div>
-            <div data-ng-if="social.socialMediaId === 10">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/YouTube_01-32.png" width="32" rel="tootltip" title="Follow them on YouTube"></a>
-            </div>
-            <div data-ng-if="social.socialMediaId === 14">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Instagram-32.png" width="32" rel="tootltip" title="Follow them on Instagram"></a>
-            </div>
-            <div data-ng-if="social.socialMediaId === 15">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Yelp-32.png" width="32" rel="tootltip" title="Leave a review on Yelp"></a>
-            </div>
-            <div data-ng-if="social.socialMediaId === 16">
-              <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Pinterest-32.png" width="32" rel="tootltip" title="Follow them on Pinterest"></a>
-            </div>
+
+          <div data-ng-if="brewery.website">
+            <li class="list-group-item">
+                <p class="center"><a href="{{brewery.website}}" target="_blank">{{brewery.website}}</a></p>
+            </li>
           </div>
-        </div>
-        <h4>Locations:</h4>
-        <ul data-ng-repeat="location in brewery.locations">
-          <li>
-            {{location.name}}<br>
-            {{location.locationTypeDisplay}}<br>
-            {{location.streetAddress}}<br>
-            {{location.region}}  {{location.postalCode}}<br>
-            {{location.phone}}<br>
-            <div data-ng-if="location.yearOpened">Year Opened: {{location.yearOpened}}</div>
-          </li>
+
+          <div data-ng-if="brewery.isOrganic == 'Y'">
+            <li class="list-group-item">
+                <p class="center">Certified Organic</p>
+            </li>
+          </div>
+
+          <div data-ng-if="brewery.guilds.length > 0" class="guilds">
+            <li class="list-group-item">
+                <p class="center"><strong>Members of:</strong></p>
+                <div data-ng-repeat="guild in brewery.guilds" class="guild-image">
+                  <a href="{{guild.website}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="{{guild.images.icon}}" width="64" rel="tootltip" title="{{guild.name}}"></a>
+                </div>
+            </li>
+          </div>
+
+          <div data-ng-if="socialMedia.length > 0" class="guilds">
+            <li class="list-group-item">
+                <div data-ng-repeat="social in socialMedia" class="guild-image">
+                  <div data-ng-if="social.socialMediaId === 1">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Facebook-32.png" width="32" rel="tootltip" title="Friend them on Facebook"></a>
+                  </div>
+                  <div data-ng-if="social.socialMediaId === 2">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Twitter-32.png" width="32" rel="tootltip" title="Follow them on Twitter"></a>
+                  </div>
+                  <div data-ng-if="social.socialMediaId === 3">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Foursquare-32.png" width="32" rel="tootltip" title="Find them on Foursquare"></a>
+                  </div>
+                  <div data-ng-if="social.socialMediaId === 8">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/GooglePlus-32.png" width="32" rel="tootltip" title="Follow them on Google+"></a>
+                  </div>
+                  <div data-ng-if="social.socialMediaId === 10">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/YouTube_01-32.png" width="32" rel="tootltip" title="Follow them on YouTube"></a>
+                  </div>
+                  <div data-ng-if="social.socialMediaId === 14">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Instagram-32.png" width="32" rel="tootltip" title="Follow them on Instagram"></a>
+                  </div>
+                  <div data-ng-if="social.socialMediaId === 15">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Yelp-32.png" width="32" rel="tootltip" title="Leave a review on Yelp"></a>
+                  </div>
+                  <div data-ng-if="social.socialMediaId === 16">
+                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Pinterest-32.png" width="32" rel="tootltip" title="Follow them on Pinterest"></a>
+                  </div>
+                </div>
+            </li>
+          </div>
+
+        <li class="list-group-item">
+          <h4>Locations:</h4>
+          <ul data-ng-repeat="location in brewery.locations">
+            <li>
+              {{location.name}}<br>
+              {{location.locationTypeDisplay}}<br>
+              {{location.streetAddress}}<br>
+              {{location.region}}  {{location.postalCode}}<br>
+              {{location.phone}}<br>
+              <div data-ng-if="location.yearOpened">Year Opened: {{location.yearOpened}}</div>
+            </li>
+          </ul>
+        </li>
         </ul>
-        <!-- <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.id}}" role="button">List their beers &raquo;</a></p> -->
       </div>
-      <div class="col-sm-8 col-md-9">
-        <h3>{{brewery.name}}</h3>
+      <div class="col-sm-8 col-md-9 panel panel-default">
+
+        <p class="lead">{{brewery.name}}</p>
+
         <p class="content">{{brewery.description}}</p>
         <p data-ng-if="!brewery.description" class="content">No description</p>
-      </div>
-    </div>
 
-    <div class="clearfix">
-    <hr>
+        <hr>
 
-    <div data-ng-repeat="group in groups">
-      <h3>{{group.beers[0].available.name}}</h3>
+        <div data-ng-repeat="group in groups">
+          <h3>{{group.beers[0].available.name}}</h3>
 
-      <div class="row">
-        <div class="col-sm-6 col-md-3" data-ng-repeat-start="beer in group.beers">
-          <a href="#!/beer/{{beer.id}}">
-            <div class="thumbnail">
-              <div data-ng-if="beer.labels.medium">
-                <img class="img-responsive center-block" width="300" height="300" data-ng-src="{{beer.labels.medium}}">
-              </div>
-              <div data-ng-if="!beer.labels.medium">
-                <img class="img-responsive center-block" width="300" height="300" src="/modules/core/images/no-beer-label-60.png">
-              </div>
+          <div class="row">
+            <div class="col-sm-6 col-md-4" data-ng-repeat-start="beer in group.beers">
+              <a href="#!/beer/{{beer.id}}">
+                <div class="thumbnail beer-item">
+                  <div data-ng-if="beer.labels.medium">
+                    <img class="img-responsive center-block" width="300" height="300" data-ng-src="{{beer.labels.medium}}">
+                  </div>
+                  <div data-ng-if="!beer.labels.medium">
+                    <img class="img-responsive center-block" width="300" height="300" src="/modules/core/images/no-beer-label-60.png">
+                  </div>
 
-              <div class="caption">
-                <h3>{{beer.name}}</h3>
-                <div data-ng-if="beer.style.name">
-                  <a href="#">{{beer.style.name}}</a>
+                  <div class="caption">
+                    <h3>{{beer.name}}</h3>
+                    <div data-ng-if="beer.style.name">
+                      <a href="#">{{beer.style.name}}</a>
+                    </div>
+
+                    <form class="form-horizontal text-center" data-ng-submit="create($index)" novalidate>
+                      <fieldset>
+                        <div class="form-group">
+                          <label class="control-label" for="rating">How many stars would you give?</label>
+                          <div class="controls">
+                            <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                          </div>
+                        </div>
+                        <div class="form-group">
+                          <input type="submit" class="btn btn-primary">
+                        </div>
+                        <div data-ng-show="error" class="text-danger">
+                          <strong data-ng-bind="error"></strong>
+                        </div>
+                      </fieldset>
+                    </form>
+                  </div>
                 </div>
-
-                <form class="form-horizontal text-center" data-ng-submit="create($index)" novalidate>
-                  <fieldset>
-                    <div class="form-group">
-                      <label class="control-label" for="rating">How many stars would you give?</label>
-                      <div class="controls">
-                        <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                      </div>
-                    </div>
-                    <div class="form-group">
-                      <input type="submit" class="btn btn-primary">
-                    </div>
-                    <div data-ng-show="error" class="text-danger">
-                      <strong data-ng-bind="error"></strong>
-                    </div>
-                  </fieldset>
-                </form>
-              </div>
+              </a>
             </div>
-          </a>
+            <div class="clearfix" ng-if="$index%4==3"></div>
+            <div data-ng-repeat-end=""></div>
+          </div>
         </div>
-        <div class="clearfix" ng-if="$index%4==3"></div>
-        <div data-ng-repeat-end=""></div>
       </div>
     </div>
   </div>
