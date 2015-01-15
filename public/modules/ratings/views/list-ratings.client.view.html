@@ -36,7 +36,9 @@
         <div class="panel-body">
           <div class="row">
             <div class="col-sm-3"><strong>Name:</strong></div>
-            <div class="col-sm-9">{{itemScore.name}}</div>
+            <div class="col-sm-9">
+              <a href="#!/beer/{{itemScore.id}}">{{itemScore.name}}</a>
+            </div>
           </div>
           <div data-ng-if="itemScore.breweries[0].id" class="row">
             <div class="col-sm-3"><strong>Brewery:</strong></div>
@@ -67,8 +69,6 @@
             </div>
           </div>
         </div>
-        <hr>
-
 
         <h2 data-ng-if="recommendations">You may also want to try:</h2>
 
