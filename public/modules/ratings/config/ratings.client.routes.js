@@ -6,7 +6,7 @@ angular.module('ratings').config(['$stateProvider',
 		// Ratings state routing
 		$stateProvider.
 		state('listRatings', {
-			url: '/ratings',
+			url: '/recommendations',
 			templateUrl: 'modules/ratings/views/list-ratings.client.view.html'
 		}).
 		state('viewRating', {
