@@ -12,10 +12,9 @@
         </ui-gmap-window>
       </ui-gmap-marker>
 
-      <ui-gmap-markers models="allMarkers" coords="'self'" options="'options'" icon="'icon'" click="'onClick'">
-        <ui-gmap-windows show="'showWindow'" closeClick="'closeClick'" ng-cloak>
-          <div data-ng-non-bindable>{{desc}}</div>
-        </ui-gmap-windows>
+      <ui-gmap-window ng-repeat="marker in allMarkers" show="marker.showWindow" options="marker.infoWindow" coords="marker.coords">
+      </ui-gmap-window>
+      <ui-gmap-markers models="allMarkers" coords="'coords'" options="'options'" icon="'icon'" click="'onClick'">
       </ui-gmap-markers>
 
     </ui-gmap-google-map>
