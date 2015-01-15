@@ -50,26 +50,6 @@
 			});
 		}));
 
-		it('$scope.find() should create an array with at least one Rating object fetched from XHR', inject(function(Ratings) {
-			// Create sample Rating using the Ratings service
-			var sampleRating = new Ratings({
-				name: 'New Rating'
-			});
-
-			// Create a sample Ratings array that includes the new Rating
-			var sampleRatings = [sampleRating];
-
-			// Set GET response
-			$httpBackend.expectGET('ratings').respond(sampleRatings);
-
-			// Run controller functionality
-			scope.find();
-			$httpBackend.flush();
-
-			// Test scope value
-			expect(scope.ratings).toEqualData(sampleRatings);
-		}));
-
 		it('$scope.update() should update a valid Rating', inject(function(Ratings) {
 			// Define a sample Rating put data
 			var sampleRatingPutData = new Ratings({
