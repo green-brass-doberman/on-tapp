@@ -108,7 +108,7 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 
       // Redirect after save
       rating.$save(function(response) {
-        console.log('this is the response', response);
+        // console.log('this is the response', response);
         // $location.path('ratings/' + response._id);
         $location.path('beer/' + response.beerId);
 
