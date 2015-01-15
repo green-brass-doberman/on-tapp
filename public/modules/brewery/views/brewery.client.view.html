@@ -62,7 +62,7 @@
             <div data-ng-if="location.yearOpened">Year Opened: {{location.yearOpened}}</div>
           </li>
         </ul>
-        <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.id}}" role="button">List their beers &raquo;</a></p>
+        <!-- <p class="beer-btn"><a class="btn btn-info btn-lg" href="#!/beers/{{brewery.id}}" role="button">List their beers &raquo;</a></p> -->
       </div>
       <div class="col-sm-8 col-md-9">
         <h3>{{brewery.name}}</h3>
@@ -75,37 +75,41 @@
     <hr>
 
     <div data-ng-repeat="group in groups">
-      <h4>{{group.beers[0].available.name}}</h4>
+      <h3>{{group.beers[0].available.name}}</h3>
+
       <div class="row">
-        <div class="col-md-3" data-ng-repeat-start="beer in group.beers">
-          <div class="beer">
+        <div class="col-sm-6 col-md-3" data-ng-repeat-start="beer in group.beers">
+          <div class="thumbnail">
             <div data-ng-if="beer.labels.medium">
-              <img width="200" height="200" data-ng-src="{{beer.labels.medium}}">
+              <img class="img-responsive center-block" width="300" height="300" data-ng-src="{{beer.labels.medium}}">
             </div>
             <div data-ng-if="!beer.labels.medium">
-              <img width="200" height="200" src="/modules/core/images/no-beer-label-60.png">
-            </div>
-            {{beer.name}}
-            <div data-ng-if="beer.style.name">
-              <a href="#">{{beer.style.name}}</a>
+              <img class="img-responsive center-block" width="200" height="200" src="/modules/core/images/no-beer-label-60.png">
             </div>
 
-            <form class="list-beers form-horizontal text-center" data-ng-submit="create($index)" novalidate>
-              <fieldset>
-                <div class="form-group">
-                  <label class="control-label" for="rating">How many stars would you give?</label>
-                  <div class="controls">
-                    <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+            <div class="caption">
+              <h3>{{beer.name}}</h3>
+              <div data-ng-if="beer.style.name">
+                <a href="#">{{beer.style.name}}</a>
+              </div>
+
+              <form class="form-horizontal text-center" data-ng-submit="create($index)" novalidate>
+                <fieldset>
+                  <div class="form-group">
+                    <label class="control-label" for="rating">How many stars would you give?</label>
+                    <div class="controls">
+                      <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                    </div>
                   </div>
-                </div>
-                <div class="form-group">
-                  <input type="submit" class="btn btn-primary">
-                </div>
-                <div data-ng-show="error" class="text-danger">
-                  <strong data-ng-bind="error"></strong>
-                </div>
-              </fieldset>
-            </form>
+                  <div class="form-group">
+                    <input type="submit" class="btn btn-primary">
+                  </div>
+                  <div data-ng-show="error" class="text-danger">
+                    <strong data-ng-bind="error"></strong>
+                  </div>
+                </fieldset>
+              </form>
+            </div>
           </div>
         </div>
         <div class="clearfix" ng-if="$index%4==3"></div>
