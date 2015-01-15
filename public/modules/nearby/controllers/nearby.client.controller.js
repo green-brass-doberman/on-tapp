@@ -9,6 +9,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     $scope.breweries = []; // used to fetch data from brewerydb factory
     $scope.coords = {}; // user's current coordinates
     $scope.allMarkers = []; // array to store the brewery markers
+    $scope.oldWindow = -1; // var to hold id of old info window
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -55,8 +56,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     };
 
     var createMarker = function (i) {
-      // var hours = $scope.breweries[i].hoursOfOperation || '';
-      // hours = hours.replace(/\n/g, "<br>");
       var name = $scope.breweries[i].brewery.name;
       var addr = $scope.breweries[i].streetAddress;
       var phone = $scope.breweries[i].phone;
@@ -65,9 +64,10 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/beers/' + id + '">List their beers</a>';
       var ret = {
         id: i,
-        breweryId: id,
-        latitude: $scope.breweries[i].latitude,
-        longitude: $scope.breweries[i].longitude,
+        coords : {
+          latitude: $scope.breweries[i].latitude,
+          longitude: $scope.breweries[i].longitude,
+        },
         options: {
           title: name,
         },
@@ -76,7 +76,11 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         showWindow: false
       };
       ret.onClick = function() {
-        ret.show = !ret.show;
+        if ($scope.oldWindow > -1) {
+          $scope.allMarkers[$scope.oldWindow].showWindow = false;
+        }
+        $scope.oldWindow = ret.id;
+        ret.showWindow = !ret.showWindow;
       };
 
       return ret;

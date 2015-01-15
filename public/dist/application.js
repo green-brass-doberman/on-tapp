@@ -576,6 +576,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     $scope.breweries = []; // used to fetch data from brewerydb factory
     $scope.coords = {}; // user's current coordinates
     $scope.allMarkers = []; // array to store the brewery markers
+    $scope.oldWindow = -1; // var to hold id of old info window
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -593,11 +594,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };
 
-<<<<<<< HEAD
-<<<<<<< HEAD
-=======
-=======
->>>>>>> yatt
     // function to access users geolocation coordinates, draw map and place markers
     geolocation.getLocation().then(function(data){
       // set to san francisco by Default for Victor
@@ -612,10 +608,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
     });
 
-<<<<<<< HEAD
->>>>>>> yatt
-=======
->>>>>>> yatt
     // marker for current coordinate
     var curLocationMarker = function(){
       $scope.marker = {
@@ -631,8 +623,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     };
 
     var createMarker = function (i) {
-      // var hours = $scope.breweries[i].hoursOfOperation || '';
-      // hours = hours.replace(/\n/g, "<br>");
       var name = $scope.breweries[i].brewery.name;
       var addr = $scope.breweries[i].streetAddress;
       var phone = $scope.breweries[i].phone;
@@ -641,33 +631,23 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var desc = '<a href="#!/brewery/' + id + '"><strong>' + name + '</strong></a><br>' + dist + ' miles away<br>' + addr + '<br>' + phone + '<br>' + '<a href="#!/beers/' + id + '">List their beers</a>';
       var ret = {
         id: i,
-        breweryId: id,
-        latitude: $scope.breweries[i].latitude,
-        longitude: $scope.breweries[i].longitude,
+        coords : {
+          latitude: $scope.breweries[i].latitude,
+          longitude: $scope.breweries[i].longitude,
+        },
         options: {
           title: name,
-<<<<<<< HEAD
-<<<<<<< HEAD
         },
         title: desc,
-=======
-          id: $scope.breweries[i].brewery.id,
-          name: $scope.breweries[i].brewery.name,
-          dist: $scope.breweries[i].distance,
-          addr: $scope.breweries[i].streetAddress,
-          phone: $scope.breweries[i].phone
-        },
-        desc: desc,
->>>>>>> trying yet again
-=======
-        },
-        title: desc,
->>>>>>> yatt
         icon: '/modules/nearby/images/beer-icon.png',
         showWindow: false
       };
       ret.onClick = function() {
-        ret.show = !ret.show;
+        if ($scope.oldWindow > -1) {
+          $scope.allMarkers[$scope.oldWindow].showWindow = false;
+        }
+        $scope.oldWindow = ret.id;
+        ret.showWindow = !ret.showWindow;
       };
 
       return ret;
