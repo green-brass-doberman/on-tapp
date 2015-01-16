@@ -86,16 +86,16 @@
 
     <h3><img class="top-rated" src="/modules/core/images/Graph%402x.png"> Top 10 rated beers</h3>
     <div class="list-group">
-        <a data-ng-repeat="rating in ratings | orderBy: '-stars' | limitTo:10" data-ng-href="#!/beer/{{rating.beerId}}" class="list-group-item">
-          <span class="badge"> Stars: {{rating.stars}} </span>
-          <p class="list-group-item-heading">{{$index + 1}} | {{rating.name}} - <small>{{rating.styleName}}</small></p>
-          <small class="list-group-item-text">
-            Last voted on
-            <span data-ng-bind="rating.created | date:'medium'"></span>
-            by
-            <span data-ng-bind="rating.user.displayName"></span>
-          </small>
-        </a>
+      <a data-ng-repeat="rating in ratings | orderBy: '-stars' | limitTo:10" data-ng-href="#!/beer/{{rating.beerId}}" class="list-group-item">
+        <span class="badge"> Stars: {{rating.stars}} </span>
+        <p class="list-group-item-heading">{{$index + 1}} | {{rating.name}} - <small>{{rating.styleName}}</small></p>
+        <small class="list-group-item-text">
+          Last voted on
+          <span data-ng-bind="rating.created | date:'medium'"></span>
+          by
+          <span data-ng-bind="rating.user.displayName"></span>
+        </small>
+      </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!ratings.$resolved || ratings.length">
       No Ratings yet, why don't you <a href="/#!/ratings/create">create one</a>?

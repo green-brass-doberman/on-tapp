@@ -67,13 +67,17 @@
 
         <hr>
 
-        <h2 data-ng-if="recommendations">You may also want to try:</h2>
+        <p class="lead" data-ng-if="recommendations">You may also want to try:</p>
 
         <div class="list-group">
           <div class="list-group-item" data-ng-repeat="recommendation in recommendations | limitTo : 10">
-            <h3 class="list-group-item-heading">{{recommendation.name}}</h3>
+            <p class="list-group-item-heading">{{recommendation.name}} - <small>{{recommendation.category.name}}</small></p>
             <small class="list-group-item-text">
-              {{recommendation.category.name}}
+              abvMax: {{recommendation.abvMax}}, abvMin: {{recommendation.abvMin}} |
+
+              fgMax: {{recommendation.fgMax}}, fgMin: {{recommendation.fgMin}} |
+
+              ibuMax: {{recommendation.ibuMax}}, ibuMin: {{recommendation.ibuMin}}
             </small>
           </div>
         </div>
