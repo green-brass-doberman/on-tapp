@@ -9,14 +9,6 @@
     "recommendations"
   ],
   "license": "MIT",
-  "ignore": [
-    "**/.*",
-    "node_modules",
-    "bower_components",
-    "public/lib",
-    "test",
-    "tests"
-  ],
   "contributors": [
     "Julie",
     "Victor"

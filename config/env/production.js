@@ -20,9 +20,6 @@ module.exports = {
 	assets: {
 		lib: {
 			css: [
-				// 'public/lib/bootstrap/dist/css/bootstrap.min.css',
-    //     'public/lib/fontawesome/css/font-awesome.min.css',
-    //     'public/lib/flat-ui/dist/css/flat-ui.min.css'
 			],
 			js: [
         'public/lib/angular/angular.min.js',
@@ -71,6 +68,8 @@ module.exports = {
     api: '87f92c3b32c0d8e031f828b0d03c2c2a'
   },
   predictionio: {
+    eventServerIP: 'http://54.183.105.216:7070',
+    resultsServerIP: 'http://54.183.105.216:8000',
     api: 'hmQhiIak1jIyaE4haGDSzUBhTd43XKZxkTfTRcyL9MPueUohvQcVdFnAB0smNQb6'
   }
 };
