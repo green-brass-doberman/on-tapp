@@ -1,8 +1,8 @@
 'use strict';
 
 angular.module('beer').controller('BeerController', ['$scope', 'Beer', '$stateParams', 'StyleQuery',
-	function($scope, Beer, $stateParams, StyleQuery) {
-		// Beer controller logic
+  function($scope, Beer, $stateParams, StyleQuery) {
+    // Beer controller logic
     $scope.beerId = $stateParams.beerId;
 
     // an array to store recommendations
@@ -22,5 +22,5 @@ angular.module('beer').controller('BeerController', ['$scope', 'Beer', '$statePa
       $scope.beer = results.data || 'Request failed';
       getRecommendations(results.data.style.name);
     });
-	}
+  }
 ]);

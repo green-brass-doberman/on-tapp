@@ -4,8 +4,8 @@ var request = require('request');
 var config = require('../../config/config');
 
 module.exports = function(app) {
-	// Routing logic
-	// ...
+  // Routing logic
+  // ...
   app.get('/recommendation/:userId', function(req, res){
 
     request.post({

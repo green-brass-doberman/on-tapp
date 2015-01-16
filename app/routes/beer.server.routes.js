@@ -1,7 +1,7 @@
 'use strict';
 var request = require('request');
 var config = require('../../config/config');
-var api_key = config.brewerydb.api; 
+var api_key = config.brewerydb.api;
 
 module.exports = function(app) {
   // beerId contains the id of the beer

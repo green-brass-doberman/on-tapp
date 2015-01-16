@@ -2,40 +2,40 @@
 
 // Ratings controller
 angular.module('ratings').controller('RatingsController', ['$scope', '$stateParams', '$location', 'Authentication', 'Ratings', 'StyleQuery', 'PredictionIO', 'Beer',
-	function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery, PredictionIO, Beer) {
-		$scope.authentication = Authentication;
+  function($scope, $stateParams, $location, Authentication, Ratings, StyleQuery, PredictionIO, Beer) {
+    $scope.authentication = Authentication;
 
-		// Remove existing Rating
-		$scope.remove = function(rating) {
-			if ( rating ) {
-				rating.$remove();
+    // Remove existing Rating
+    $scope.remove = function(rating) {
+      if ( rating ) {
+        rating.$remove();
 
-				for (var i in $scope.ratings) {
-					if ($scope.ratings [i] === rating) {
-						$scope.ratings.splice(i, 1);
-					}
-				}
-			} else {
-				$scope.rating.$remove(function() {
-					$location.path('ratings');
-				});
-			}
-		};
+        for (var i in $scope.ratings) {
+          if ($scope.ratings [i] === rating) {
+            $scope.ratings.splice(i, 1);
+          }
+        }
+      } else {
+        $scope.rating.$remove(function() {
+          $location.path('ratings');
+        });
+      }
+    };
 
-		// Update existing Rating
-		$scope.update = function() {
-			var rating = $scope.rating;
+    // Update existing Rating
+    $scope.update = function() {
+      var rating = $scope.rating;
 
-			rating.$update(function() {
-				$location.path('ratings/' + rating._id);
-			}, function(errorResponse) {
-				$scope.error = errorResponse.data.message;
-			});
-		};
+      rating.$update(function() {
+        $location.path('ratings/' + rating._id);
+      }, function(errorResponse) {
+        $scope.error = errorResponse.data.message;
+      });
+    };
 
-		// Find a list of Ratings
-		$scope.find = function() {
-			$scope.ratings = Ratings.query();
+    // Find a list of Ratings
+    $scope.find = function() {
+      $scope.ratings = Ratings.query();
 
 
       var userId = Authentication.user._id;
@@ -43,13 +43,13 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
       $scope.ratings.$promise.then(function(data){
         getPredition(userId);
       });
-		};
+    };
 
-		// Find existing Rating
-		$scope.findOne = function() {
-			$scope.rating = Ratings.get({
-				ratingId: $stateParams.ratingId
-			});
+    // Find existing Rating
+    $scope.findOne = function() {
+      $scope.rating = Ratings.get({
+        ratingId: $stateParams.ratingId
+      });
 
       $scope.rating.$promise.then(function(data) {
         getStars(data.stars);
@@ -57,7 +57,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
         getPredition(data.user._id);
         getBeerDetails(data.beerId);
       });
-		};
+    };
 
     //an array to store number of stars
     $scope.stars = [];
@@ -101,5 +101,5 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     var handleSuccess = function(data, status){
       $scope.recommendations = data.data;
     };
-	}
+  }
 ]);

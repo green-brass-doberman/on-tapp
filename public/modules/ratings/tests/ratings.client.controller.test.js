@@ -1,94 +1,94 @@
 'use strict';
 
 (function() {
-	// Ratings Controller Spec
-	describe('Ratings Controller Tests', function() {
-		// Initialize global variables
-		var RatingsController,
-		scope,
-		$httpBackend,
-		$stateParams,
-		$location;
+  // Ratings Controller Spec
+  describe('Ratings Controller Tests', function() {
+    // Initialize global variables
+    var RatingsController,
+    scope,
+    $httpBackend,
+    $stateParams,
+    $location;
 
-		// The $resource service augments the response object with methods for updating and deleting the resource.
-		// If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
-		// the responses exactly. To solve the problem, we define a new toEqualData Jasmine matcher.
-		// When the toEqualData matcher compares two objects, it takes only object properties into
-		// account and ignores methods.
-		beforeEach(function() {
-			jasmine.addMatchers({
-				toEqualData: function(util, customEqualityTesters) {
-					return {
-						compare: function(actual, expected) {
-							return {
-								pass: angular.equals(actual, expected)
-							};
-						}
-					};
-				}
-			});
-		});
+    // The $resource service augments the response object with methods for updating and deleting the resource.
+    // If we were to use the standard toEqual matcher, our tests would fail because the test values would not match
+    // the responses exactly. To solve the problem, we define a new toEqualData Jasmine matcher.
+    // When the toEqualData matcher compares two objects, it takes only object properties into
+    // account and ignores methods.
+    beforeEach(function() {
+      jasmine.addMatchers({
+        toEqualData: function(util, customEqualityTesters) {
+          return {
+            compare: function(actual, expected) {
+              return {
+                pass: angular.equals(actual, expected)
+              };
+            }
+          };
+        }
+      });
+    });
 
-		// Then we can start by loading the main application module
-		beforeEach(module(ApplicationConfiguration.applicationModuleName));
+    // Then we can start by loading the main application module
+    beforeEach(module(ApplicationConfiguration.applicationModuleName));
 
-		// The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
-		// This allows us to inject a service but then attach it to a variable
-		// with the same name as the service.
-		beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_) {
-			// Set a new global scope
-			scope = $rootScope.$new();
+    // The injector ignores leading and trailing underscores here (i.e. _$httpBackend_).
+    // This allows us to inject a service but then attach it to a variable
+    // with the same name as the service.
+    beforeEach(inject(function($controller, $rootScope, _$location_, _$stateParams_, _$httpBackend_) {
+      // Set a new global scope
+      scope = $rootScope.$new();
 
-			// Point global variables to injected services
-			$stateParams = _$stateParams_;
-			$httpBackend = _$httpBackend_;
-			$location = _$location_;
+      // Point global variables to injected services
+      $stateParams = _$stateParams_;
+      $httpBackend = _$httpBackend_;
+      $location = _$location_;
 
-			// Initialize the Ratings controller.
-			RatingsController = $controller('RatingsController', {
-				$scope: scope
-			});
-		}));
+      // Initialize the Ratings controller.
+      RatingsController = $controller('RatingsController', {
+        $scope: scope
+      });
+    }));
 
-		it('$scope.update() should update a valid Rating', inject(function(Ratings) {
-			// Define a sample Rating put data
-			var sampleRatingPutData = new Ratings({
-				_id: '525cf20451979dea2c000001',
-				name: 'New Rating'
-			});
+    it('$scope.update() should update a valid Rating', inject(function(Ratings) {
+      // Define a sample Rating put data
+      var sampleRatingPutData = new Ratings({
+        _id: '525cf20451979dea2c000001',
+        name: 'New Rating'
+      });
 
-			// Mock Rating in scope
-			scope.rating = sampleRatingPutData;
+      // Mock Rating in scope
+      scope.rating = sampleRatingPutData;
 
-			// Set PUT response
-			$httpBackend.expectPUT(/ratings\/([0-9a-fA-F]{24})$/).respond();
+      // Set PUT response
+      $httpBackend.expectPUT(/ratings\/([0-9a-fA-F]{24})$/).respond();
 
-			// Run controller functionality
-			scope.update();
-			$httpBackend.flush();
+      // Run controller functionality
+      scope.update();
+      $httpBackend.flush();
 
-			// Test URL location to new object
-			expect($location.path()).toBe('/ratings/' + sampleRatingPutData._id);
-		}));
+      // Test URL location to new object
+      expect($location.path()).toBe('/ratings/' + sampleRatingPutData._id);
+    }));
 
-		it('$scope.remove() should send a DELETE request with a valid ratingId and remove the Rating from the scope', inject(function(Ratings) {
-			// Create new Rating object
-			var sampleRating = new Ratings({
-				_id: '525a8422f6d0f87f0e407a33'
-			});
+    it('$scope.remove() should send a DELETE request with a valid ratingId and remove the Rating from the scope', inject(function(Ratings) {
+      // Create new Rating object
+      var sampleRating = new Ratings({
+        _id: '525a8422f6d0f87f0e407a33'
+      });
 
-			// Create new Ratings array and include the Rating
-			scope.ratings = [sampleRating];
+      // Create new Ratings array and include the Rating
+      scope.ratings = [sampleRating];
 
-			// Set expected DELETE response
-			$httpBackend.expectDELETE(/ratings\/([0-9a-fA-F]{24})$/).respond(204);
+      // Set expected DELETE response
+      $httpBackend.expectDELETE(/ratings\/([0-9a-fA-F]{24})$/).respond(204);
 
-			// Run controller functionality
-			scope.remove(sampleRating);
-			$httpBackend.flush();
+      // Run controller functionality
+      scope.remove(sampleRating);
+      $httpBackend.flush();
 
-			// Test array after successful delete
-			expect(scope.ratings.length).toBe(0);
-		}));
-	});
+      // Test array after successful delete
+      expect(scope.ratings.length).toBe(0);
+    }));
+  });
 }());
