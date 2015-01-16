@@ -100,9 +100,29 @@ angular.module('beer').controller('BeerController', ['$scope', 'Beer', '$statePa
     // an array to store recommendations
     $scope.recommendations = [];
 
+    var shuffle = function (array) {
+      var currentIndex = array.length, temporaryValue, randomIndex ;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
+
     // pushing recommendations data from $http request
     var handleSuccess = function(data, status){
-      $scope.recommendations = data.data;
+      console.log(data.data);
+      $scope.recommendations = shuffle(data.data);
     };
 
     // Find the beers in the same category
@@ -124,7 +144,7 @@ angular.module('beer').factory('Beer', ['$http',
     // Public API
     return {
       getData: function(beerId){
-        return $http.get('/beer/' + beerId);
+        return $http.get('/api/beer/' + beerId);
       }
     };
   }
@@ -140,7 +160,7 @@ angular.module('beer').factory('StyleQuery', ['$http',
     // Public API
     return {
       getStyle: function(styleName) {
-        return $http.get('/style/' + styleName);
+        return $http.get('/api/style/' + styleName);
       }
     };
   }
@@ -162,80 +182,39 @@ angular.module('brewery').config(['$stateProvider',
 
 'use strict';
 
-angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 'Ratings', '$location',
-  function($scope, Brewery, $stateParams, Ratings, $location) {
+angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 'Ratings', '$location', '$filter', 'groupByFilter',
+  function($scope, Brewery, $stateParams, Ratings, $location, $filter, groupByFilter) {
     // Brewery controller logic
     $scope.breweryId = $stateParams.breweryId;
-    var holdSocial = [];
+    var socialMediaArr = [1,2,3,8,10,14,15,16];
+    $scope.socialMedia = [];
 
     Brewery.getData($scope.breweryId).success(function(results, status) {
       $scope.brewery = results.data || 'Request failed';
+
+      if ($scope.brewery.locations !== undefined) {
+        for (var i = 0; i < $scope.brewery.locations.length; i++) {
+          $scope.brewery.locations[i].region = abbrState($scope.brewery.locations[i].region, 'abbr');
+        }
+      }
+
       if ($scope.brewery.socialAccounts !== undefined) {
-        for (var i = 0; i < $scope.brewery.socialAccounts.length; i++) {
-          // only save the social media sites that are FB, Twitter, 4Square,
-          // Google+, YouTube, Instagram, Yelp or Pinterest
-          var tempSocial = $scope.brewery.socialAccounts[i];
-          if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
-            holdSocial.push(tempSocial);
+        for (var j = 0; j < $scope.brewery.socialAccounts.length; j++) {
+          // only save sm sites that are FB, Twitter, 4Square, Google+, YouTube, Instagram, Yelp or Pinterest [1,2,3,8,10,14,15,16]
+          var tempSocial = $scope.brewery.socialAccounts[j];
+          if (socialMediaArr.indexOf(tempSocial.socialMediaId) > -1) {
+            $scope.socialMedia.push(tempSocial);
           }
         }
-        $scope.socialMedia = holdSocial;
       }
     });
 
-    // sort the given collection on the given property
-    function sortOn(collection, name) {
-      collection.sort(
-        function(a, b) {
-          if (a[name] <= b[name]) {
-            return(-1);
-          }
-          return(1);
-        }
-      );
-    }
-
-    // group the beers list on the given property
-    $scope.groupBy = function(attribute) {
-      // First, reset the groups.
-      $scope.groups = [];
-
-      // Now, sort the collection of beers on the grouping-property.
-      // This just makes it easier to split the collection.
-      sortOn($scope.beers, attribute);
-
-      // I determine which group we are currently in.
-      var groupValue = '_INVALID_GROUP_VALUE_';
-
-      // As we loop over each beer, add it to the current group -
-      // we'll create a NEW group every time we come across a new attribute value.
-      for (var i = 0; i < $scope.beers.length; i++) {
-        var beer = $scope.beers[i];
-
-        var group;
-
-        // Should we create a new group?
-        if (beer[attribute] !== groupValue) {
-          group = {
-            label: beer[attribute],
-            beers: []
-          };
-          groupValue = group.label;
-          $scope.groups.push(group);
-        }
-
-        // Add the friend to the currently active grouping.
-        group.beers.push(beer);
-      }
-    };
-
     $scope.beers = [];
-    $scope.groups = [];
-    $scope.breweryId = $stateParams.breweryId;
+    $scope.availabilityGroups = [];
 
     var handleSuccess = function(data, status){
       $scope.beers = data.data;
-      $scope.groupBy('availableId');
+      $scope.availabilityGroups = $filter('groupBy')($scope.beers, 'availableId');
     };
 
     // send the brewery id
@@ -280,23 +259,126 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
         $scope.error = errorResponse.data.message;
       });
     };
+
+    $scope.useAvailability = [];
+    $scope.filterByAvailability = function() {
+      return function(p) {
+        for (var i in $scope.useAvailability) {
+          if (p.availableId === $scope.availabilityGroups[i].availableId && $scope.useAvailability[i]) {
+            return true;
+          }
+        }
+      };
+    };
+
+    var abbrState = function(input, to) {
+      var states = [
+        ['Arizona', 'AZ'],
+        ['Alabama', 'AL'],
+        ['Alaska', 'AK'],
+        ['Arizona', 'AZ'],
+        ['Arkansas', 'AR'],
+        ['California', 'CA'],
+        ['Colorado', 'CO'],
+        ['Connecticut', 'CT'],
+        ['Delaware', 'DE'],
+        ['Florida', 'FL'],
+        ['Georgia', 'GA'],
+        ['Hawaii', 'HI'],
+        ['Idaho', 'ID'],
+        ['Illinois', 'IL'],
+        ['Indiana', 'IN'],
+        ['Iowa', 'IA'],
+        ['Kansas', 'KS'],
+        ['Kentucky', 'KY'],
+        ['Kentucky', 'KY'],
+        ['Louisiana', 'LA'],
+        ['Maine', 'ME'],
+        ['Maryland', 'MD'],
+        ['Massachusetts', 'MA'],
+        ['Michigan', 'MI'],
+        ['Minnesota', 'MN'],
+        ['Mississippi', 'MS'],
+        ['Missouri', 'MO'],
+        ['Montana', 'MT'],
+        ['Nebraska', 'NE'],
+        ['Nevada', 'NV'],
+        ['New Hampshire', 'NH'],
+        ['New Jersey', 'NJ'],
+        ['New Mexico', 'NM'],
+        ['New York', 'NY'],
+        ['North Carolina', 'NC'],
+        ['North Dakota', 'ND'],
+        ['Ohio', 'OH'],
+        ['Oklahoma', 'OK'],
+        ['Oregon', 'OR'],
+        ['Pennsylvania', 'PA'],
+        ['Rhode Island', 'RI'],
+        ['South Carolina', 'SC'],
+        ['South Dakota', 'SD'],
+        ['Tennessee', 'TN'],
+        ['Texas', 'TX'],
+        ['Utah', 'UT'],
+        ['Vermont', 'VT'],
+        ['Virginia', 'VA'],
+        ['Washington', 'WA'],
+        ['West Virginia', 'WV'],
+        ['Wisconsin', 'WI'],
+        ['Wyoming', 'WY'],
+      ];
+   
+      input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+      for (var i = 0; i < states.length; i++){
+        if (states[i][0] === input){
+          return (states[i][1]);
+        }
+      }    
+    };
+
   }
 ]);
 
+function findIndexByKeyValue(obj, key, value) {
+  for (var i = 0; i < obj.length; i++) {
+    if (obj[i][key] === value) {
+      return i;
+    }
+  }
+  return -1;
+}
+
+var uniqueItems = function (data, key) {
+  var result = [];
+  for (var i = 0; i < data.length; i++) {
+    var idx = data[i][key];
+    var aName = data[i]['available']['name'];
+    if (findIndexByKeyValue(result, 'availableId', idx) === -1) {
+        result.push({'availableId': idx, 'availableName': aName});
+    }
+  }
+  return result;
+};
+
+angular.module('nearby').filter('groupBy', function () {
+  return function (collection, key) {
+    if (collection === null) return;
+    return uniqueItems(collection, key);
+  };
+});
 'use strict';
 
 angular.module('nearby').factory('Brewery', ['$http',
-	function($http) {
-		// Public API
-		return {
+  function($http) {
+    // Public API
+    return {
       getData: function(breweryId){
-        return $http.get('/brewery/' + breweryId);
+        return $http.get('/api/brewery/' + breweryId);
       },
       getBeersData: function(breweryId){
-        return $http.get('/beers/' + breweryId);
+        return $http.get('/api/beers/' + breweryId);
       }
     };
-	}
+  }
 ]);
 
 'use strict';
@@ -528,7 +610,7 @@ angular.module('core').factory('Search', ['$http',
     // Public API
     return {
       getData: function(keyword, page){
-        return $http.get('/search/' + keyword + '/' + page);
+        return $http.get('/api/search/' + keyword + '/' + page);
       }
     };
   }
@@ -588,14 +670,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     var handleSuccess = function(data, status){
       if (data.data){
         $scope.breweries = data.data;
-          placeMarker();
-      } else {
-        $scope.breweries = [{
-          brewery: {
-            name: 'Sorry',
-            description: 'No breweries nearby'
-          }
-        }];
+        placeMarker();
       }
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };
@@ -621,8 +696,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       var id = $scope.breweries[i].brewery.id;
       var dist = $scope.breweries[i].distance + ' miles away<br>';
       var desc = '<div class="info-window"><a href="#!/brewery/' + id + '"><strong>' +
-                 name + '</strong></a><br>' + dist + addr + phone +
-                 '<a href="#!/beers/' + id + '">List their beers</a></div>';
+                 name + '</strong></a><br>' + dist + addr + phone + '</div>';
       var ret = {
         id: i,
         coords : {
@@ -687,7 +761,7 @@ angular.module('nearby').factory('Breweries', ['$http',
     // Public API
     return {
       getData: function(coords){
-        return $http.get('/breweries/' + coords.lat + '/' + coords.long);
+        return $http.get('/api/breweries/' + coords.lat + '/' + coords.long);
       }
     };
   }
@@ -839,7 +913,7 @@ angular.module('beer').factory('Beer', ['$http',
     // Public API
     return {
       getData: function(beerId){
-        return $http.get('/beer/' + beerId);
+        return $http.get('/api/beer/' + beerId);
       }
     };
   }
@@ -855,7 +929,7 @@ angular.module('ratings').factory('PredictionIO', ['$http',
     // Public API
     return {
       getRecommendaton: function(userId) {
-        return $http.get('/recommendation/' + userId);
+        return $http.get('/api/recommendation/' + userId);
       }
     };
   }
@@ -866,7 +940,7 @@ angular.module('ratings').factory('PredictionIO', ['$http',
 //Ratings service used to communicate Ratings REST endpoints
 angular.module('ratings').factory('Ratings', ['$resource',
   function($resource) {
-    return $resource('ratings/:ratingId', {
+    return $resource('/api/ratings/:ratingId', {
       ratingId: '@_id'
     }, {
       update: {
@@ -886,7 +960,7 @@ angular.module('ratings').factory('StyleQuery', ['$http',
     // Public API
     return {
       getStyle: function(styleName) {
-        return $http.get('/style/' + styleName);
+        return $http.get('/api/style/' + styleName);
       }
     };
   }
