@@ -4,9 +4,9 @@ var request = require('request');
 var config = require('../../config/config');
 
 module.exports = function(app) {
-	// Routing logic
-	// ...
-  app.get('/recommendation/:userId', function(req, res){
+  // Routing logic
+  // ...
+  app.get('/api/recommendation/:userId', function(req, res){
 
     request.post({
       headers: {'content-type' : 'application/json'},
@@ -18,6 +18,8 @@ module.exports = function(app) {
     }, function (error, response, body) {
       if (!error && response.statusCode === 200) {
         res.send(body);
+      } else {
+        res.send(error);
       }
     });
   });

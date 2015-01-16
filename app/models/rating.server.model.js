@@ -4,7 +4,7 @@
  * Module dependencies.
  */
 var mongoose = require('mongoose'),
-	Schema = mongoose.Schema;
+  Schema = mongoose.Schema;
 
 /**
  * Rating Schema
@@ -14,12 +14,12 @@ var RatingSchema = new Schema({
     type: String,
     default: '',
   },
-	name: {
-		type: String,
-		default: '',
-		required: 'Please fill Rating name',
-		trim: true
-	},
+  name: {
+    type: String,
+    default: '',
+    required: 'Please fill Rating name',
+    trim: true
+  },
   stars: {
     type: Number,
     default: 0
@@ -28,14 +28,14 @@ var RatingSchema = new Schema({
     type: String,
     default: 0
   },
-	created: {
-		type: Date,
-		default: Date.now
-	},
-	user: {
-		type: Schema.ObjectId,
-		ref: 'User'
-	}
+  created: {
+    type: Date,
+    default: Date.now
+  },
+  user: {
+    type: Schema.ObjectId,
+    ref: 'User'
+  }
 });
 
 // assign a function to the "statics" object of our RatingSchema
