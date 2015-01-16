@@ -43,6 +43,7 @@ angular.element(document).ready(function() {
   //Then init the app
   angular.bootstrap(document, [ApplicationConfiguration.applicationModuleName]);
 });
+
 'use strict';
 
 // Use application configuration module to register a new module
@@ -285,9 +286,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 'use strict';
 
 angular.module('nearby').factory('Brewery', ['$http',
-  function($http) {
-    // Public API
-    return {
+	function($http) {
+		// Public API
+		return {
       getData: function(breweryId){
         return $http.get('/brewery/' + breweryId);
       },
@@ -295,7 +296,7 @@ angular.module('nearby').factory('Brewery', ['$http',
         return $http.get('/beers/' + breweryId);
       }
     };
-  }
+	}
 ]);
 
 'use strict';
@@ -352,6 +353,7 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
     $scope.authentication = Authentication;
   }
 ]);
+
 'use strict';
 
 //Menu service used for managing  menus
@@ -531,6 +533,7 @@ angular.module('core').factory('Search', ['$http',
     };
   }
 ]);
+
 'use strict';
 
 // Configuring the Articles module
@@ -563,7 +566,7 @@ angular.module('nearby').config(['$stateProvider', 'uiGmapGoogleMapApiProvider',
 
 'use strict';
 
-angular.module('nearby').controller('infoWindowController', ['$scope', '$stateParams',
+angular.module('nearby').controller('infoWindowController', ['$scope', '$stateParams', 
   function($scope, $stateParams) {
     $scope.params = $stateParams;
   }
@@ -804,6 +807,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     // get result for PreditionIO
     var getPredition = function(userId){
       PredictionIO.getRecommendaton(userId).success(function(data, status){
+
         Beer.getData(data.itemScores[0].item).success(function(data, status){
           $scope.itemScores = [data.data];
         });
@@ -961,6 +965,7 @@ angular.module('users').config(['$httpProvider',
     ]);
   }
 ]);
+
 'use strict';
 
 // Setting up route
@@ -1006,6 +1011,7 @@ angular.module('users').config(['$stateProvider',
     });
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('AuthenticationController', ['$scope', '$http', '$location', 'Authentication',
@@ -1040,6 +1046,7 @@ angular.module('users').controller('AuthenticationController', ['$scope', '$http
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('PasswordController', ['$scope', '$stateParams', '$http', '$location', 'Authentication',
@@ -1084,6 +1091,7 @@ angular.module('users').controller('PasswordController', ['$scope', '$stateParam
     };
   }
 ]);
+
 'use strict';
 
 angular.module('users').controller('SettingsController', ['$scope', '$http', '$location', 'Users', 'Authentication',
@@ -1155,6 +1163,7 @@ angular.module('users').controller('SettingsController', ['$scope', '$http', '$l
     };
   }
 ]);
+
 'use strict';
 
 // Authentication service for user variables
@@ -1169,6 +1178,7 @@ angular.module('users').factory('Authentication', [
     return _this._data;
   }
 ]);
+
 'use strict';
 
 // Users service used for communicating with the users REST endpoint

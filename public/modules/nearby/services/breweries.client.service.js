@@ -5,7 +5,7 @@ angular.module('nearby').factory('Breweries', ['$http',
     // Public API
     return {
       getData: function(coords){
-        return $http.get('/breweries/' + coords.lat + '/' + coords.long);
+        return $http.get('/api/breweries/' + coords.lat + '/' + coords.long);
       }
     };
   }

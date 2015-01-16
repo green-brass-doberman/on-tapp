@@ -8,7 +8,7 @@ angular.module('ratings').factory('StyleQuery', ['$http',
     // Public API
     return {
       getStyle: function(styleName) {
-        return $http.get('/style/' + styleName);
+        return $http.get('/api/style/' + styleName);
       }
     };
   }

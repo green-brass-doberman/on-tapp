@@ -15,14 +15,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     var handleSuccess = function(data, status){
       if (data.data){
         $scope.breweries = data.data;
-          placeMarker();
-      } else {
-        $scope.breweries = [{
-          brewery: {
-            name: 'Sorry',
-            description: 'No breweries nearby'
-          }
-        }];
+        placeMarker();
       }
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };

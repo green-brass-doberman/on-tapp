@@ -80,6 +80,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     // get result for PreditionIO
     var getPredition = function(userId){
       PredictionIO.getRecommendaton(userId).success(function(data, status){
+
         Beer.getData(data.itemScores[0].item).success(function(data, status){
           $scope.itemScores = [data.data];
         });

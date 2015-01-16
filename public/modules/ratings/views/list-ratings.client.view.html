@@ -1,7 +1,6 @@
 <div class="container">
   <section data-ng-controller="RatingsController" data-ng-init="find()">
-
-    <h2 ng-if="itemScores">Our customised recommendation for you:</h2>
+    <div ng-if="noPrediction" class="alert alert-warning" role="alert">{{message}}</div>
 
     <div class="row" data-ng-repeat="itemScore in itemScores">
       <div class="col-sm-4 col-md-3 panel panel-default">
@@ -99,7 +98,7 @@
         </a>
     </div>
     <div class="alert alert-warning text-center" data-ng-hide="!ratings.$resolved || ratings.length">
-    	No Ratings yet, why don't you <a href="/#!/ratings/create">create one</a>?
+      No Ratings yet, why don't you <a href="/#!/ratings/create">create one</a>?
     </div>
   </section>
 </div>

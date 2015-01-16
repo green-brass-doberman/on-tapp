@@ -8,7 +8,7 @@ angular.module('ratings').factory('PredictionIO', ['$http',
     // Public API
     return {
       getRecommendaton: function(userId) {
-        return $http.get('/recommendation/' + userId);
+        return $http.get('/api/recommendation/' + userId);
       }
     };
   }

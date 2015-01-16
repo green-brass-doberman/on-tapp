@@ -5,7 +5,7 @@ angular.module('core').factory('Search', ['$http',
     // Public API
     return {
       getData: function(keyword, page){
-        return $http.get('/search/' + keyword + '/' + page);
+        return $http.get('/api/search/' + keyword + '/' + page);
       }
     };
   }

@@ -5,7 +5,7 @@ angular.module('beer').factory('Beer', ['$http',
     // Public API
     return {
       getData: function(beerId){
-        return $http.get('/beer/' + beerId);
+        return $http.get('/api/beer/' + beerId);
       }
     };
   }
