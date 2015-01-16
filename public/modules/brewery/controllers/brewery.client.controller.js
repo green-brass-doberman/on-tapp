@@ -4,7 +4,8 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
   function($scope, Brewery, $stateParams, Ratings, $location, $filter, groupByFilter) {
     // Brewery controller logic
     $scope.breweryId = $stateParams.breweryId;
-    var holdSocial = [];
+    var socialMediaArr = [1,2,3,8,10,14,15,16];
+    $scope.socialMedia = [];
 
     Brewery.getData($scope.breweryId).success(function(results, status) {
       $scope.brewery = results.data || 'Request failed';
@@ -12,81 +13,25 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
       if ($scope.brewery.locations !== undefined) {
         for (var i = 0; i < $scope.brewery.locations.length; i++) {
           $scope.brewery.locations[i].region = abbrState($scope.brewery.locations[i].region, 'abbr');
-          // if ($scope.brewery.locations[i].hoursOfOperation !== undefined) {
-          //   var hours = $scope.brewery.locations[i].hoursOfOperation;
-          //   hours.trim();
-          //   $scope.brewery.locations[i].hoursOfOperation = hours;
-          // }
         }
       }
 
       if ($scope.brewery.socialAccounts !== undefined) {
         for (var j = 0; j < $scope.brewery.socialAccounts.length; j++) {
-          // only save the social media sites that are FB, Twitter, 4Square,
-          // Google+, YouTube, Instagram, Yelp or Pinterest
+          // only save sm sites that are FB, Twitter, 4Square, Google+, YouTube, Instagram, Yelp or Pinterest [1,2,3,8,10,14,15,16]
           var tempSocial = $scope.brewery.socialAccounts[j];
-          if ([1,2,3,8,10,14,15,16].indexOf(tempSocial.socialMediaId) > -1) {
-            holdSocial.push(tempSocial);
+          if (socialMediaArr.indexOf(tempSocial.socialMediaId) > -1) {
+            $scope.socialMedia.push(tempSocial);
           }
         }
-        $scope.socialMedia = holdSocial;
       }
     });
 
-    // sort the given collection on the given property
-    function sortOn(collection, name) {
-      collection.sort(
-        function(a, b) {
-          if (a[name] <= b[name]) {
-            return(-1);
-          }
-          return(1);
-        }
-      );
-    }
-
-    // group the beers list on the given property
-    $scope.groupBy = function(attribute) {
-      // First, reset the groups.
-      $scope.groups = [];
-
-      // Now, sort the collection of beers on the grouping-property.
-      // This just makes it easier to split the collection.
-      sortOn($scope.beers, attribute);
-
-      // I determine which group we are currently in.
-      var groupValue = '_INVALID_GROUP_VALUE_';
-
-      // As we loop over each beer, add it to the current group -
-      // we'll create a NEW group every time we come across a new attribute value.
-      for (var i = 0; i < $scope.beers.length; i++) {
-        var beer = $scope.beers[i];
-
-        var group;
-
-        // Should we create a new group?
-        if (beer[attribute] !== groupValue) {
-          group = {
-            label: beer[attribute],
-            beers: []
-          };
-          groupValue = group.label;
-          $scope.groups.push(group);
-        }
-
-        // Add the friend to the currently active grouping.
-        group.beers.push(beer);
-      }
-    };
-
     $scope.beers = [];
-    $scope.groups = [];
-    $scope.breweryId = $stateParams.breweryId;
     $scope.availabilityGroups = [];
 
     var handleSuccess = function(data, status){
       $scope.beers = data.data;
-      $scope.groupBy('availableId');
       $scope.availabilityGroups = $filter('groupBy')($scope.beers, 'availableId');
     };
 
@@ -136,15 +81,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     $scope.useAvailability = [];
     $scope.filterByAvailability = function() {
       return function(p) {
-        if ($scope.useAvailability[99]) {
-          return true;
-        } else if (!$scope.useAvailability[99]) {
-          return false;
-        } else {
-          for (var i in $scope.useAvailability) {
-            if (p.availableId === $scope.availabilityGroups[i].availableId && $scope.useAvailability[i]) {
-              return true;
-            }
+        for (var i in $scope.useAvailability) {
+          if (p.availableId === $scope.availabilityGroups[i].availableId && $scope.useAvailability[i]) {
+            return true;
           }
         }
       };
@@ -219,12 +158,12 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 
 function findIndexByKeyValue(obj, key, value) {
   for (var i = 0; i < obj.length; i++) {
-    if (obj[i][key] == value) {
+    if (obj[i][key] === value) {
       return i;
     }
   }
   return -1;
-};
+}
 
 var uniqueItems = function (data, key) {
   var result = [];

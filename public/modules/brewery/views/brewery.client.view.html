@@ -6,7 +6,7 @@
           <img class="img-responsive center-block" data-ng-src="{{brewery.images.medium}}">
         </div>
         <div data-ng-if="!brewery.images.medium">
-          <img class="img-responsive center-block" data-ng-src="/modules/core/images/Map%402x.png">
+          <img class="img-responsive center-block brewery-img" data-ng-src="/modules/core/images/Map%402x.png">
         </div>
 
         <ul class="list-group">
@@ -39,30 +39,30 @@
 
           <div data-ng-if="socialMedia.length > 0" class="guilds">
             <li class="list-group-item">
-                <div data-ng-repeat="social in socialMedia" class="guild-image">
+                <div data-ng-repeat="social in socialMedia" class="sm-image">
                   <div data-ng-if="social.socialMediaId === 1">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Facebook-32.png" width="32" rel="tootltip" title="Friend them on Facebook"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/Facebook-32.png" width="32" rel="tootltip" title="Friend them on Facebook"></a>
                   </div>
                   <div data-ng-if="social.socialMediaId === 2">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Twitter-32.png" width="32" rel="tootltip" title="Follow them on Twitter"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/Twitter-32.png" width="32" rel="tootltip" title="Follow them on Twitter"></a>
                   </div>
                   <div data-ng-if="social.socialMediaId === 3">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Foursquare-32.png" width="32" rel="tootltip" title="Find them on Foursquare"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/Foursquare-32.png" width="32" rel="tootltip" title="Find them on Foursquare"></a>
                   </div>
                   <div data-ng-if="social.socialMediaId === 8">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/GooglePlus-32.png" width="32" rel="tootltip" title="Follow them on Google+"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/GooglePlus-32.png" width="32" rel="tootltip" title="Follow them on Google+"></a>
                   </div>
                   <div data-ng-if="social.socialMediaId === 10">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/YouTube_01-32.png" width="32" rel="tootltip" title="Follow them on YouTube"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/YouTube_01-32.png" width="32" rel="tootltip" title="Follow them on YouTube"></a>
                   </div>
                   <div data-ng-if="social.socialMediaId === 14">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Instagram-32.png" width="32" rel="tootltip" title="Follow them on Instagram"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/Instagram-32.png" width="32" rel="tootltip" title="Follow them on Instagram"></a>
                   </div>
                   <div data-ng-if="social.socialMediaId === 15">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Yelp-32.png" width="32" rel="tootltip" title="Leave a review on Yelp"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/Yelp-32.png" width="32" rel="tootltip" title="Leave a review on Yelp"></a>
                   </div>
                   <div data-ng-if="social.socialMediaId === 16">
-                    <a href="{{social.link}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="/modules/core/images/Pinterest-32.png" width="32" rel="tootltip" title="Follow them on Pinterest"></a>
+                    <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/Pinterest-32.png" width="32" rel="tootltip" title="Follow them on Pinterest"></a>
                   </div>
                 </div>
             </li>
@@ -73,15 +73,16 @@
           <ul data-ng-repeat="location in brewery.locations" class="locations">
             <li class="location">
               <strong>{{location.name}}</strong> - {{location.locationTypeDisplay}}<br>
-              {{location.streetAddress}}<br>
+              <p class="loc-info">{{location.streetAddress}}<br>
               <span data-ng-if="location.locality">{{location.locality}},</span> <span data-ng-if="location.region">{{location.region}}</span>  <span data-ng-if="location.postalCode">{{location.postalCode}}<br></span>
-              <span data-ng-if="location.phone">{{location.phone}}<br></span>
+              <span data-ng-if="location.phone">{{location.phone}}<br></span></p>
               <pre data-ng-if="location.hoursOfOperation" class="hours"><strong>Hours of Operation:</strong><br>{{location.hoursOfOperation}}<br></pre>
             </li>
           </ul>
         </li>
         </ul>
       </div>
+
       <div class="col-sm-8 col-md-9 panel panel-default">
 
         <p class="lead">{{brewery.name}}</p>
@@ -91,20 +92,17 @@
 
         <hr>
 
-    <b><input type="checkbox" ng-model="useAvailability[99]" value="0">Show All</b>
-    <div ng-repeat="m in availabilityGroups">
-        <b><input type="checkbox" ng-disabled="checked" ng-model="useAvailability[$index]"/>{{m.availableName}}</b>
-    </div>
-
-    <ul>
-      <li ng-repeat="beer in beers | filter:filterByAvailability()">{{beer.name}} - {{beer.availableId}} - {{beer.available.name}}</li>
-    </ul>
-
-        <div data-ng-repeat="group in groups">
-          <h3>{{group.beers[0].available.name}}</h3>
+    <label class="checkbox-inline">
+      <input type="checkbox" ng-model="useAvailability[99]" value="0">Show All</b>
+    </label>
+<!--     <div ng-repeat="m in availabilityGroups"> -->
+      <label class="checkbox-inline" data-ng-repeat="m in availabilityGroups">
+        <input type="checkbox" ng-disabled="checked" ng-model="useAvailability[$index]"/>{{m.availableName}}
+      </label>
+<!--     </div> -->
 
           <div class="row">
-            <div class="col-md-4 beer-boxes" data-ng-repeat-start="beer in group.beers">
+            <div class="col-md-4 beer-boxes" data-ng-repeat-start="beer in beers | filter:filterByAvailability()">
               <a href="#!/beer/{{beer.id}}">
                 <div class="thumbnail beer-item">
                   <a href="#!/beer/{{beer.id}}">
@@ -118,9 +116,10 @@
 
                   <div class="caption">
                     <a href="#!/beer/{{beer.id}}"><h4 class="beer-name">{{beer.name}}</h4></a>
-                    <div data-ng-if="beer.style.name">
+                    <span data-ng-if="beer.style.name">
                       {{beer.style.name}}
-                    </div>
+                    </span><br>
+                    <span>Available: {{beer.available.name}}</span>
 
                     <form class="form-horizontal text-left ratings" data-ng-submit="create($index)" novalidate>
                       <fieldset>
@@ -145,7 +144,6 @@
             <div class="clearfix" ng-if="$index%3==2"></div>
             <div data-ng-repeat-end=""></div>
           </div>
-        </div>
       </div>
     </div>
   </div>
