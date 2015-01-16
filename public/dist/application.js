@@ -100,9 +100,29 @@ angular.module('beer').controller('BeerController', ['$scope', 'Beer', '$statePa
     // an array to store recommendations
     $scope.recommendations = [];
 
+    var shuffle = function (array) {
+      var currentIndex = array.length, temporaryValue, randomIndex ;
+
+      // While there remain elements to shuffle...
+      while (0 !== currentIndex) {
+
+        // Pick a remaining element...
+        randomIndex = Math.floor(Math.random() * currentIndex);
+        currentIndex -= 1;
+
+        // And swap it with the current element.
+        temporaryValue = array[currentIndex];
+        array[currentIndex] = array[randomIndex];
+        array[randomIndex] = temporaryValue;
+      }
+
+      return array;
+    };
+
     // pushing recommendations data from $http request
     var handleSuccess = function(data, status){
-      $scope.recommendations = data.data;
+      console.log(data.data);
+      $scope.recommendations = shuffle(data.data);
     };
 
     // Find the beers in the same category
@@ -124,7 +144,7 @@ angular.module('beer').factory('Beer', ['$http',
     // Public API
     return {
       getData: function(beerId){
-        return $http.get('/beer/' + beerId);
+        return $http.get('/api/beer/' + beerId);
       }
     };
   }
@@ -140,7 +160,7 @@ angular.module('beer').factory('StyleQuery', ['$http',
     // Public API
     return {
       getStyle: function(styleName) {
-        return $http.get('/style/' + styleName);
+        return $http.get('/api/style/' + styleName);
       }
     };
   }
@@ -348,17 +368,17 @@ angular.module('nearby').filter('groupBy', function () {
 'use strict';
 
 angular.module('nearby').factory('Brewery', ['$http',
-	function($http) {
-		// Public API
-		return {
+  function($http) {
+    // Public API
+    return {
       getData: function(breweryId){
-        return $http.get('/brewery/' + breweryId);
+        return $http.get('/api/brewery/' + breweryId);
       },
       getBeersData: function(breweryId){
-        return $http.get('/beers/' + breweryId);
+        return $http.get('/api/beers/' + breweryId);
       }
     };
-	}
+  }
 ]);
 
 'use strict';
@@ -590,7 +610,7 @@ angular.module('core').factory('Search', ['$http',
     // Public API
     return {
       getData: function(keyword, page){
-        return $http.get('/search/' + keyword + '/' + page);
+        return $http.get('/api/search/' + keyword + '/' + page);
       }
     };
   }
@@ -650,14 +670,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     var handleSuccess = function(data, status){
       if (data.data){
         $scope.breweries = data.data;
-          placeMarker();
-      } else {
-        $scope.breweries = [{
-          brewery: {
-            name: 'Sorry',
-            description: 'No breweries nearby'
-          }
-        }];
+        placeMarker();
       }
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };
@@ -748,7 +761,7 @@ angular.module('nearby').factory('Breweries', ['$http',
     // Public API
     return {
       getData: function(coords){
-        return $http.get('/breweries/' + coords.lat + '/' + coords.long);
+        return $http.get('/api/breweries/' + coords.lat + '/' + coords.long);
       }
     };
   }
@@ -900,7 +913,7 @@ angular.module('beer').factory('Beer', ['$http',
     // Public API
     return {
       getData: function(beerId){
-        return $http.get('/beer/' + beerId);
+        return $http.get('/api/beer/' + beerId);
       }
     };
   }
@@ -916,7 +929,7 @@ angular.module('ratings').factory('PredictionIO', ['$http',
     // Public API
     return {
       getRecommendaton: function(userId) {
-        return $http.get('/recommendation/' + userId);
+        return $http.get('/api/recommendation/' + userId);
       }
     };
   }
@@ -927,7 +940,7 @@ angular.module('ratings').factory('PredictionIO', ['$http',
 //Ratings service used to communicate Ratings REST endpoints
 angular.module('ratings').factory('Ratings', ['$resource',
   function($resource) {
-    return $resource('ratings/:ratingId', {
+    return $resource('/api/ratings/:ratingId', {
       ratingId: '@_id'
     }, {
       update: {
@@ -947,7 +960,7 @@ angular.module('ratings').factory('StyleQuery', ['$http',
     // Public API
     return {
       getStyle: function(styleName) {
-        return $http.get('/style/' + styleName);
+        return $http.get('/api/style/' + styleName);
       }
     };
   }
