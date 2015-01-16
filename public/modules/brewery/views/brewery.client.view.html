@@ -70,14 +70,13 @@
 
         <li class="list-group-item">
           <h4>Locations:</h4>
-          <ul data-ng-repeat="location in brewery.locations">
-            <li>
-              {{location.name}}<br>
-              {{location.locationTypeDisplay}}<br>
+          <ul data-ng-repeat="location in brewery.locations" class="locations">
+            <li class="location">
+              <strong>{{location.name}}</strong> - {{location.locationTypeDisplay}}<br>
               {{location.streetAddress}}<br>
-              {{location.region}}  {{location.postalCode}}<br>
-              {{location.phone}}<br>
-              <div data-ng-if="location.yearOpened">Year Opened: {{location.yearOpened}}</div>
+              <span data-ng-if="location.locality">{{location.locality}},</span> <span data-ng-if="location.region">{{location.region}}</span>  <span data-ng-if="location.postalCode">{{location.postalCode}}<br></span>
+              <span data-ng-if="location.phone">{{location.phone}}<br></span>
+              <pre data-ng-if="location.hoursOfOperation" class="hours"><strong>Hours of Operation:</strong><br>{{location.hoursOfOperation}}<br></pre>
             </li>
           </ul>
         </li>
@@ -92,27 +91,38 @@
 
         <hr>
 
+    <b><input type="checkbox" ng-model="useAvailability[99]" value="0">Show All</b>
+    <div ng-repeat="m in availabilityGroups">
+        <b><input type="checkbox" ng-disabled="checked" ng-model="useAvailability[$index]"/>{{m.availableName}}</b>
+    </div>
+
+    <ul>
+      <li ng-repeat="beer in beers | filter:filterByAvailability()">{{beer.name}} - {{beer.availableId}} - {{beer.available.name}}</li>
+    </ul>
+
         <div data-ng-repeat="group in groups">
           <h3>{{group.beers[0].available.name}}</h3>
 
           <div class="row">
-            <div class="col-sm-6 col-md-4" data-ng-repeat-start="beer in group.beers">
+            <div class="col-md-4 beer-boxes" data-ng-repeat-start="beer in group.beers">
               <a href="#!/beer/{{beer.id}}">
                 <div class="thumbnail beer-item">
+                  <a href="#!/beer/{{beer.id}}">
                   <div data-ng-if="beer.labels.medium">
-                    <img class="img-responsive center-block" width="300" height="300" data-ng-src="{{beer.labels.medium}}">
+                    <img class="img-responsive center-block" width="300" data-ng-src="{{beer.labels.medium}}">
                   </div>
                   <div data-ng-if="!beer.labels.medium">
                     <img class="img-responsive center-block" width="300" height="300" src="/modules/core/images/no-beer-label-60.png">
                   </div>
+                  </a>
 
                   <div class="caption">
-                    <h3>{{beer.name}}</h3>
+                    <a href="#!/beer/{{beer.id}}"><h4 class="beer-name">{{beer.name}}</h4></a>
                     <div data-ng-if="beer.style.name">
-                      <a href="#">{{beer.style.name}}</a>
+                      {{beer.style.name}}
                     </div>
 
-                    <form class="form-horizontal text-center" data-ng-submit="create($index)" novalidate>
+                    <form class="form-horizontal text-left ratings" data-ng-submit="create($index)" novalidate>
                       <fieldset>
                         <div class="form-group">
                           <label class="control-label" for="rating">How many stars would you give?</label>
@@ -132,7 +142,7 @@
                 </div>
               </a>
             </div>
-            <div class="clearfix" ng-if="$index%4==3"></div>
+            <div class="clearfix" ng-if="$index%3==2"></div>
             <div data-ng-repeat-end=""></div>
           </div>
         </div>
