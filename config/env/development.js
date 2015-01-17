@@ -18,7 +18,7 @@ module.exports = {
     }
   },
   app: {
-    title: 'OnTapp - Hack Reactor Thesis Project'
+    title: 'OnTapp - Discover breweries around you & receive personalized recommendations based on your rated beers'
   },
   facebook: {
     clientID: process.env.FACEBOOK_ID || '968149419880980',

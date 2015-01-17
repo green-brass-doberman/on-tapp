@@ -29,7 +29,6 @@ angular.module('beer').controller('BeerController', ['$scope', 'Beer', '$statePa
 
     // pushing recommendations data from $http request
     var handleSuccess = function(data, status){
-      console.log(data.data);
       $scope.recommendations = shuffle(data.data);
     };
 

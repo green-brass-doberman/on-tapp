@@ -121,7 +121,6 @@ angular.module('beer').controller('BeerController', ['$scope', 'Beer', '$statePa
 
     // pushing recommendations data from $http request
     var handleSuccess = function(data, status){
-      console.log(data.data);
       $scope.recommendations = shuffle(data.data);
     };
 
@@ -326,13 +325,13 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
         ['Wisconsin', 'WI'],
         ['Wyoming', 'WY'],
       ];
-   
+
       input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
       for (var i = 0; i < states.length; i++){
         if (states[i][0] === input){
           return (states[i][1]);
         }
-      }    
+      }
     };
 
   }
@@ -351,7 +350,7 @@ var uniqueItems = function (data, key) {
   var result = [];
   for (var i = 0; i < data.length; i++) {
     var idx = data[i][key];
-    var aName = data[i]['available']['name'];
+    var aName = data[i].available.name;
     if (findIndexByKeyValue(result, 'availableId', idx) === -1) {
         result.push({'availableId': idx, 'availableName': aName});
     }
@@ -365,6 +364,7 @@ angular.module('nearby').filter('groupBy', function () {
     return uniqueItems(collection, key);
   };
 });
+
 'use strict';
 
 angular.module('nearby').factory('Brewery', ['$http',
