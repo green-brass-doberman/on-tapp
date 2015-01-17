@@ -92,6 +92,7 @@ exports.signin = function(req, res, next) {
  * Signout
  */
 exports.signout = function(req, res) {
+  console.log('signout?');
   req.logout();
   res.redirect('/');
 };
