@@ -7,8 +7,7 @@ module.exports = function(grunt) {
     serverJS: ['gruntfile.js', 'server.js', 'config/**/*.js', 'app/**/*.js'],
     clientViews: ['public/modules/**/views/**/*.html'],
     clientJS: ['public/js/*.js', 'public/modules/**/*.js'],
-    // clientCSS: ['public/modules/**/*.css'],
-    clientCSS: ['public/application.min.css', 'public/modules/**/*.less', 'public/less/*.less'],
+    clientCSS: ['public/modules/**/*.less', 'public/less/*.less'],
     mochaTests: ['app/tests/**/*.js']
   };
 
@@ -44,7 +43,7 @@ module.exports = function(grunt) {
       },
       clientCSS: {
         files: watchFiles.clientCSS,
-        tasks: ['csslint'],
+        tasks: ['csslint', 'less'],
         options: {
           livereload: true
         }
@@ -76,13 +75,6 @@ module.exports = function(grunt) {
         }
       }
     },
-    // cssmin: {
-    //  combine: {
-    //    files: {
-    //      'public/dist/application.min.css': '<%= applicationCSSFiles %>'
-    //    }
-    //  }
-    // },
     nodemon: {
       dev: {
         script: 'server.js',
