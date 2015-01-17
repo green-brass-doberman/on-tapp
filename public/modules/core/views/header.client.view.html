@@ -26,14 +26,15 @@
 
       <!-- <li><a href="http://green-brass-doberman.github.io/on-tapp/" target="blank">About</a></li> -->
 
-      <li class="navbar-form navbar-right" data-ng-submit="search()">
-        <form class="input-group">
+      <form class="navbar-form navbar-right" data-ng-submit="search()">
+        <div class="input-group input-group-rounded">
           <input type="text" class="form-control" placeholder="Search..." data-ng-model="keyword">
           <span class="input-group-btn">
-            <button class="btn btn-primary" type="submit"><span class="fa fa-search"></span></button>
+            <button class="btn" type="submit">
+            <span class="fa fa-search"></span></button>
           </span>
-        </form>
-      </li>
+        </div>
+      </form>
     </ul>
 
     <ul class="nav navbar-nav navbar-right" data-ng-hide="authentication.user">
