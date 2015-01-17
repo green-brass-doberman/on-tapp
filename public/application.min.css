@@ -14158,11 +14158,15 @@ form.list-beers {
 }
 .guild-image {
   display: inline-block;
-  margin: 10px 10px 5px 10px;
+  margin: 10px 5px 5px 5px;
 }
 .sm-image {
   display: inline-block;
-  margin: 10px 5px 0 5px;
+  margin: 10px 2px 0 2px;
+}
+.sm-icons {
+  padding-left: 0;
+  padding-right: 0;
 }
 .navbar-form {
   padding-top: 0;
@@ -14209,6 +14213,18 @@ li.location {
 .loc-info {
   font-size: 0.9em;
   line-height: 1.3em;
+}
+h4.beer-name {
+  font-size: 18px;
+}
+.brewery-img {
+  margin: 15px auto;
+}
+.label-inline {
+  padding-left: 0;
+}
+.website {
+  font-size: 0.8em;
 }
 /* Main marketing message and sign up button */
 .jumbotron {

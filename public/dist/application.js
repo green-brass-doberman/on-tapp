@@ -30,8 +30,8 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
   function($locationProvider) {
-    $locationProvider.hashPrefix('!');
     $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
   }
 ]);
 
@@ -181,25 +181,28 @@ angular.module('brewery').config(['$stateProvider',
 
 'use strict';
 
-angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 'Ratings', '$location', '$filter', 'groupByFilter',
-  function($scope, Brewery, $stateParams, Ratings, $location, $filter, groupByFilter) {
+angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '$stateParams', 'Ratings', '$location', 'Core',
+  function($scope, Brewery, $stateParams, Ratings, $location, Core) {
     // Brewery controller logic
     $scope.breweryId = $stateParams.breweryId;
-    var socialMediaArr = [1,2,3,8,10,14,15,16];
+
+    $scope.brewery = [];
     $scope.socialMedia = [];
+    var socialMediaArr = [1,2,3,8,10,14,15,16];
+    // send the brewery id and get the brewery information
+    Brewery.getData($scope.breweryId).success(function(data, status) {
+      $scope.brewery = data.data || 'Request failed';
 
-    Brewery.getData($scope.breweryId).success(function(results, status) {
-      $scope.brewery = results.data || 'Request failed';
-
+      // if there are locations, abbreviate the states
       if ($scope.brewery.locations !== undefined) {
         for (var i = 0; i < $scope.brewery.locations.length; i++) {
-          $scope.brewery.locations[i].region = abbrState($scope.brewery.locations[i].region, 'abbr');
+          $scope.brewery.locations[i].region = Core.abbrState($scope.brewery.locations[i].region);
         }
       }
 
+      // only get social media info for certain sites
       if ($scope.brewery.socialAccounts !== undefined) {
         for (var j = 0; j < $scope.brewery.socialAccounts.length; j++) {
-          // only save sm sites that are FB, Twitter, 4Square, Google+, YouTube, Instagram, Yelp or Pinterest [1,2,3,8,10,14,15,16]
           var tempSocial = $scope.brewery.socialAccounts[j];
           if (socialMediaArr.indexOf(tempSocial.socialMediaId) > -1) {
             $scope.socialMedia.push(tempSocial);
@@ -210,14 +213,25 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
 
     $scope.beers = [];
     $scope.availabilityGroups = [];
+    // send the brewery id and get all the beers
+    Brewery.getBeersData($scope.breweryId).success(function(data, status) {
+      $scope.beers = data.data || 'Request failed';
+      $scope.availabilityGroups = uniqueItems($scope.beers);
+    });
 
-    var handleSuccess = function(data, status){
-      $scope.beers = data.data;
-      $scope.availabilityGroups = $filter('groupBy')($scope.beers, 'availableId');
+    $scope.useAvailability = [];
+    $scope.filterBeer = function() {
+      return function(p) {
+        if (($scope.useAvailability.length === 0) || ($scope.useAvailability.indexOf(true) === -1)) {
+          return true;
+        }
+        for (var i in $scope.useAvailability) {
+          if (p.availableId === $scope.availabilityGroups[i].availableId && $scope.useAvailability[i]) {
+            return true;
+          }
+        }
+      };
     };
-
-    // send the brewery id
-    Brewery.getBeersData($scope.breweryId).success(handleSuccess);
 
     // handle the stars rating
     $scope.rate = 0;
@@ -259,111 +273,30 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
       });
     };
 
-    $scope.useAvailability = [];
-    $scope.filterByAvailability = function() {
-      return function(p) {
-        for (var i in $scope.useAvailability) {
-          if (p.availableId === $scope.availabilityGroups[i].availableId && $scope.useAvailability[i]) {
-            return true;
+    var uniqueItems = function(data) {
+      var result = [];
+      for (var i = 0; i < data.length; i++) {
+        var idx = data[i].availableId;
+        if (idx !== undefined) {
+          var aName = data[i].available.name;
+          if (Core.findIndexByKeyValue(result, 'availableId', idx) === -1) {
+              result.push({'availableId': idx, 'availableName': aName});
           }
         }
-      };
-    };
-
-    var abbrState = function(input, to) {
-      var states = [
-        ['Arizona', 'AZ'],
-        ['Alabama', 'AL'],
-        ['Alaska', 'AK'],
-        ['Arizona', 'AZ'],
-        ['Arkansas', 'AR'],
-        ['California', 'CA'],
-        ['Colorado', 'CO'],
-        ['Connecticut', 'CT'],
-        ['Delaware', 'DE'],
-        ['Florida', 'FL'],
-        ['Georgia', 'GA'],
-        ['Hawaii', 'HI'],
-        ['Idaho', 'ID'],
-        ['Illinois', 'IL'],
-        ['Indiana', 'IN'],
-        ['Iowa', 'IA'],
-        ['Kansas', 'KS'],
-        ['Kentucky', 'KY'],
-        ['Kentucky', 'KY'],
-        ['Louisiana', 'LA'],
-        ['Maine', 'ME'],
-        ['Maryland', 'MD'],
-        ['Massachusetts', 'MA'],
-        ['Michigan', 'MI'],
-        ['Minnesota', 'MN'],
-        ['Mississippi', 'MS'],
-        ['Missouri', 'MO'],
-        ['Montana', 'MT'],
-        ['Nebraska', 'NE'],
-        ['Nevada', 'NV'],
-        ['New Hampshire', 'NH'],
-        ['New Jersey', 'NJ'],
-        ['New Mexico', 'NM'],
-        ['New York', 'NY'],
-        ['North Carolina', 'NC'],
-        ['North Dakota', 'ND'],
-        ['Ohio', 'OH'],
-        ['Oklahoma', 'OK'],
-        ['Oregon', 'OR'],
-        ['Pennsylvania', 'PA'],
-        ['Rhode Island', 'RI'],
-        ['South Carolina', 'SC'],
-        ['South Dakota', 'SD'],
-        ['Tennessee', 'TN'],
-        ['Texas', 'TX'],
-        ['Utah', 'UT'],
-        ['Vermont', 'VT'],
-        ['Virginia', 'VA'],
-        ['Washington', 'WA'],
-        ['West Virginia', 'WV'],
-        ['Wisconsin', 'WI'],
-        ['Wyoming', 'WY'],
-      ];
-
-      input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-      for (var i = 0; i < states.length; i++){
-        if (states[i][0] === input){
-          return (states[i][1]);
-        }
       }
+      result.sort(function(a, b) {
+        if (a.availableId > b.availableId) {
+          return 1;
+        }
+        if (a.availableId < b.availableId) {
+          return -1;
+        }
+        return 0; // a must be equal to b
+      });
+      return result;
     };
-
   }
 ]);
-
-function findIndexByKeyValue(obj, key, value) {
-  for (var i = 0; i < obj.length; i++) {
-    if (obj[i][key] === value) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-var uniqueItems = function (data, key) {
-  var result = [];
-  for (var i = 0; i < data.length; i++) {
-    var idx = data[i][key];
-    var aName = data[i].available.name;
-    if (findIndexByKeyValue(result, 'availableId', idx) === -1) {
-        result.push({'availableId': idx, 'availableName': aName});
-    }
-  }
-  return result;
-};
-
-angular.module('nearby').filter('groupBy', function () {
-  return function (collection, key) {
-    if (collection === null) return;
-    return uniqueItems(collection, key);
-  };
-});
 
 'use strict';
 
@@ -436,6 +369,85 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
   }
 ]);
 
+'use strict';
+
+angular.module('core').factory('Core', [
+	function() {
+		return {
+			findIndexByKeyValue: function(obj, key, value) {
+	      for (var i = 0; i < obj.length; i++) {
+	        if (obj[i][key] === value) {
+	          return i;
+	        }
+	      }
+	      return -1;
+			},
+			abbrState: function(input) {
+	      var states = [
+	        ['Arizona', 'AZ'],
+	        ['Alabama', 'AL'],
+	        ['Alaska', 'AK'],
+	        ['Arizona', 'AZ'],
+	        ['Arkansas', 'AR'],
+	        ['California', 'CA'],
+	        ['Colorado', 'CO'],
+	        ['Connecticut', 'CT'],
+	        ['Delaware', 'DE'],
+	        ['Florida', 'FL'],
+	        ['Georgia', 'GA'],
+	        ['Hawaii', 'HI'],
+	        ['Idaho', 'ID'],
+	        ['Illinois', 'IL'],
+	        ['Indiana', 'IN'],
+	        ['Iowa', 'IA'],
+	        ['Kansas', 'KS'],
+	        ['Kentucky', 'KY'],
+	        ['Kentucky', 'KY'],
+	        ['Louisiana', 'LA'],
+	        ['Maine', 'ME'],
+	        ['Maryland', 'MD'],
+	        ['Massachusetts', 'MA'],
+	        ['Michigan', 'MI'],
+	        ['Minnesota', 'MN'],
+	        ['Mississippi', 'MS'],
+	        ['Missouri', 'MO'],
+	        ['Montana', 'MT'],
+	        ['Nebraska', 'NE'],
+	        ['Nevada', 'NV'],
+	        ['New Hampshire', 'NH'],
+	        ['New Jersey', 'NJ'],
+	        ['New Mexico', 'NM'],
+	        ['New York', 'NY'],
+	        ['North Carolina', 'NC'],
+	        ['North Dakota', 'ND'],
+	        ['Ohio', 'OH'],
+	        ['Oklahoma', 'OK'],
+	        ['Oregon', 'OR'],
+	        ['Pennsylvania', 'PA'],
+	        ['Rhode Island', 'RI'],
+	        ['South Carolina', 'SC'],
+	        ['South Dakota', 'SD'],
+	        ['Tennessee', 'TN'],
+	        ['Texas', 'TX'],
+	        ['Utah', 'UT'],
+	        ['Vermont', 'VT'],
+	        ['Virginia', 'VA'],
+	        ['Washington', 'WA'],
+	        ['West Virginia', 'WV'],
+	        ['Wisconsin', 'WI'],
+	        ['Wyoming', 'WY'],
+	      ];
+	   
+	      input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+	      for (var i = 0; i < states.length; i++){
+	        if (states[i][0] === input){
+	          return (states[i][1]);
+	        }
+	      }    
+			}
+		};
+	}
+]);
 'use strict';
 
 //Menu service used for managing  menus
