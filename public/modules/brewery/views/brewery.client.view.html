@@ -3,7 +3,7 @@
     <div class="row">
       <div class="col-sm-4 col-md-3 panel panel-default">
         <div data-ng-if="brewery.images.medium">
-          <img class="img-responsive center-block" data-ng-src="{{brewery.images.medium}}">
+          <img class="img-responsive center-block brewery-img" data-ng-src="{{brewery.images.medium}}">
         </div>
         <div data-ng-if="!brewery.images.medium">
           <img class="img-responsive center-block brewery-img" data-ng-src="/modules/core/images/Map%402x.png">
@@ -18,7 +18,7 @@
 
           <div data-ng-if="brewery.website">
             <li class="list-group-item">
-                <p class="center"><a href="{{brewery.website}}" target="_blank">{{brewery.website}}</a></p>
+                <p class="center website"><a href="{{brewery.website}}" target="_blank">{{brewery.website}}</a></p>
             </li>
           </div>
 
@@ -29,7 +29,7 @@
           </div>
 
           <div data-ng-if="brewery.guilds.length > 0" class="guilds">
-            <li class="list-group-item">
+            <li class="list-group-item sm-icons">
                 <p class="center"><strong>Members of:</strong></p>
                 <div data-ng-repeat="guild in brewery.guilds" class="guild-image">
                   <a href="{{guild.website}}" target="_blank"><img class="brewery-img img-responsive center-block" ng-src="{{guild.images.icon}}" width="64" rel="tootltip" title="{{guild.name}}"></a>
@@ -38,7 +38,7 @@
           </div>
 
           <div data-ng-if="socialMedia.length > 0" class="guilds">
-            <li class="list-group-item">
+            <li class="list-group-item sm-icons">
                 <div data-ng-repeat="social in socialMedia" class="sm-image">
                   <div data-ng-if="social.socialMediaId === 1">
                     <a href="{{social.link}}" target="_blank"><img class="sm-img img-responsive center-block" ng-src="/modules/core/images/Facebook-32.png" width="32" rel="tootltip" title="Friend them on Facebook"></a>
@@ -68,82 +68,73 @@
             </li>
           </div>
 
-        <li class="list-group-item">
-          <h4>Locations:</h4>
-          <ul data-ng-repeat="location in brewery.locations" class="locations">
-            <li class="location">
-              <strong>{{location.name}}</strong> - {{location.locationTypeDisplay}}<br>
-              <p class="loc-info">{{location.streetAddress}}<br>
-              <span data-ng-if="location.locality">{{location.locality}},</span> <span data-ng-if="location.region">{{location.region}}</span>  <span data-ng-if="location.postalCode">{{location.postalCode}}<br></span>
-              <span data-ng-if="location.phone">{{location.phone}}<br></span></p>
-              <pre data-ng-if="location.hoursOfOperation" class="hours"><strong>Hours of Operation:</strong><br>{{location.hoursOfOperation}}<br></pre>
-            </li>
-          </ul>
-        </li>
+          <li class="list-group-item">
+            <h4>Locations:</h4>
+            <ul data-ng-repeat="location in brewery.locations" class="locations">
+              <li class="location">
+                <strong>{{location.name}}</strong> - {{location.locationTypeDisplay}}<br>
+                <p class="loc-info">{{location.streetAddress}}<br>
+                <span data-ng-if="location.locality">{{location.locality}},</span> <span data-ng-if="location.region">{{location.region}}</span>  <span data-ng-if="location.postalCode">{{location.postalCode}}<br></span>
+                <span data-ng-if="location.phone">{{location.phone}}<br></span></p>
+                <pre data-ng-if="location.hoursOfOperation" class="hours"><strong>Hours of Operation:</strong><br>{{location.hoursOfOperation}}<br></pre>
+              </li>
+            </ul>
+          </li>
         </ul>
       </div>
 
       <div class="col-sm-8 col-md-9 panel panel-default">
-
         <p class="lead">{{brewery.name}}</p>
-
         <p class="content">{{brewery.description}}</p>
         <p data-ng-if="!brewery.description" class="content">No description</p>
-
         <hr>
 
-    <label class="checkbox-inline">
-      <input type="checkbox" ng-model="useAvailability[99]" value="0">Show All</b>
-    </label>
-<!--     <div ng-repeat="m in availabilityGroups"> -->
-      <label class="checkbox-inline" data-ng-repeat="m in availabilityGroups">
-        <input type="checkbox" ng-disabled="checked" ng-model="useAvailability[$index]"/>{{m.availableName}}
-      </label>
-<!--     </div> -->
+        <label ng-if="availabilityGroups.length > 0" class="checkbox-inline label-inline">
+          Only show: 
+        </label>
+        <label class="checkbox-inline" data-ng-repeat="m in availabilityGroups">
+          <input type="checkbox" ng-disabled="checked" ng-model="useAvailability[$index]"/>{{m.availableName}}
+        </label>
 
-          <div class="row">
-            <div class="col-md-4 beer-boxes" data-ng-repeat-start="beer in beers | filter:filterByAvailability()">
+        <p class="lead" ng-if="beers === 'Request failed'">No beers found!!</p>
+        <div class="row" ng-if="beers.length > 0">
+          <div class="col-md-4 beer-boxes" data-ng-repeat-start="beer in beers | filter:filterBeer() | orderBy:'availableId'">
+            <div class="thumbnail beer-item">
               <a href="#!/beer/{{beer.id}}">
-                <div class="thumbnail beer-item">
-                  <a href="#!/beer/{{beer.id}}">
-                  <div data-ng-if="beer.labels.medium">
-                    <img class="img-responsive center-block" width="300" data-ng-src="{{beer.labels.medium}}">
-                  </div>
-                  <div data-ng-if="!beer.labels.medium">
-                    <img class="img-responsive center-block" width="300" height="300" src="/modules/core/images/no-beer-label-60.png">
-                  </div>
-                  </a>
-
-                  <div class="caption">
-                    <a href="#!/beer/{{beer.id}}"><h4 class="beer-name">{{beer.name}}</h4></a>
-                    <span data-ng-if="beer.style.name">
-                      {{beer.style.name}}
-                    </span><br>
-                    <span>Available: {{beer.available.name}}</span>
-
-                    <form class="form-horizontal text-left ratings" data-ng-submit="create($index)" novalidate>
-                      <fieldset>
-                        <div class="form-group">
-                          <label class="control-label" for="rating">How many stars would you give?</label>
-                          <div class="controls">
-                            <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
-                          </div>
-                        </div>
-                        <div class="form-group">
-                          <input type="submit" class="btn btn-primary">
-                        </div>
-                        <div data-ng-show="error" class="text-danger">
-                          <strong data-ng-bind="error"></strong>
-                        </div>
-                      </fieldset>
-                    </form>
-                  </div>
+                <div data-ng-if="beer.labels.medium">
+                  <img class="img-responsive center-block" width="300" data-ng-src="{{beer.labels.medium}}">
+                </div>
+                <div data-ng-if="!beer.labels.medium">
+                  <img class="img-responsive center-block" width="300" height="300" src="/modules/core/images/no-beer-label-60.png">
                 </div>
               </a>
+
+              <div class="caption">
+                <a href="#!/beer/{{beer.id}}"><h4 class="beer-name">{{beer.name}}</h4></a>
+                <span ng-if="beer.availableId">Available: {{beer.available.name}}</span>
+
+                <form class="form-horizontal text-left ratings" data-ng-submit="create($index)" novalidate>
+                  <fieldset>
+                    <div class="form-group">
+                      <label class="control-label" for="rating">How many stars would you give?</label>
+                      <div class="controls">
+                        <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
+                      </div>
+                    </div>
+                    <div class="form-group">
+                      <input type="submit" class="btn btn-primary">
+                    </div>
+                    <div data-ng-show="error" class="text-danger">
+                      <strong data-ng-bind="error"></strong>
+                    </div>
+                  </fieldset>
+                </form>
+              </div>
             </div>
-            <div class="clearfix" ng-if="$index%3==2"></div>
-            <div data-ng-repeat-end=""></div>
           </div>
+          <div class="clearfix" ng-if="$index%3==2"></div>
+          <div data-ng-repeat-end=""></div>
+        </div>
       </div>
     </div>
   </div>
