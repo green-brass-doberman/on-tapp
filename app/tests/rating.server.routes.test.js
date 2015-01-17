@@ -57,7 +57,7 @@ describe('Rating CRUD tests', function() {
         var userId = user.id;
 
         // Save a new Rating
-        agent.post('/ratings')
+        agent.post('/api/ratings')
           .send(rating)
           .expect(200)
           .end(function(ratingSaveErr, ratingSaveRes) {
@@ -65,7 +65,7 @@ describe('Rating CRUD tests', function() {
             if (ratingSaveErr) done(ratingSaveErr);
 
             // Get a list of Ratings
-            agent.get('/ratings')
+            agent.get('/api/ratings')
               .end(function(ratingsGetErr, ratingsGetRes) {
                 // Handle Rating save error
                 if (ratingsGetErr) done(ratingsGetErr);
@@ -85,7 +85,7 @@ describe('Rating CRUD tests', function() {
   });
 
   it('should not be able to save Rating instance if not logged in', function(done) {
-    agent.post('/ratings')
+    agent.post('/api/ratings')
       .send(rating)
       .expect(401)
       .end(function(ratingSaveErr, ratingSaveRes) {
@@ -109,7 +109,7 @@ describe('Rating CRUD tests', function() {
         var userId = user.id;
 
         // Save a new Rating
-        agent.post('/ratings')
+        agent.post('/api/ratings')
           .send(rating)
           .expect(400)
           .end(function(ratingSaveErr, ratingSaveRes) {
@@ -134,7 +134,7 @@ describe('Rating CRUD tests', function() {
         var userId = user.id;
 
         // Save a new Rating
-        agent.post('/ratings')
+        agent.post('/api/ratings')
           .send(rating)
           .expect(200)
           .end(function(ratingSaveErr, ratingSaveRes) {
@@ -145,7 +145,7 @@ describe('Rating CRUD tests', function() {
             rating.name = 'WHY YOU GOTTA BE SO MEAN?';
 
             // Update existing Rating
-            agent.put('/ratings/' + ratingSaveRes.body._id)
+            agent.put('/api/ratings/' + ratingSaveRes.body._id)
               .send(rating)
               .expect(200)
               .end(function(ratingUpdateErr, ratingUpdateRes) {
@@ -170,7 +170,7 @@ describe('Rating CRUD tests', function() {
     // Save the Rating
     ratingObj.save(function() {
       // Request Ratings
-      request(app).get('/ratings')
+      request(app).get('/api/ratings')
         .end(function(req, res) {
           // Set assertion
           res.body.should.be.an.Array.with.lengthOf(1);
@@ -189,7 +189,7 @@ describe('Rating CRUD tests', function() {
 
     // Save the Rating
     ratingObj.save(function() {
-      request(app).get('/ratings/' + ratingObj._id)
+      request(app).get('/api/ratings/' + ratingObj._id)
         .end(function(req, res) {
           // Set assertion
           res.body.should.be.an.Object.with.property('name', rating.name);
@@ -212,7 +212,7 @@ describe('Rating CRUD tests', function() {
         var userId = user.id;
 
         // Save a new Rating
-        agent.post('/ratings')
+        agent.post('/api/ratings')
           .send(rating)
           .expect(200)
           .end(function(ratingSaveErr, ratingSaveRes) {
@@ -220,7 +220,7 @@ describe('Rating CRUD tests', function() {
             if (ratingSaveErr) done(ratingSaveErr);
 
             // Delete existing Rating
-            agent.delete('/ratings/' + ratingSaveRes.body._id)
+            agent.delete('/api/ratings/' + ratingSaveRes.body._id)
               .send(rating)
               .expect(200)
               .end(function(ratingDeleteErr, ratingDeleteRes) {
@@ -247,7 +247,7 @@ describe('Rating CRUD tests', function() {
     // Save the Rating
     ratingObj.save(function() {
       // Try deleting Rating
-      request(app).delete('/ratings/' + ratingObj._id)
+      request(app).delete('/api/ratings/' + ratingObj._id)
       .expect(401)
       .end(function(ratingDeleteErr, ratingDeleteRes) {
         // Set message assertion
