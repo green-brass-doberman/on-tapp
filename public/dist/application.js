@@ -30,8 +30,8 @@ angular.module(ApplicationConfiguration.applicationModuleName, ApplicationConfig
 // Setting HTML5 Location Mode
 angular.module(ApplicationConfiguration.applicationModuleName).config(['$locationProvider',
   function($locationProvider) {
-    $locationProvider.hashPrefix('!');
     $locationProvider.html5Mode(true);
+    $locationProvider.hashPrefix('!');
   }
 ]);
 
@@ -284,71 +284,6 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
           }
         }
       }
-
-<<<<<<< HEAD
-    var abbrState = function(input, to) {
-      var states = [
-        ['Arizona', 'AZ'],
-        ['Alabama', 'AL'],
-        ['Alaska', 'AK'],
-        ['Arizona', 'AZ'],
-        ['Arkansas', 'AR'],
-        ['California', 'CA'],
-        ['Colorado', 'CO'],
-        ['Connecticut', 'CT'],
-        ['Delaware', 'DE'],
-        ['Florida', 'FL'],
-        ['Georgia', 'GA'],
-        ['Hawaii', 'HI'],
-        ['Idaho', 'ID'],
-        ['Illinois', 'IL'],
-        ['Indiana', 'IN'],
-        ['Iowa', 'IA'],
-        ['Kansas', 'KS'],
-        ['Kentucky', 'KY'],
-        ['Kentucky', 'KY'],
-        ['Louisiana', 'LA'],
-        ['Maine', 'ME'],
-        ['Maryland', 'MD'],
-        ['Massachusetts', 'MA'],
-        ['Michigan', 'MI'],
-        ['Minnesota', 'MN'],
-        ['Mississippi', 'MS'],
-        ['Missouri', 'MO'],
-        ['Montana', 'MT'],
-        ['Nebraska', 'NE'],
-        ['Nevada', 'NV'],
-        ['New Hampshire', 'NH'],
-        ['New Jersey', 'NJ'],
-        ['New Mexico', 'NM'],
-        ['New York', 'NY'],
-        ['North Carolina', 'NC'],
-        ['North Dakota', 'ND'],
-        ['Ohio', 'OH'],
-        ['Oklahoma', 'OK'],
-        ['Oregon', 'OR'],
-        ['Pennsylvania', 'PA'],
-        ['Rhode Island', 'RI'],
-        ['South Carolina', 'SC'],
-        ['South Dakota', 'SD'],
-        ['Tennessee', 'TN'],
-        ['Texas', 'TX'],
-        ['Utah', 'UT'],
-        ['Vermont', 'VT'],
-        ['Virginia', 'VA'],
-        ['Washington', 'WA'],
-        ['West Virginia', 'WV'],
-        ['Wisconsin', 'WI'],
-        ['Wyoming', 'WY'],
-      ];
-
-      input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-      for (var i = 0; i < states.length; i++){
-        if (states[i][0] === input){
-          return (states[i][1]);
-        }
-      }
-=======
       result.sort(function(a, b) {
         if (a.availableId > b.availableId) {
           return 1;
@@ -359,42 +294,10 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
         return 0; // a must be equal to b
       });
       return result;
->>>>>>> updated brewery page
     };
   }
 ]);
 
-<<<<<<< HEAD
-function findIndexByKeyValue(obj, key, value) {
-  for (var i = 0; i < obj.length; i++) {
-    if (obj[i][key] === value) {
-      return i;
-    }
-  }
-  return -1;
-}
-
-var uniqueItems = function (data, key) {
-  var result = [];
-  for (var i = 0; i < data.length; i++) {
-    var idx = data[i][key];
-    var aName = data[i].available.name;
-    if (findIndexByKeyValue(result, 'availableId', idx) === -1) {
-        result.push({'availableId': idx, 'availableName': aName});
-    }
-  }
-  return result;
-};
-
-angular.module('nearby').filter('groupBy', function () {
-  return function (collection, key) {
-    if (collection === null) return;
-    return uniqueItems(collection, key);
-  };
-});
-
-=======
->>>>>>> updated brewery page
 'use strict';
 
 angular.module('nearby').factory('Brewery', ['$http',
