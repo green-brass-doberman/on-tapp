@@ -6,7 +6,7 @@
   <div class="container">
     <div ng-if="totalResults">
       <h3>Your search for "{{keyword}}" returned {{totalResults}} results:</h3>
-      <pagination total-items="totalResults" items-per-page="50" ng-model="currentPage" data-ng-change="search(currentPage)"></pagination>
+      <!-- <pagination total-items="totalResults" items-per-page="50" ng-model="currentPage" data-ng-change="search(currentPage)"></pagination> -->
       <div class="list-group">
         <a data-ng-repeat="result in results | orderBy: 'type'" data-ng-href="#!/{{result.type}}/{{result.id}}" class="list-group-item">
           <h4 class="list-group-item-heading" data-ng-bind="result.name"></h4>

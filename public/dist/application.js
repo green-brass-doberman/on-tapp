@@ -1026,6 +1026,8 @@ angular.module('search').controller('SearchController', ['$scope', 'Search', '$s
       usSpinnerService.stop('spinner-2'); //stop the spinner
     });
   }
+
+
 ]);
 
 'use strict';
