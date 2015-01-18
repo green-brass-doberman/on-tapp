@@ -14576,6 +14576,13 @@ h4.beer-name {
     display: none;
   }
 }
+.footer {
+  padding-top: 20px;
+}
+.form-control:focus,
+.select2-search input[type="text"]:focus {
+  border-color: transparent;
+}
 /* Main marketing message and sign up button */
 .jumbotron {
   text-align: center;
