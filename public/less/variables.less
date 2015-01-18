@@ -318,7 +318,7 @@
 @grid-gutter-width:         30px;
 // Navbar collapse
 //** Point at which the navbar becomes uncollapsed.
-@grid-float-breakpoint:     @screen-md-min;
+@grid-float-breakpoint:     @screen-sm-min;
 //** Point at which the navbar begins collapsing.
 @grid-float-breakpoint-max: (@grid-float-breakpoint - 1);
 
@@ -383,7 +383,7 @@
 // Inverted navbar
 // Reset inverted navbar basics
 @navbar-inverse-color:                      lighten(@gray-light, 15%);
-// @navbar-inverse-bg:                         #222;
+@navbar-inverse-bg:                         #222;
 @navbar-inverse-border:                     darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
@@ -1541,9 +1541,9 @@
 //
 //## Specify custom locations of the include Glyphicons icon font.
 
-@icon-font-path:            "../lib/flat-ui/fonts/glyphicons/";
-@icon-font-name:            "flat-ui-icons-regular";
-@icon-font-svg-id:          "flat-ui-icons-regular";
+// @icon-font-path:            "../lib/flat-ui/fonts/glyphicons/";
+// @icon-font-name:            "flat-ui-icons-regular";
+// @icon-font-svg-id:          "flat-ui-icons-regular";
 
 //** Icon sizes for use in components
 @icon-normal:               16px;
@@ -1828,8 +1828,7 @@
 
 // Reset inverted navbar basics
 @navbar-inverse-color:                @inverse;
-// @navbar-inverse-bg:                   @brand-primary;
-@navbar-inverse-bg:                   #917f67;
+@navbar-inverse-bg:                   @brand-primary;
 @navbar-inverse-border:               darken(@navbar-inverse-bg, 10%);
 
 // Inverted navbar links
@@ -1856,8 +1855,7 @@
 @navbar-inverse-toggle-hover-color:   @navbar-inverse-link-hover-color;
 
 // Navbar form
-// @navbar-inverse-form-bg:              darken(@brand-primary, 6%);
-@navbar-inverse-form-bg:              #fff;
+@navbar-inverse-form-bg:              darken(@brand-primary, 6%);
 @navbar-inverse-form-placeholder:     desaturate(lighten(@brand-primary, 13%), 7%);
 @navbar-inverse-form-icon:            desaturate(lighten(@brand-primary, 13%), 6%);
 @navbar-inverse-form-border:          @navbar-inverse-divider;
@@ -2174,4 +2172,3 @@
 
 //** Horizontal forms & lists
 @component-offset-horizontal: 180px;
-
