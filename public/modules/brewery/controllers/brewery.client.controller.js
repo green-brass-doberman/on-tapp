@@ -16,6 +16,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
       if ($scope.brewery.locations !== undefined) {
         for (var i = 0; i < $scope.brewery.locations.length; i++) {
           $scope.brewery.locations[i].region = Core.abbrState($scope.brewery.locations[i].region);
+          if ($scope.brewery.locations[i].phone.indexOf('-') === -1) {
+            $scope.brewery.locations[i].phone = Core.fixPhone($scope.brewery.locations[i].phone);
+          }
         }
       }
 
