@@ -4,6 +4,13 @@ angular.module('search').controller('SearchController', ['$scope', 'Search', '$s
   function($scope, Search, $stateParams, $state, usSpinnerService) {
     // Search controller logic
     $scope.results = [];
+    $scope.totalResults = undefined;
+
+    $scope.search = function(currentPage) {
+      currentPage = currentPage || 1;
+      $state.go('search', {'page': currentPage, 'keyword': $scope.keyword});
+      $scope.keyword = '';
+    };
 
     Search.getData($stateParams.keyword, $stateParams.page).success(function(response, status) {
       $scope.status = status;
@@ -21,7 +28,6 @@ angular.module('search').controller('SearchController', ['$scope', 'Search', '$s
       } else {
         $scope.results = response || 'Request failed';
       }
-
       usSpinnerService.stop('spinner-2'); //stop the spinner
     });
   }
