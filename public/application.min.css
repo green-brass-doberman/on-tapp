@@ -4627,8 +4627,8 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #cccccc;
 }
 .navbar-inverse {
-  background-color: #34495e;
-  border-color: #222f3d;
+  background-color: #917f67;
+  border-color: #736552;
 }
 .navbar-inverse .navbar-brand {
   color: white;
@@ -4673,7 +4673,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 .navbar-inverse .navbar-collapse,
 .navbar-inverse .navbar-form {
-  border-color: #273747;
+  border-color: #7c6d58;
 }
 .navbar-inverse .navbar-nav > .open > a,
 .navbar-inverse .navbar-nav > .open > a:hover,
@@ -4683,10 +4683,10 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 }
 @media (max-width: 767px) {
   .navbar-inverse .navbar-nav .open .dropdown-menu > .dropdown-header {
-    border-color: #222f3d;
+    border-color: #736552;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu .divider {
-    background-color: #222f3d;
+    background-color: #736552;
   }
   .navbar-inverse .navbar-nav .open .dropdown-menu > li > a {
     color: white;
@@ -13268,7 +13268,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   color: #cccccc;
 }
 .navbar-inverse {
-  background-color: #34495e;
+  background-color: #917f67;
 }
 .navbar-inverse .navbar-brand {
   color: white;
@@ -13336,11 +13336,11 @@ fieldset[disabled] .navbar-default .btn-link:focus {
   border-bottom-color: #4b6075;
 }
 .navbar-inverse .navbar-nav > .open > .dropdown-menu {
-  background-color: #34495e;
+  background-color: #917f67;
   padding: 3px 4px;
 }
 .navbar-inverse .navbar-nav > .open > .dropdown-menu > li > a {
-  color: #e1e4e7;
+  color: #efece8;
   border-radius: 4px;
   padding: 6px 9px;
 }
@@ -13387,7 +13387,7 @@ fieldset[disabled] .navbar-default .btn-link:focus {
 .navbar-inverse .navbar-form .select2-search input[type="text"] {
   color: #536a81;
   border-color: transparent;
-  background-color: #293a4a;
+  background-color: #ffffff;
 }
 .navbar-inverse .navbar-form .form-control::-moz-placeholder,
 .navbar-inverse .navbar-form .select2-search input[type="text"]::-moz-placeholder {
@@ -13467,7 +13467,7 @@ fieldset[disabled] .navbar-inverse .navbar-form .btn.active {
 }
 .navbar-inverse .navbar-form .input-group-btn .btn {
   border-color: transparent;
-  background-color: #293a4a;
+  background-color: #ffffff;
   color: #526a82;
 }
 .navbar-inverse .navbar-form .input-group.focus .form-control,
