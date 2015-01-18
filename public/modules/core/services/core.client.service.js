@@ -3,6 +3,10 @@
 angular.module('core').factory('Core', [
 	function() {
 		return {
+			fixPhone: function(phone) {
+				var s = phone.toString();
+				return s.substring(0,3) + '-' + s.substring(3,6) + '-' + s.substring(6);
+			},
 			findIndexByKeyValue: function(obj, key, value) {
 	      for (var i = 0; i < obj.length; i++) {
 	        if (obj[i][key] === value) {

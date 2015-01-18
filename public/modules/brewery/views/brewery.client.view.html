@@ -3,32 +3,26 @@
     <div class="row">
       <div class="col-sm-4 col-md-3 panel panel-default">
         <div data-ng-if="brewery.images.medium">
-          <img class="img-responsive center-block brewery-img" data-ng-src="{{brewery.images.medium}}">
+          <a href="{{brewery.website}}" target="_blank"><img class="img-responsive center-block brewery-img" data-ng-src="{{brewery.images.medium}}"></a>
         </div>
         <div data-ng-if="!brewery.images.medium">
-          <img class="img-responsive center-block brewery-img" data-ng-src="/modules/core/images/Map%402x.png">
+          <a href="{{brewery.website}}" target="_blank"><img class="img-responsive center-block brewery-img" data-ng-src="/modules/core/images/Map%402x.png"></a>
         </div>
 
         <ul class="list-group">
           <div data-ng-if="brewery.established">
-            <li class="list-group-item">
+            <li class="list-group-item no-mobile">
                 <p class="center"><strong>Established:</strong> {{brewery.established}}</p>
             </li>
           </div>
 
-          <div data-ng-if="brewery.website">
-            <li class="list-group-item">
-                <p class="center website"><a href="{{brewery.website}}" target="_blank">{{brewery.website}}</a></p>
-            </li>
-          </div>
-
           <div data-ng-if="brewery.isOrganic == 'Y'">
-            <li class="list-group-item">
+            <li class="list-group-item no-mobile">
                 <p class="center">Certified Organic</p>
             </li>
           </div>
 
-          <div data-ng-if="brewery.guilds.length > 0" class="guilds">
+          <div data-ng-if="brewery.guilds.length > 0" class="guilds no-mobile">
             <li class="list-group-item sm-icons">
                 <p class="center"><strong>Members of:</strong></p>
                 <div data-ng-repeat="guild in brewery.guilds" class="guild-image">
@@ -68,7 +62,7 @@
             </li>
           </div>
 
-          <li class="list-group-item">
+          <li class="list-group-item no-mobile">
             <h4>Locations:</h4>
             <ul data-ng-repeat="location in brewery.locations" class="locations">
               <li class="location">
@@ -89,16 +83,15 @@
         <p data-ng-if="!brewery.description" class="content">No description</p>
         <hr>
 
-        <label ng-if="availabilityGroups.length > 0" class="checkbox-inline label-inline">
-          Only show: 
-        </label>
-        <label class="checkbox-inline" data-ng-repeat="m in availabilityGroups">
-          <input type="checkbox" ng-disabled="checked" ng-model="useAvailability[$index]"/>{{m.availableName}}
-        </label>
+        <p ng-if="availabilityGroups.length > 0">Only show:<br> 
+          <label class="checkbox-inline" data-ng-repeat="m in availabilityGroups">
+            <input type="checkbox" ng-disabled="checked" ng-model="useAvailability[$index]"/>{{m.availableName}}
+          </label>
+        </p>
 
         <p class="lead" ng-if="beers === 'Request failed'">No beers found!!</p>
         <div class="row" ng-if="beers.length > 0">
-          <div class="col-md-4 beer-boxes" data-ng-repeat-start="beer in beers | filter:filterBeer() | orderBy:'availableId'">
+          <div class="col-xs-6 col-md-4 beer-boxes" data-ng-repeat-start="beer in beers | filter:filterBeer() | orderBy:'availableId'">
             <div class="thumbnail beer-item">
               <a href="#!/beer/{{beer.id}}">
                 <div data-ng-if="beer.labels.medium">
@@ -116,7 +109,7 @@
                 <form class="form-horizontal text-left ratings" data-ng-submit="create($index)" novalidate>
                   <fieldset>
                     <div class="form-group">
-                      <label class="control-label" for="rating">How many stars would you give?</label>
+                      <label class="control-label" for="rating">Please rate this beer:</label>
                       <div class="controls">
                         <rating class="stars" data-ng-model="rate" max="max" readonly="isReadonly" on-hover="hoveringOver(value)" on-leave="overStar = null"></rating>
                       </div>
@@ -132,7 +125,7 @@
               </div>
             </div>
           </div>
-          <div class="clearfix" ng-if="$index%3==2"></div>
+<!--           <div class="clearfix" ng-if="$index%3==2"></div> -->
           <div data-ng-repeat-end=""></div>
         </div>
       </div>

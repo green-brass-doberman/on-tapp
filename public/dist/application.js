@@ -197,6 +197,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
       if ($scope.brewery.locations !== undefined) {
         for (var i = 0; i < $scope.brewery.locations.length; i++) {
           $scope.brewery.locations[i].region = Core.abbrState($scope.brewery.locations[i].region);
+          if ($scope.brewery.locations[i].phone.indexOf('-') === -1) {
+            $scope.brewery.locations[i].phone = Core.fixPhone($scope.brewery.locations[i].phone);
+          }
         }
       }
 
@@ -374,6 +377,10 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 angular.module('core').factory('Core', [
 	function() {
 		return {
+			fixPhone: function(phone) {
+				var s = phone.toString();
+				return s.substring(0,3) + '-' + s.substring(3,6) + '-' + s.substring(6);
+			},
 			findIndexByKeyValue: function(obj, key, value) {
 	      for (var i = 0; i < obj.length; i++) {
 	        if (obj[i][key] === value) {

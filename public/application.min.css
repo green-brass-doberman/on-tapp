@@ -14941,7 +14941,7 @@ footer p {
   border-color: #FA787E;
 }
 .ng-valid.ng-dirty {
-  border-color: #78FA89;
+  border-color: #1abc9c;
 }
 .browsehappy.jumbotron.hide,
 body.ng-cloak {
@@ -15057,12 +15057,14 @@ li.location {
   margin-bottom: 0;
 }
 .hours {
-  font-family: Arial;
+  font-family: "Lato", Helvetica, Arial, sans-serif;
   font-size: 0.8em;
   line-height: 1.5em;
   margin: 0;
   white-space: pre-wrap;
   word-break: normal;
+  border: none;
+  padding-left: 0;
 }
 .beer-boxes {
   margin-bottom: 15px;
@@ -15073,9 +15075,13 @@ li.location {
   padding-bottom: 20px;
   line-height: 1.5em;
 }
+.checkbox-inline + .checkbox-inline {
+  margin-left: 0;
+}
 .loc-info {
   font-size: 0.9em;
   line-height: 1.3em;
+  margin-bottom: 0;
 }
 h4.beer-name {
   font-size: 18px;
@@ -15086,8 +15092,26 @@ h4.beer-name {
 .label-inline {
   padding-left: 0;
 }
-.website {
-  font-size: 0.8em;
+.beer-item {
+  min-width: 225px;
+  max-width: 262px;
+}
+.col-md-4 {
+  padding-left: 10px;
+  padding-right: 10px;
+}
+:focus + .input-group-btn .btn {
+  border-color: #1abc9c;
+}
+@media (max-width: 767px) {
+  .no-mobile {
+    display: none;
+  }
+}
+@media (min-width: 768px) and (max-width: 991px) {
+  .no-mobile {
+    display: none;
+  }
 }
 /* Main marketing message and sign up button */
 .jumbotron {
