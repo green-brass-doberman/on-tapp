@@ -15122,6 +15122,10 @@ body {
   width: 100%;
   position: absolute;
   bottom: 0;
+  background-color: #917f67;
+}
+.about-us {
+  color: #fff;
 }
 .stars {
   font-size: 40px;
