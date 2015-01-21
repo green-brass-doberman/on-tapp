@@ -10,7 +10,7 @@ module.exports = function(app) {
 
     request.post({
       headers: {'content-type' : 'application/json'},
-      url: config.predictionio.resultsServerIP + '/queries.json',
+      url: 'http://54.183.105.216:8000/queries.json',
       body: JSON.stringify({
         user: '54b47a41557aa852537fb0ef',
         num: 1

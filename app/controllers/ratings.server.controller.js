@@ -25,7 +25,7 @@ exports.create = function(req, res) {
     // Register a new user-to-item action
     request.post({
       headers: {'content-type' : 'application/json'},
-      url: config.predictionio.eventServerIP + '/events.json?accessKey=' + config.predictionio.api,
+      url: 'http://54.183.105.216:7070/events.json?accessKey=' + config.predictionio.api,
       body: JSON.stringify({
         event: 'rate',
         entityType : 'user',

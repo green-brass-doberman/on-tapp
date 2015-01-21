@@ -30,7 +30,7 @@ exports.signup = function(req, res) {
   // Register a new user in PredictionIO
   request.post({
     headers: {'content-type' : 'application/json'},
-    url: config.predictionio.eventServerIP + '/events.json?accessKey=' + config.predictionio.api,
+    url: 'http://54.183.105.216:7070/events.json?accessKey=' + config.predictionio.api,
     body: JSON.stringify({
       event: '$set',
       entityType : 'user',
