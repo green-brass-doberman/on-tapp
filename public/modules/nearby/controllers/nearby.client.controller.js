@@ -85,12 +85,13 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
         $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-        $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
-        $scope.windowOptions = {
-          visible: true
-        };
-
+        
         uiGmapGoogleMapApi.then(function(maps) {
+          $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+          $scope.windowOptions = {
+            visible: true
+          };
+
           curLocationMarker(); // add marker for current location
           Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
         });
