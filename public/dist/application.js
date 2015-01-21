@@ -760,14 +760,17 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       geolocation.getLocation().then(function(data){
         // set to san francisco by Default for Victor
         // $scope.coords = {lat:37.783973, long:-122.409100};
-
         $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-        $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
-        $scope.windowOptions = {
-          visible: true
-        };
-        curLocationMarker(); // add marker for current location
-        Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
+
+        uiGmapGoogleMapApi.then(function(maps) {
+          $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+          $scope.windowOptions = {
+            visible: true
+          };
+
+          curLocationMarker(); // add marker for current location
+          Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
+        });
       });
     };
   }
@@ -900,7 +903,7 @@ angular.module('ratings').controller('RatingsController', ['$scope', '$statePara
     // get result for PreditionIO
     var getPredition = function(userId){
       PredictionIO.getRecommendaton(userId).success(function(data, status){
-
+        console.log('this is the prediction data', data);
         Beer.getData(data.itemScores[0].item).success(function(data, status){
           $scope.itemScores = [data.data];
         });
