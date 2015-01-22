@@ -185,10 +185,10 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
   function($scope, Brewery, $stateParams, Ratings, $location, Core) {
     // Brewery controller logic
     $scope.breweryId = $stateParams.breweryId;
-
     $scope.brewery = [];
     $scope.socialMedia = [];
     var socialMediaArr = [1,2,3,8,10,14,15,16];
+
     // send the brewery id and get the brewery information
     Brewery.getData($scope.breweryId).success(function(data, status) {
       $scope.brewery = data.data || 'Request failed';
@@ -240,6 +240,7 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     $scope.rate = 0;
     $scope.max = 5;
     $scope.isReadonly = false;
+    var index;
 
     // hoveing over on ratings stars
     $scope.hoveringOver = function(value) {
@@ -253,8 +254,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     ];
 
     // Create new Rating
-    $scope.create = function(index) {
+    $scope.create = function(beerId) {
 
+      index = Core.findIndexByKeyValue($scope.beers, 'id', beerId);
       // Create new Rating object
       var rating = new Ratings ({
         beerId: $scope.beers[index].id,
@@ -755,21 +757,22 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       $scope.windowOptions.visible = false;
     };
 
-    $scope.getUserLocation = function(){
+    // $scope.getUserLocation = function(){
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
-        // set to san francisco by Default for Victor
-        // $scope.coords = {lat:37.783973, long:-122.409100};
-
         $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
-        $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
-        $scope.windowOptions = {
-          visible: true
-        };
-        curLocationMarker(); // add marker for current location
-        Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
+        
+        uiGmapGoogleMapApi.then(function(maps) {
+          $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+          $scope.windowOptions = {
+            visible: true
+          };
+
+          curLocationMarker(); // add marker for current location
+          Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
+        });
       });
-    };
+    // };
   }
 ]);
 
