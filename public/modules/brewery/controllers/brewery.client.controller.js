@@ -4,10 +4,10 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
   function($scope, Brewery, $stateParams, Ratings, $location, Core) {
     // Brewery controller logic
     $scope.breweryId = $stateParams.breweryId;
-
     $scope.brewery = [];
     $scope.socialMedia = [];
     var socialMediaArr = [1,2,3,8,10,14,15,16];
+
     // send the brewery id and get the brewery information
     Brewery.getData($scope.breweryId).success(function(data, status) {
       $scope.brewery = data.data || 'Request failed';
@@ -59,6 +59,7 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     $scope.rate = 0;
     $scope.max = 5;
     $scope.isReadonly = false;
+    var index;
 
     // hoveing over on ratings stars
     $scope.hoveringOver = function(value) {
@@ -72,8 +73,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     ];
 
     // Create new Rating
-    $scope.create = function(index) {
+    $scope.create = function(beerId) {
 
+      index = Core.findIndexByKeyValue($scope.beers, 'id', beerId);
       // Create new Rating object
       var rating = new Ratings ({
         beerId: $scope.beers[index].id,

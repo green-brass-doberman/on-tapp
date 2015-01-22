@@ -10,11 +10,13 @@
         </div>
         <ul class="list-group">
           <li class="list-group-item">
-            <span class="badge">{{beer.abv}}%</span>
+            <span data-ng-if="beer.abc" class="badge">{{beer.abv}}</span>
+            <span data-ng-if="!beer.srmabcId" class="badge">N/A</span>
             abv
           </li>
           <li class="list-group-item">
-            <span class="badge">{{beer.ibu}}</span>
+            <span data-ng-if="beer.ibu" class="badge">{{beer.ibu}}</span>
+            <span data-ng-if="!beer.ibu" class="badge">N/A</span>
             ibu
           </li>
           <li class="list-group-item">
@@ -56,6 +58,7 @@
             <div class="col-sm-9">{{beer.glass.name}}</div>
           </div>
           <hr>
+
           <p class="content">{{beer.description}}</p>
           <div data-ng-if="beer.foodPairings" class="row">
             <div class="col-sm-12">
@@ -63,22 +66,22 @@
             <p class="content">{{beer.foodPairings}}</p>
             </div>
           </div>
-        </div>
 
-        <hr>
+          <hr data-ng-if="beer.description">
 
-        <p class="lead" data-ng-if="recommendations">You may also want to try:</p>
+          <p class="lead" data-ng-if="recommendations">You may also want to try:</p>
 
-        <div class="list-group">
-          <div class="list-group-item" data-ng-repeat="recommendation in recommendations | limitTo : 10">
-            <p class="list-group-item-heading">{{recommendation.name}} - <small>{{recommendation.category.name}}</small></p>
-            <small class="list-group-item-text">
-              abvMax: {{recommendation.abvMax}}, abvMin: {{recommendation.abvMin}} |
+          <div class="list-group">
+            <div class="list-group-item" data-ng-repeat="recommendation in recommendations | limitTo : 10">
+              <p class="list-group-item-heading">{{recommendation.name}} - <small>{{recommendation.category.name}}</small></p>
+              <small class="list-group-item-text">
+                abvMax: {{recommendation.abvMax}}, abvMin: {{recommendation.abvMin}} |
 
-              fgMax: {{recommendation.fgMax}}, fgMin: {{recommendation.fgMin}} |
+                fgMax: {{recommendation.fgMax}}, fgMin: {{recommendation.fgMin}} |
 
-              ibuMax: {{recommendation.ibuMax}}, ibuMin: {{recommendation.ibuMin}}
-            </small>
+                ibuMax: {{recommendation.ibuMax}}, ibuMin: {{recommendation.ibuMin}}
+              </small>
+            </div>
           </div>
         </div>
       </div>
