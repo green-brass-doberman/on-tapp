@@ -73,13 +73,12 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     ];
 
     // Create new Rating
-    $scope.create = function(index, beerId, beerId2) {
+    $scope.create = function(index) {
 
       console.log('index before: ', index);
-      console.log('beerId2: ', beerId2);
-      index = Core.findIndexByKeyValue($scope.beers, 'id', beerId);
-      console.log('index after: ', index);
-      console.log('beerId: ', beerId);
+      // index = Core.findIndexByKeyValue($scope.beers, 'id', beerId);
+      // console.log('index after: ', index);
+      // console.log('beerId: ', beerId);
       // Create new Rating object
       var rating = new Ratings ({
         beerId: $scope.beers[index].id,
