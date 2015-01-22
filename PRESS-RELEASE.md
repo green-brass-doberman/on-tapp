@@ -1,8 +1,8 @@
 # OnTapp #
- 
+
 ## Heading ##
   > Catalog your beer tastebuds and share recommendations with like tastebudded people.
-  
+
 ## Sub-Heading ##
   > For all lovers of frothy goodness to expand the horizons of their enthusiasm.
 
@@ -22,7 +22,7 @@
   > npm start-tapp
 
 ## Customer Quote ##
-  > "This is what I would want out of a beer app. Untapped so far hasn't done that for me."
+  > "This is what I would want out of a beer app. Untappd so far hasn't done that for me."
 
 ## Closing and Call to Action ##
   > Open a frothy libation and sign in to discover more at [OnTappApp.com](http://ontappapp.com)
