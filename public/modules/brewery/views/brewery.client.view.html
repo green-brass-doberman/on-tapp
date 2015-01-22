@@ -106,7 +106,7 @@
                 <a href="#!/beer/{{beer.id}}"><h4 class="beer-name">{{beer.name}}</h4></a>
                 <span ng-if="beer.availableId">Available: {{beer.available.name}}</span>
 
-                <form class="form-horizontal text-left ratings" data-ng-submit="create($index, beer.id, {{beer.id}})" novalidate>
+                <form class="form-horizontal text-left ratings" data-ng-submit="create($index)" novalidate>
                   <fieldset>
                     <div class="form-group">
                       <label class="control-label" for="rating">Please rate this beer:</label>
