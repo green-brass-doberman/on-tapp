@@ -86,7 +86,6 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
         stars: this.rate,
         styleName: $scope.beers[index].style.name
       });
-      console.log('rating.beerId: ', rating.beerId);
 
       // Redirect after save
       rating.$save(function(response) {

@@ -254,11 +254,12 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     ];
 
     // Create new Rating
-    $scope.create = function(beerId) {
+    $scope.create = function(index) {
 
-      index = Core.findIndexByKeyValue($scope.beers, 'id', beerId);
-      console.log('index: ', index);
-      console.log('beerId: ', beerId);
+      console.log('index before: ', index);
+      // index = Core.findIndexByKeyValue($scope.beers, 'id', beerId);
+      // console.log('index after: ', index);
+      // console.log('beerId: ', beerId);
       // Create new Rating object
       var rating = new Ratings ({
         beerId: $scope.beers[index].id,
@@ -266,7 +267,6 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
         stars: this.rate,
         styleName: $scope.beers[index].style.name
       });
-      console.log('rating.beerId: ', rating.beerId);
 
       // Redirect after save
       rating.$save(function(response) {
