@@ -81,7 +81,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       $scope.windowOptions.visible = false;
     };
 
-    // $scope.getUserLocation = function(){
+    $scope.getUserLocation = function(){
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
         // set to san francisco by Default for Victor
@@ -98,6 +98,6 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
           Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
         });
       });
-    // };
+    };
   }
 ]);
