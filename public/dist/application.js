@@ -240,7 +240,9 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     $scope.rate = 0;
     $scope.max = 5;
     $scope.isReadonly = false;
+    $scope.beerId = '';
     var index;
+    var styleName = '';
 
     // hoveing over on ratings stars
     $scope.hoveringOver = function(value) {
@@ -254,18 +256,19 @@ angular.module('nearby').controller('BreweryController', ['$scope', 'Brewery', '
     ];
 
     // Create new Rating
-    $scope.create = function(index) {
-
-      console.log('index before: ', index);
-      // index = Core.findIndexByKeyValue($scope.beers, 'id', beerId);
-      // console.log('index after: ', index);
-      // console.log('beerId: ', beerId);
+    $scope.create = function() {
+      index = Core.findIndexByKeyValue($scope.beers, 'id', this.beer.id);
+      if ($scope.beers[index].style === undefined) {
+        styleName = 'onTapp';
+      } else {
+        styleName = $scope.beers[index].style.name;
+      }
       // Create new Rating object
       var rating = new Ratings ({
-        beerId: $scope.beers[index].id,
+        beerId: this.beer.id,
         name: $scope.beers[index].name,
         stars: this.rate,
-        styleName: $scope.beers[index].style.name
+        styleName: styleName
       });
 
       // Redirect after save
