@@ -13,12 +13,9 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
-
       if (data.data){
         $scope.breweries = data.data;
-        alert('before place marker');
         placeMarker();
-        alert('after place marker');
       }
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };

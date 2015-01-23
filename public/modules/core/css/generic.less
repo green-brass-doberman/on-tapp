@@ -141,6 +141,7 @@ h4.beer-name {
 .footer {
   padding-top: 20px;
 }
-.form-control:focus {
-  border-color: transparent;
+.form-control:focus + .input-group-btn .btn,
+.select2-search input[type="text"]:focus + .input-group-btn .btn {
+  border-color: #1abc9c;
 }

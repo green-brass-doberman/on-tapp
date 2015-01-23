@@ -766,12 +766,10 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     $scope.getUserLocation = function(){
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
-        // set to san francisco by Default for Victor
-        // $scope.coords = {lat:37.783973, long:-122.409100};
         $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
 
         uiGmapGoogleMapApi.then(function(maps) {
-          $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12}; // initialize the Google map
+          $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
           $scope.windowOptions = {
             visible: true
           };
