@@ -31,7 +31,6 @@
             </li>
           </div>
 
-<display-social-media></display-social-media>
           <div data-ng-if="socialMedia.length > 0" class="guilds">
             <li class="list-group-item sm-icons">
                 <div data-ng-repeat="social in socialMedia" class="sm-image">
@@ -89,10 +88,8 @@
               </a>
 
               <div class="caption">
-
                 <form class="form-horizontal text-left ratings" data-ng-submit="create()" novalidate>
                   <fieldset>
-
                     <div class="form-group">
                       <input class="hidden" type="text" data-ng-model="beer.id" name="beer.id" />
                       <a href="#!/beer/{{beer.id}}"><h4 class="beer-name">{{beer.name}}</h4></a>
@@ -106,10 +103,8 @@
                     <div data-ng-show="error" class="text-danger">
                       <strong data-ng-bind="error"></strong>
                     </div>
-
                   </fieldset>
                 </form>
-
               </div>
             </div>
           </div>
