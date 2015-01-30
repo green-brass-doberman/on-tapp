@@ -12,7 +12,7 @@ var mongoose = require('mongoose'),
 var RatingSchema = new Schema({
   beerId: {
     type: String,
-    default: '',
+    default: ''
   },
   name: {
     type: String,
