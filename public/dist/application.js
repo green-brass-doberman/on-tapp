@@ -382,86 +382,94 @@ angular.module('core').controller('HomeController', ['$scope', 'Authentication',
 
 'use strict';
 
-angular.module('core').factory('Core', [
-	function() {
-		return {
-			fixPhone: function(phone) {
-				var s = phone.toString();
-				return s.substring(0,3) + '-' + s.substring(3,6) + '-' + s.substring(6);
-			},
-			findIndexByKeyValue: function(obj, key, value) {
-	      for (var i = 0; i < obj.length; i++) {
-	        if (obj[i][key] === value) {
-	          return i;
-	        }
-	      }
-	      return -1;
-			},
-			abbrState: function(input) {
-	      var states = [
-	        ['Arizona', 'AZ'],
-	        ['Alabama', 'AL'],
-	        ['Alaska', 'AK'],
-	        ['Arizona', 'AZ'],
-	        ['Arkansas', 'AR'],
-	        ['California', 'CA'],
-	        ['Colorado', 'CO'],
-	        ['Connecticut', 'CT'],
-	        ['Delaware', 'DE'],
-	        ['Florida', 'FL'],
-	        ['Georgia', 'GA'],
-	        ['Hawaii', 'HI'],
-	        ['Idaho', 'ID'],
-	        ['Illinois', 'IL'],
-	        ['Indiana', 'IN'],
-	        ['Iowa', 'IA'],
-	        ['Kansas', 'KS'],
-	        ['Kentucky', 'KY'],
-	        ['Kentucky', 'KY'],
-	        ['Louisiana', 'LA'],
-	        ['Maine', 'ME'],
-	        ['Maryland', 'MD'],
-	        ['Massachusetts', 'MA'],
-	        ['Michigan', 'MI'],
-	        ['Minnesota', 'MN'],
-	        ['Mississippi', 'MS'],
-	        ['Missouri', 'MO'],
-	        ['Montana', 'MT'],
-	        ['Nebraska', 'NE'],
-	        ['Nevada', 'NV'],
-	        ['New Hampshire', 'NH'],
-	        ['New Jersey', 'NJ'],
-	        ['New Mexico', 'NM'],
-	        ['New York', 'NY'],
-	        ['North Carolina', 'NC'],
-	        ['North Dakota', 'ND'],
-	        ['Ohio', 'OH'],
-	        ['Oklahoma', 'OK'],
-	        ['Oregon', 'OR'],
-	        ['Pennsylvania', 'PA'],
-	        ['Rhode Island', 'RI'],
-	        ['South Carolina', 'SC'],
-	        ['South Dakota', 'SD'],
-	        ['Tennessee', 'TN'],
-	        ['Texas', 'TX'],
-	        ['Utah', 'UT'],
-	        ['Vermont', 'VT'],
-	        ['Virginia', 'VA'],
-	        ['Washington', 'WA'],
-	        ['West Virginia', 'WV'],
-	        ['Wisconsin', 'WI'],
-	        ['Wyoming', 'WY'],
-	      ];
-	   
-	      input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
-	      for (var i = 0; i < states.length; i++){
-	        if (states[i][0] === input){
-	          return (states[i][1]);
-	        }
-	      }    
-			}
-		};
-	}
+angular.module('core').factory('Core', [ 
+  function() {
+    return {
+      fixPhone: function(phone) {
+        var s = phone.toString();
+        return s.substring(0,3) + '-' + s.substring(3,6) + '-' + s.substring(6);
+      },
+      findIndexByKeyValue: function(obj, key, value) {
+        for (var i = 0; i < obj.length; i++) {
+          if (obj[i][key] === value) {
+            return i;
+          }
+        }
+        return -1;
+      },
+      calculateRadius: function(bounds) {
+        var ne = new google.maps.LatLng(bounds.northeast.latitude, bounds.northeast.longitude);
+        var sw = new google.maps.LatLng(bounds.southwest.latitude, bounds.southwest.longitude);
+        var nw = new google.maps.LatLng(bounds.northeast.latitude, bounds.southwest.longitude);
+        var width = google.maps.geometry.spherical.computeDistanceBetween(ne, nw);
+        var height = google.maps.geometry.spherical.computeDistanceBetween(sw, nw);
+        return Math.min(width, height) / 2; 
+      },
+      abbrState: function(input) {
+        var states = [
+          ['Arizona', 'AZ'],
+          ['Alabama', 'AL'],
+          ['Alaska', 'AK'],
+          ['Arizona', 'AZ'],
+          ['Arkansas', 'AR'],
+          ['California', 'CA'],
+          ['Colorado', 'CO'],
+          ['Connecticut', 'CT'],
+          ['Delaware', 'DE'],
+          ['Florida', 'FL'],
+          ['Georgia', 'GA'],
+          ['Hawaii', 'HI'],
+          ['Idaho', 'ID'],
+          ['Illinois', 'IL'],
+          ['Indiana', 'IN'],
+          ['Iowa', 'IA'],
+          ['Kansas', 'KS'],
+          ['Kentucky', 'KY'],
+          ['Kentucky', 'KY'],
+          ['Louisiana', 'LA'],
+          ['Maine', 'ME'],
+          ['Maryland', 'MD'],
+          ['Massachusetts', 'MA'],
+          ['Michigan', 'MI'],
+          ['Minnesota', 'MN'],
+          ['Mississippi', 'MS'],
+          ['Missouri', 'MO'],
+          ['Montana', 'MT'],
+          ['Nebraska', 'NE'],
+          ['Nevada', 'NV'],
+          ['New Hampshire', 'NH'],
+          ['New Jersey', 'NJ'],
+          ['New Mexico', 'NM'],
+          ['New York', 'NY'],
+          ['North Carolina', 'NC'],
+          ['North Dakota', 'ND'],
+          ['Ohio', 'OH'],
+          ['Oklahoma', 'OK'],
+          ['Oregon', 'OR'],
+          ['Pennsylvania', 'PA'],
+          ['Rhode Island', 'RI'],
+          ['South Carolina', 'SC'],
+          ['South Dakota', 'SD'],
+          ['Tennessee', 'TN'],
+          ['Texas', 'TX'],
+          ['Utah', 'UT'],
+          ['Vermont', 'VT'],
+          ['Virginia', 'VA'],
+          ['Washington', 'WA'],
+          ['West Virginia', 'WV'],
+          ['Wisconsin', 'WI'],
+          ['Wyoming', 'WY'],
+        ];
+     
+        input = input.replace(/\w\S*/g, function(txt){return txt.charAt(0).toUpperCase() + txt.substr(1).toLowerCase();});
+        for (var i = 0; i < states.length; i++){
+          if (states[i][0] === input){
+            return (states[i][1]);
+          }
+        }    
+      }
+    };
+  }
 ]);
 'use strict';
 
@@ -682,8 +690,8 @@ angular.module('nearby').controller('infoWindowController', ['$scope', '$statePa
 ]);
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogleMapApi', 'Breweries', 'geolocation', 'uiGmapLogger', 'usSpinnerService',
-  function($scope, uiGmapGoogleMapApi, Breweries, geolocation, uiGmapLogger, usSpinnerService) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogleMapApi', 'uiGmapIsReady', 'Breweries', 'geolocation', 'uiGmapLogger', 'usSpinnerService', 'Core', 
+  function($scope, uiGmapGoogleMapApi, uiGmapIsReady, Breweries, geolocation, uiGmapLogger, usSpinnerService, Core) {
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
@@ -692,6 +700,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     $scope.coords = {}; // user's current coordinates
     $scope.allMarkers = []; // array to store the brewery markers
     $scope.oldWindow = -1; // var to hold id of old info window
+    var bounds, radius;
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -699,6 +708,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         $scope.breweries = data.data;
         placeMarker();
       }
+      updateRadius();
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };
 
@@ -707,8 +717,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       $scope.marker = {
         id: 'curLoc',
         coords: {
-          latitude: $scope.coords.lat,
-          longitude: $scope.coords.long,
+          latitude: $scope.coords.latitude,
+          longitude: $scope.coords.longitude,
         },
         options: {
           title: 'You are here!'
@@ -734,7 +744,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
           title: name,
         },
         infoWindow: {
-          content: desc
+          content: desc,
+          maxWidth: 500
         },
         icon: '/modules/nearby/images/beer-icon.png',
         showWindow: false
@@ -759,26 +770,64 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       $scope.allMarkers = markers;
     };
 
-    $scope.closeClick = function() {
-      $scope.windowOptions.visible = false;
+    // update radius and circle
+    var updateRadius = function() {
+      bounds = $scope.map.bounds;
+      radius = Core.calculateRadius(bounds);
+      // $scope.circle = {
+      //   id: 1,
+      //   center: $scope.map.center, 
+      //   radius: radius,
+      //   stroke: {
+      //       color: '#1ABC9C',
+      //       weight: 2,
+      //       opacity: 1
+      //   },
+      //   fill: {
+      //       color: '#1ABC9C',
+      //       opacity: 0.5
+      //   }
+      // };
     };
 
     $scope.getUserLocation = function(){
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
-        $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+        $scope.coords = {
+          latitude: data.coords.latitude, 
+          longitude: data.coords.longitude
+        };
 
         uiGmapGoogleMapApi.then(function(maps) {
-          $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
-          $scope.windowOptions = {
-            visible: true
+          $scope.map = { 
+            center: { 
+              latitude: $scope.coords.latitude, 
+              longitude: $scope.coords.longitude 
+            }, 
+            zoom: 14,
+            bounds: {},
+            events: {
+              idle: function() {
+                uiGmapIsReady.promise().then(function() {
+                  updateRadius();
+                  var dbRadius = radius / 1000;
+                  Breweries.getData($scope.map.center, dbRadius).success(handleSuccess); // get brewery data from factory
+                });
+              }
+            }
           };
 
           curLocationMarker(); // add marker for current location
-          Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
+        });
+
+        uiGmapIsReady.promise().then(function() {
+          updateRadius();
+          var dbRadius = radius / 1000;
+          Breweries.getData($scope.map.center, dbRadius).success(handleSuccess); // get brewery data from factory
         });
       });
     };
+
   }
 ]);
 
@@ -788,8 +837,8 @@ angular.module('nearby').factory('Breweries', ['$http',
   function($http) {
     // Public API
     return {
-      getData: function(coords){
-        return $http.get('/api/breweries/' + coords.lat + '/' + coords.long);
+      getData: function(coords, radius){
+        return $http.get('/api/breweries/' + coords.latitude + '/' + coords.longitude + '/' + radius);
       }
     };
   }
