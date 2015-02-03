@@ -1,7 +1,7 @@
 'use strict';
 
-angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogleMapApi', 'Breweries', 'geolocation', 'uiGmapLogger', 'usSpinnerService',
-  function($scope, uiGmapGoogleMapApi, Breweries, geolocation, uiGmapLogger, usSpinnerService) {
+angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogleMapApi', 'uiGmapIsReady', 'Breweries', 'geolocation', 'uiGmapLogger', 'usSpinnerService', 'Core', 
+  function($scope, uiGmapGoogleMapApi, uiGmapIsReady, Breweries, geolocation, uiGmapLogger, usSpinnerService, Core) {
 
     // enable logging of google map info and error
     uiGmapLogger.doLog = true;
@@ -10,6 +10,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
     $scope.coords = {}; // user's current coordinates
     $scope.allMarkers = []; // array to store the brewery markers
     $scope.oldWindow = -1; // var to hold id of old info window
+    var bounds, radius;
 
     // pushing breweries data from $http request and place markers
     var handleSuccess = function(data, status){
@@ -17,6 +18,7 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
         $scope.breweries = data.data;
         placeMarker();
       }
+      updateRadius();
       usSpinnerService.stop('spinner-1'); //stop the spinner
     };
 
@@ -25,8 +27,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       $scope.marker = {
         id: 'curLoc',
         coords: {
-          latitude: $scope.coords.lat,
-          longitude: $scope.coords.long,
+          latitude: $scope.coords.latitude,
+          longitude: $scope.coords.longitude,
         },
         options: {
           title: 'You are here!'
@@ -52,7 +54,8 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
           title: name,
         },
         infoWindow: {
-          content: desc
+          content: desc,
+          maxWidth: 500
         },
         icon: '/modules/nearby/images/beer-icon.png',
         showWindow: false
@@ -77,25 +80,63 @@ angular.module('nearby').controller('NearbyController', ['$scope', 'uiGmapGoogle
       $scope.allMarkers = markers;
     };
 
-    $scope.closeClick = function() {
-      $scope.windowOptions.visible = false;
+    // update radius and circle
+    var updateRadius = function() {
+      bounds = $scope.map.bounds;
+      radius = Core.calculateRadius(bounds);
+      // $scope.circle = {
+      //   id: 1,
+      //   center: $scope.map.center, 
+      //   radius: radius,
+      //   stroke: {
+      //       color: '#1ABC9C',
+      //       weight: 2,
+      //       opacity: 1
+      //   },
+      //   fill: {
+      //       color: '#1ABC9C',
+      //       opacity: 0.5
+      //   }
+      // };
     };
 
     $scope.getUserLocation = function(){
         // function to access users geolocation coordinates, draw map and place markers
       geolocation.getLocation().then(function(data){
-        $scope.coords = {lat:data.coords.latitude, long:data.coords.longitude};
+        $scope.coords = {
+          latitude: data.coords.latitude, 
+          longitude: data.coords.longitude
+        };
 
         uiGmapGoogleMapApi.then(function(maps) {
-          $scope.map = { center: { latitude: $scope.coords.lat, longitude: $scope.coords.long }, zoom: 12};
-          $scope.windowOptions = {
-            visible: true
+          $scope.map = { 
+            center: { 
+              latitude: $scope.coords.latitude, 
+              longitude: $scope.coords.longitude 
+            }, 
+            zoom: 14,
+            bounds: {},
+            events: {
+              idle: function() {
+                uiGmapIsReady.promise().then(function() {
+                  updateRadius();
+                  var dbRadius = radius / 1000;
+                  Breweries.getData($scope.map.center, dbRadius).success(handleSuccess); // get brewery data from factory
+                });
+              }
+            }
           };
 
           curLocationMarker(); // add marker for current location
-          Breweries.getData($scope.coords).success(handleSuccess); // get brewery data from factory
+        });
+
+        uiGmapIsReady.promise().then(function() {
+          updateRadius();
+          var dbRadius = radius / 1000;
+          Breweries.getData($scope.map.center, dbRadius).success(handleSuccess); // get brewery data from factory
         });
       });
     };
+
   }
 ]);

@@ -4,17 +4,19 @@
   <span us-spinner spinner-key="spinner-1" spinner-start-active="true"></span>
 
   <div class="left-half-container">
-    <ui-gmap-google-map center="map.center" zoom="map.zoom" draggable="true" options="options">
+    <ui-gmap-google-map center="map.center" zoom="map.zoom" bounds="map.bounds" events="map.events">
 
       <!-- marker to show current user location -->
       <ui-gmap-marker coords="marker.coords" options="marker.options" idkey="marker.id">
-        <ui-gmap-window show="true" closeClick="closeClick()">
-        </ui-gmap-window>
       </ui-gmap-marker>
 
+      <!-- create a circle around the center of the map -->
+ <!--      <ui-gmap-circle center="circle.center" radius="circle.radius" stroke="circle.stroke" fill="circle.fill"></ui-gmap-circle> -->
+
+      <!-- markers for nearby breweries -->
       <ui-gmap-markers models="allMarkers" coords="'coords'" options="'options'" icon="'icon'" click="'onClick'">
-        <ui-gmap-window ng-repeat="marker in allMarkers" show="marker.showWindow" options="marker.infoWindow" coords="marker.coords">
-      </ui-gmap-window>
+        <ui-gmap-window ng-repeat="marker in allMarkers" show="marker.showWindow" options="marker.infoWindow" coords="marker.coords" doRebuildAll="true">
+        </ui-gmap-window>
       </ui-gmap-markers>
 
     </ui-gmap-google-map>
