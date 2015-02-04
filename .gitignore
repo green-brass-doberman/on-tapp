@@ -59,3 +59,6 @@ build/
 .bash_profile
 public/assets/
 recommendation-engine/
+config/env/development.js
+config/env/secure.js
+config/env/test.js
