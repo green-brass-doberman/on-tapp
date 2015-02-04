@@ -2,7 +2,9 @@
 
 module.exports = {
   db: {
-    uri: process.env.MONGOHQ_URL || 'mongodb://MongoLab-i:8Lu9GZSXvdiVCqOTDGRZL7CHOS4XN.FzDpCqHCeTKhc-@ds052827.mongolab.com:52827/MongoLab-i' || 'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean',
+    uri: process.env.CUSTOMCONNSTR_MONGOLAB_URI || 
+         'mongodb://MongoLab-i:8Lu9GZSXvdiVCqOTDGRZL7CHOS4XN.FzDpCqHCeTKhc-@ds052827.mongolab.com:52827/MongoLab-i' || 
+         'mongodb://' + (process.env.DB_1_PORT_27017_TCP_ADDR || 'localhost') + '/mean',
     options: {
       user: '',
       pass: ''
@@ -40,18 +42,18 @@ module.exports = {
     js: 'public/dist/application.min.js'
   },
   facebook: {
-    clientID: process.env.FACEBOOK_ID || '968149419880980',
-    clientSecret: process.env.FACEBOOK_SECRET || 'fc60727d78e8fcd2e975822c8eef619e',
+    clientID: process.env.FACEBOOK_ID,
+    clientSecret: process.env.FACEBOOK_SECRET,
     callbackURL: '/auth/facebook/callback'
   },
   twitter: {
-    clientID: process.env.TWITTER_KEY || 'k186DeKdHcNN4Vlk8lB9MmjBW',
-    clientSecret: process.env.TWITTER_SECRET || '9V0X34pyjBuixI8bRwuGf639spcOWs91Q1Fb9Iq4qjDPRgsCf7',
+    clientID: process.env.TWITTER_KEY,
+    clientSecret: process.env.TWITTER_SECRET,
     callbackURL: '/auth/twitter/callback'
   },
   google: {
-    clientID: process.env.GOOGLE_ID || '768801944338-ms3g3ic84auevq51a2t4cld7ept7ffos.apps.googleusercontent.com',
-    clientSecret: process.env.GOOGLE_SECRET || '5xxSzR-ltreqF7EloyCt9JVC',
+    clientID: process.env.GOOGLE_ID,
+    clientSecret: process.env.GOOGLE_SECRET,
     callbackURL: '/auth/google/callback'
   },
   mailer: {
@@ -59,17 +61,20 @@ module.exports = {
     options: {
       service: process.env.MAILER_SERVICE_PROVIDER || 'Gmail',
       auth: {
-        user: process.env.MAILER_EMAIL_ID || 'ontappapp@gmail.com',
-        pass: process.env.MAILER_PASSWORD || 'Cs0cs5#BVfrBR5a&ZK@Z'
+        user: process.env.MAILER_EMAIL_ID,
+        pass: process.env.MAILER_PASSWORD
       }
     }
   },
   brewerydb: {
-    api: '87f92c3b32c0d8e031f828b0d03c2c2a'
+    api: process.env.BREWERYDB_API
   },
   predictionio: {
-    eventServerIP: 'http://54.183.105.216:7070',
-    resultsServerIP: 'http://54.183.105.216:8000',
-    api: 'hmQhiIak1jIyaE4haGDSzUBhTd43XKZxkTfTRcyL9MPueUohvQcVdFnAB0smNQb6'
+    eventServerIP: process.env.eventServerIP,
+    resultsServerIP: process.env.resultsServerIP,
+    api: process.env.PREDICTIONIO_API
+  },
+  beermapper: {
+    api: process.env.BEERMAPPER_API
   }
 };
