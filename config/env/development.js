@@ -49,6 +49,11 @@ module.exports = {
     api: '87f92c3b32c0d8e031f828b0d03c2c2a'
   },
   predictionio: {
-    api: 'hmQhiIak1jIyaE4haGDSzUBhTd43XKZxkTfTRcyL9MPueUohvQcVdFnAB0smNQb6'
+    eventServerIP: 'http://54.183.105.216:7070',
+    resultsServerIP: 'http://54.183.105.216:8000',
+    api: process.env.PREDICTIONIO_API
+  },
+  beermapping: {
+    api: 'c48377d84123930d66eb6b66201b4663'
   }
 };
